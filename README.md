@@ -2,7 +2,7 @@
 
 ![UI Skills](./public/cover.webp)
 
-A set of skills to polish interfaces built by agents.
+A set of skills to polish interfaces built by agents. Works with Claude Code, Cursor, AdaL, and other AI coding agents.
 
 ## Installation
 
