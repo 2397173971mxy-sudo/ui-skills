@@ -1406,6 +1406,19 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Production-ready CSS transition patterns for web apps, with drop-in snippets for cards, modals, dropdowns, panels, and page transitions.",
   },
+  {
+    slug: "product-ui-design",
+    user: "kuras3",
+    repo: "product-ui-design",
+    rawUrl:
+      "https://raw.githubusercontent.com/kuras3/product-ui-design/main/SKILL.md",
+    githubUrl:
+      "https://github.com/kuras3/product-ui-design/blob/main/SKILL.md",
+    name: "product-ui-design",
+    topics: ["craft", "systems", "taste"],
+    description:
+      "Restrained product UI for dashboards, SaaS, settings, and admin surfaces — with output-time hard-checks against common AI tells and observation-anchored primitives.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
