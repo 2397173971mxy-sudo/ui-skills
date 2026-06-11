@@ -1443,7 +1443,7 @@ const registrySource: RegistrySourceSkill[] = [
     name: "unslop-retheme",
     topics: ["systems", "motion", "frontend"],
     description:
-      "Stage 3 of Unslop: applies an approved design lane to a React + Tailwind site pass by pass — tokens, typography, sections, then states and motion — with a build-and-screenshot check after every pass.",
+      "Stage 3 of Unslop: applies an approved design lane to a React + Tailwind site pass by pass — tokens, typography, sections, then states and motion — with a build-and-screenshot check after every pass, ending in a client-ready before/after report.",
   },
 ];
 
