@@ -1406,6 +1406,19 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Production-ready CSS transition patterns for web apps, with drop-in snippets for cards, modals, dropdowns, panels, and page transitions.",
   },
+  {
+    slug: "unslop",
+    user: "aahil62",
+    repo: "unslop",
+    rawUrl:
+      "https://raw.githubusercontent.com/aahil62/unslop/main/skills/audit/SKILL.md",
+    githubUrl:
+      "https://github.com/aahil62/unslop/blob/main/skills/audit/SKILL.md",
+    name: "unslop",
+    topics: ["taste", "systems", "accessibility"],
+    description:
+      "Rescues an existing React + Tailwind site from the generic-AI look: scores it against an evidence-based checklist, synthesizes a custom design lane from a taste interview, then re-themes it pass-by-pass with build and screenshot verification.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
