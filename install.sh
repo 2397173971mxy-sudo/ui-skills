@@ -235,6 +235,7 @@ for SKILL_SLUG in $SKILLS; do
   maybe_install_project_skill "${PWD}/.github/skills" "GitHub Copilot"
   maybe_install_project_skill "${PWD}/.factory/skills" "Droid"
   maybe_install_project_skill "${PWD}/.windsurf/skills" "Windsurf"
+  maybe_install_project_skill "${PWD}/.hermes/skills/creative" "Hermes Agent"
 
   # Claude Code (project commands)
   if [ -d "${PWD}/.claude" ]; then
@@ -339,6 +340,19 @@ for SKILL_SLUG in $SKILLS; do
     install_skill "$HOME/.codeium/windsurf/skills" "Windsurf"
   fi
 
+  # Hermes Agent (user-level skills)
+  HERMES_SKILLS_DIR=""
+  if [ -n "$HERMES_HOME" ] && [ -d "$HERMES_HOME/skills" ]; then
+    HERMES_SKILLS_DIR="$HERMES_HOME/skills/creative"
+  elif [ -d "$HOME/AppData/Local/hermes/skills" ]; then
+    HERMES_SKILLS_DIR="$HOME/AppData/Local/hermes/skills/creative"
+  elif [ -d "$HOME/.hermes/skills" ]; then
+    HERMES_SKILLS_DIR="$HOME/.hermes/skills/creative"
+  fi
+  if [ -n "$HERMES_SKILLS_DIR" ]; then
+    install_skill "$HERMES_SKILLS_DIR" "Hermes Agent"
+  fi
+
   # OpenCode (command folder)
   if command -v opencode >/dev/null 2>&1 || [ -d "$HOME/.config/opencode" ]; then
     OPENCODE_COMMAND_DIR="$HOME/.config/opencode/command"
@@ -439,5 +453,5 @@ if [ "$OPTIONAL_INSTALLED" -eq 0 ]; then
 fi
 
 print_header "Done"
-print_info "Usage: /ui-skills path/to/file.tsx"
+print_info "Usage: /ui-skills path/to/file.tsx | hermes: /baseline-ui, /fixing-accessibility, /fixing-metadata, /fixing-motion-performance"
 printf "\n"
