@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { env } from "cloudflare:workers";
 import { formatStarCount } from "../../lib/format-stars.ts";
 
 type GitHubRepoResponse = {
@@ -33,7 +34,22 @@ export const GET: APIRoute = async () => {
     "User-Agent": "ui-skills",
   });
 
+  if (env.GITHUB_TOKEN) {
+    headers.set("Authorization", `Bearer ${env.GITHUB_TOKEN}`);
+  }
+
   const response = await fetch(REPO_URL, { headers });
+  if (!response.ok) {
+    return Response.json(
+      { stars: 0, label: "0+" },
+      {
+        headers: {
+          "Cache-Control": `public, max-age=0, s-maxage=${CACHE_SECONDS}, must-revalidate`,
+        },
+      },
+    );
+  }
+
   const payload = (await response.json()) as GitHubRepoResponse;
   const stars = payload.stargazers_count ?? 0;
   const label = formatStarCount(stars);
