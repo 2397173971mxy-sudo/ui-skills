@@ -1,8 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { playbook } from "../data/playbook";
 import { skills } from "../data/skills";
 import Button from "../ui/button.astro";
 import AgentStartHere from "../ui/agent-start-here.astro";
+import CodeBlock from "../ui/code-block.astro";
+import PlaybookCard from "../ui/playbook-card.astro";
 import SkillCard from "../ui/skill-card.astro";
 
 const MAX_SKILLS = 20;
@@ -48,6 +51,15 @@ const displayedSkills = FEATURED_PATH_SLUGS.map((pathSlug) =>
       avatarUrl: `https://github.com/${owner}.png?size=40`,
     };
   });
+
+const featuredPlaybook = playbook
+  .slice(0, 4)
+  .map((entry) => {
+    const sourceSkill = skills.find((skill) => skill.slug === entry.skillSlug);
+
+    return sourceSkill ? entry : null;
+  })
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 ---
 
 <Layout
@@ -111,6 +123,26 @@ const displayedSkills = FEATURED_PATH_SLUGS.map((pathSlug) =>
           </div>
           <div class="mt-4 flex justify-center px-4 sm:px-0">
             <Button href="/skills"> See all skills </Button>
+          </div>
+        </div>
+
+        <div class="px-4 sm:px-0">
+          <h2 class="text-parchment-900 text-base font-medium text-balance">
+            Playbook
+          </h2>
+          <div class="mt-3 grid gap-4 sm:grid-cols-2">
+            {
+              featuredPlaybook.map((entry) => (
+                <PlaybookCard
+                  href={`/playbook/${entry.slug}`}
+                  title={entry.title}
+                  description={entry.direct}
+                />
+              ))
+            }
+          </div>
+          <div class="mt-4 flex justify-center px-4 sm:px-0">
+            <Button href="/playbook"> See all playbooks </Button>
           </div>
         </div>
       </div>
