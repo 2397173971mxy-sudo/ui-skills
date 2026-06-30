@@ -39,7 +39,8 @@ export type TopicSlug =
   | "react-native"
   | "threejs"
   | "remotion"
-  | "swiftui";
+  | "swiftui"
+  | "compose";
 
 type RegistrySourceSkill = Omit<
   RegistrySkill,
@@ -410,6 +411,25 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["react-native", "performance", "frontend"],
     description:
       "React Native performance optimization guidelines for FPS, TTI, bundle size, memory leaks, re-renders, and animations.",
+  },
+  {
+    slug: "compose-expert",
+    user: "aldefy",
+    repo: "compose-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/aldefy/compose-skill/master/skills/compose-expert/SKILL.md",
+    githubUrl:
+      "https://github.com/aldefy/compose-skill/blob/master/skills/compose-expert/SKILL.md",
+    name: "compose-expert",
+    topics: [
+      "compose",
+      "frontend",
+      "architecture",
+      "performance",
+      "accessibility",
+    ],
+    description:
+      "Jetpack Compose and Compose Multiplatform guidance backed by AndroidX source references, covering state, recomposition, modifiers, navigation, accessibility, design-to-code, and production crash patterns.",
   },
   {
     slug: "threejs-animation",

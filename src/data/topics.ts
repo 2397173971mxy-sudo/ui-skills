@@ -141,6 +141,13 @@ export const topics: Topic[] = [
     isDesignCore: false,
   },
   {
+    slug: "compose",
+    label: "Compose",
+    description:
+      "Jetpack Compose and Compose Multiplatform UI patterns for Android and Kotlin interfaces.",
+    isDesignCore: false,
+  },
+  {
     slug: "threejs",
     label: "Three.js",
     description:
@@ -203,6 +210,7 @@ export const relatedTopicSlugs: Record<TopicSlug, TopicSlug[]> = {
   nuxt: ["vue", "frontend", "performance", "tooling"],
   vue: ["nuxt", "frontend", "tooling", "performance"],
   "react-native": ["frontend", "performance", "interaction", "testing"],
+  compose: ["frontend", "architecture", "performance", "accessibility"],
   threejs: ["3d", "visual", "interaction", "performance"],
   remotion: ["video", "motion", "frontend", "visual"],
   swiftui: ["interaction", "systems", "performance", "frontend"],
