@@ -128,6 +128,19 @@ const registrySource: RegistrySourceSkill[] = [
       "Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code and UI design that avoids generic AI aesthetics.",
   },
   {
+    slug: "uizze-ui-research",
+    user: "aislon",
+    repo: "uizze-mcp",
+    rawUrl:
+      "https://raw.githubusercontent.com/aislon/uizze-mcp/main/skills/uizze-ui-research/SKILL.md",
+    githubUrl:
+      "https://github.com/aislon/uizze-mcp/blob/main/skills/uizze-ui-research/SKILL.md",
+    name: "uizze-ui-research",
+    topics: ["taste", "visual", "systems"],
+    description:
+      "Use when building, reviewing, or improving a web or iOS product UI and you need real UI references, explicit design constraints, or implementation validation through UIZZE. The public UIZZE catalog is free to browse. Hosted UIZZE MCP workflows require full access and a UIZZE agent token.",
+  },
+  {
     slug: "remotion-best-practices",
     user: "remotion-dev",
     repo: "skills",
