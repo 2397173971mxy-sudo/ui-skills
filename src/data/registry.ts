@@ -128,13 +128,12 @@ const registrySource: RegistrySourceSkill[] = [
       "Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code and UI design that avoids generic AI aesthetics.",
   },
   {
-    slug: "uizze-ui-research",
+    slug: "anti-ai-ui-slop",
     user: "aislon",
     repo: "uizze-mcp",
     rawUrl:
-      "https://raw.githubusercontent.com/aislon/uizze-mcp/main/skills/uizze-ui-research/SKILL.md",
-    githubUrl:
-      "https://github.com/aislon/uizze-mcp/blob/main/skills/uizze-ui-research/SKILL.md",
+      "https://uizze.com/.well-known/agent-skills/anti-ai-ui-slop/SKILL.md",
+    githubUrl: "https://uizze.com",
     name: "UIZZE: Stop AI UI Slop",
     topics: ["taste", "visual", "systems"],
     description:
