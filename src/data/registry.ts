@@ -138,7 +138,7 @@ const registrySource: RegistrySourceSkill[] = [
     name: "UIZZE: Stop AI UI Slop",
     topics: ["taste", "visual", "systems"],
     description:
-      "Stop Codex, Claude Code, and Cursor from shipping generic AI UI slop. Ground web or iOS UI work in real interface evidence, lock product-specific constraints, then validate, audit, and critique the result through UIZZE. Paid UIZZE access and an agent token are required.",
+      "Stop Codex, Claude Code, and Cursor from shipping generic AI UI slop with uizze.com. Ground web or iOS UI work in real interface evidence, lock product-specific constraints, then validate, audit, and critique the result. Paid UIZZE access and an agent token are required.",
   },
   {
     slug: "remotion-best-practices",
