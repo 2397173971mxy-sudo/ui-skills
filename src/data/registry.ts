@@ -135,10 +135,10 @@ const registrySource: RegistrySourceSkill[] = [
       "https://raw.githubusercontent.com/aislon/uizze-mcp/main/skills/uizze-ui-research/SKILL.md",
     githubUrl:
       "https://github.com/aislon/uizze-mcp/blob/main/skills/uizze-ui-research/SKILL.md",
-    name: "uizze-ui-research",
+    name: "UIZZE: Stop AI UI Slop",
     topics: ["taste", "visual", "systems"],
     description:
-      "Use when building, reviewing, or improving a web or iOS product UI and you need real UI references, explicit design constraints, or implementation validation through UIZZE. The public UIZZE catalog is free to browse. Hosted UIZZE MCP workflows require full access and a UIZZE agent token.",
+      "Stop Codex, Claude Code, and Cursor from shipping generic AI UI slop. Ground web or iOS UI work in real interface evidence, lock product-specific constraints, then validate, audit, and critique the result through UIZZE. Paid UIZZE access and an agent token are required.",
   },
   {
     slug: "remotion-best-practices",
