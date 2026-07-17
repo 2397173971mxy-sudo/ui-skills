@@ -2392,43 +2392,17 @@ const registrySource: RegistrySourceSkill[] = [
       "Local-first architecture guidance for instant-feeling web apps, optimistic updates, bundle loading, offline behavior, and responsive UI motion.",
   },
   {
-    slug: "anti-ai-slop",
+    slug: "frontend-expert",
     user: "sukirman1901",
     repo: "frontend-expert",
     rawUrl:
-      "https://raw.githubusercontent.com/sukirman1901/frontend-expert/main/skills/anti-ai-slop/SKILL.md",
+      "https://raw.githubusercontent.com/sukirman1901/frontend-expert/main/skills/frontend-expert/SKILL.md",
     githubUrl:
-      "https://github.com/sukirman1901/frontend-expert/blob/main/skills/anti-ai-slop/SKILL.md",
-    name: "anti-ai-slop",
-    topics: ["taste", "visual", "craft"],
+      "https://github.com/sukirman1901/frontend-expert/blob/main/skills/frontend-expert/SKILL.md",
+    name: "frontend-expert",
+    topics: ["systems", "craft", "frontend"],
     description:
-      "Detect and fix AI aesthetic anti-patterns — purple/indigo defaults, generic heroes, Lorem, shadow-heavy cards — so product UI ships with intentional craft instead of template slop.",
-  },
-  {
-    slug: "ui-feel",
-    user: "sukirman1901",
-    repo: "frontend-expert",
-    rawUrl:
-      "https://raw.githubusercontent.com/sukirman1901/frontend-expert/main/skills/ui-feel/SKILL.md",
-    githubUrl:
-      "https://github.com/sukirman1901/frontend-expert/blob/main/skills/ui-feel/SKILL.md",
-    name: "ui-feel",
-    topics: ["craft", "interaction", "visual"],
-    description:
-      "Polish the micro-details that make interfaces feel better — concentric radius, optical alignment, press scale, hit areas, interruptible motion, and no transition:all.",
-  },
-  {
-    slug: "app-shell-routing",
-    user: "sukirman1901",
-    repo: "frontend-expert",
-    rawUrl:
-      "https://raw.githubusercontent.com/sukirman1901/frontend-expert/main/skills/app-shell-routing/SKILL.md",
-    githubUrl:
-      "https://github.com/sukirman1901/frontend-expert/blob/main/skills/app-shell-routing/SKILL.md",
-    name: "app-shell-routing",
-    topics: ["systems", "frontend", "architecture"],
-    description:
-      "Modern product app shell — logo, topbar theme icon, avatar account menu, custom filter selects, drawer nav, and shareable routes — not bare settings pages or native OS chrome.",
+      "Frontend Expert suite for shipping product web UI — judgment, tokens, responsive, motion, anti-AI-slop, modern shell chrome, forms/data, a11y, testing, and polish loop. One pack; chat-first routing into the full skill set.",
   },
 ];
 
