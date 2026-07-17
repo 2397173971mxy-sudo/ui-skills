@@ -2391,6 +2391,19 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Local-first architecture guidance for instant-feeling web apps, optimistic updates, bundle loading, offline behavior, and responsive UI motion.",
   },
+  {
+    slug: "frontend-expert",
+    user: "sukirman1901",
+    repo: "frontend-expert",
+    rawUrl:
+      "https://raw.githubusercontent.com/sukirman1901/frontend-expert/main/skills/frontend-expert/SKILL.md",
+    githubUrl:
+      "https://github.com/sukirman1901/frontend-expert/blob/main/skills/frontend-expert/SKILL.md",
+    name: "frontend-expert",
+    topics: ["systems", "craft", "frontend"],
+    description:
+      "Frontend Expert suite for shipping product web UI — judgment, tokens, responsive, motion, anti-AI-slop, modern shell chrome, forms/data, a11y, testing, and polish loop. One pack; chat-first routing into the full skill set.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
