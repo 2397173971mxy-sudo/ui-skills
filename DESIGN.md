@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: UI Skills
-description: Design language for the UI Skills catalog and its design-engineering documentation surfaces.
+description: Design language for UI Skills.
 colors:
   parchment-50: oklch(0.985 0 0)
   parchment-100: oklch(0.97 0 0)
@@ -23,45 +23,54 @@ typography:
 
 ## Overview
 
-UI Skills is a catalog for design-engineering skills and copy-ready implementation guidance. Its interface uses a restrained neutral system, compact editorial layouts, and code-oriented surfaces so the content remains the visual focus.
+Quiet, editorial, and code-first. UI Skills should feel like a precise developer tool, not a marketing site.
 
 ## Colors
 
-- Use the parchment scale for interface text, borders, muted states, and neutral surfaces.
-- Use `primary` for the strongest text and action contrast, `secondary` for supporting copy, and `tertiary` for subdued labels and unavailable states.
-- Keep the page background at the light end of the parchment scale and use white for elevated or focused surfaces such as cards, code blocks, dialogs, inputs, and navigation controls.
+- Use the parchment scale for text, borders, muted states, and page backgrounds.
+- Use white or `parchment-100` for elevated surfaces and code blocks.
+- Keep the palette neutral. Do not add decorative accents or gradients.
+- Reserve the darkest values for primary text and important actions.
 
 ## Typography
 
-- Use the project sans-serif stack for body and interface copy, with medium-weight, tight-tracking headings for page titles and section headings.
-- Use `{typography.mono.fontFamily}` for commands, code, keyboard shortcuts, and other technical content.
-- Keep body copy at the base text size; use larger section copy and major headings to establish hierarchy without decorative display treatments.
+- Use the project sans-serif for interface copy.
+- Use JetBrains Mono for commands, code, and technical identifiers.
+- Use medium-weight, tight-tracking headings.
+- Keep body copy at the base size.
+- Use sentence case for labels and links.
 
 ## Layout
 
-- Keep primary content in a centered, narrow reading column with generous vertical separation between breadcrumb, heading, content, and related sections.
-- Use responsive grid layouts for skill collections, expanding from compact mobile columns to multiple desktop columns while preserving consistent gaps.
-- Keep mobile content flush to the viewport with horizontal padding and allow long technical strings to wrap or scroll rather than forcing layout overflow.
+- Use a narrow centered reading column for documentation.
+- Use generous vertical spacing and light section boundaries.
+- Use responsive grids for collections.
+- Keep mobile padding consistent.
+- Let long technical strings wrap or scroll.
 
 ## Elevation & Depth
 
-- Prefer light borders and minimal shadows to separate surfaces; reserve stronger separation for white code, dialog, input, and content surfaces.
-- Use a translucent dark backdrop and a white raised panel for modal search, with the active result distinguished by a light parchment fill rather than a saturated accent.
+- Use white surfaces with `shadow-2xs`.
+- On larger screens, use `ring-1 ring-black/10` instead of visible borders.
+- On mobile, use thin top and bottom borders for full-width surfaces.
+- Keep elevation subtle.
 
 ## Shapes
 
-- Use restrained rounded corners on cards, controls, tags, inputs, dialogs, and code surfaces; keep the page and long-form content structure open and rectangular where no surface boundary is needed.
-- Use thin neutral borders for outlined controls and cards, with parchment-tinted hover fills instead of heavy decoration.
+- Use restrained rounded corners for cards, controls, dialogs, and code blocks.
+- Keep long-form content rectangular.
+- Use parchment-tinted hover states.
 
 ## Components
 
-- Skill cards should present the skill identifier first, optional supporting description second, and source attribution last with a small circular avatar; the entire card is the interaction target.
-- Buttons and navigation controls should use compact inline layouts, sentence-case labels, neutral outlines or transparent ghost treatments, and visible parchment hover states.
-- Code blocks should use a white surface, monospace content, restrained framing, and a nearby copy action; installation commands should remain easy to scan and copy on mobile.
-- Search should open as a focused white dialog with a clear input, keyboard navigation, result highlighting, and explicit empty-state feedback.
+- Skill cards show the identifier, description, then source.
+- Controls use compact neutral outlines or ghost treatments.
+- Code blocks use monospace text, clear surfaces, scrolling, and copy support.
+- Search uses a focused dialog with keyboard navigation and a clear empty state.
 
 ## Do's and Don'ts
 
-- Do keep labels and link text in sentence case.
-- Do provide visible focus treatment for interactive controls.
-- Don't introduce decorative color accents when the parchment neutral scale can express the state.
+- Provide visible focus states.
+- Respect reduced motion.
+- Give empty states one clear action.
+- Do not use glow, gradients, or decorative color when neutral styling is sufficient.
