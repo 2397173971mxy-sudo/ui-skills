@@ -1476,11 +1476,11 @@ const registrySource: RegistrySourceSkill[] = [
   {
     slug: "emil-design-eng",
     user: "emilkowalski",
-    repo: "skill",
+    repo: "skills",
     rawUrl:
-      "https://raw.githubusercontent.com/emilkowalski/skill/main/skills/emil-design-eng/SKILL.md",
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/emil-design-eng/SKILL.md",
     githubUrl:
-      "https://github.com/emilkowalski/skill/blob/main/skills/emil-design-eng/SKILL.md",
+      "https://github.com/emilkowalski/skills/blob/main/skills/emil-design-eng/SKILL.md",
     name: "emil-design-eng",
     topics: ["craft", "taste", "visual"],
     description:
@@ -2442,6 +2442,188 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["visual", "craft"],
     description:
       "Create sparse geometric illustrations and posters from concepts or briefs, using precise spatial systems, restrained contrast, and matte paper texture.",
+  },
+  {
+    slug: "linear-methodology",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-methodology/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-methodology/SKILL.md",
+    name: "linear-methodology",
+    topics: ["tooling", "architecture"],
+    description:
+      "Route Linear tracking work through a methodology for setting up, syncing, monitoring, and maintaining honest project data.",
+  },
+  {
+    slug: "linear-setup",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-setup/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-setup/SKILL.md",
+    name: "linear-setup",
+    topics: ["tooling", "architecture", "systems"],
+    description:
+      "Bootstrap or extend Linear project tracking with evidence-based backfill, milestones, dependencies, and repository discipline.",
+  },
+  {
+    slug: "linear-sync",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-sync/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-sync/SKILL.md",
+    name: "linear-sync",
+    topics: ["tooling", "architecture", "debugging"],
+    description:
+      "Audit and rescue an existing Linear project by reconciling its issues, milestones, dependencies, and tracking protocol with repository reality.",
+  },
+  {
+    slug: "linear-monitor",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-monitor/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-monitor/SKILL.md",
+    name: "linear-monitor",
+    topics: ["tooling", "testing", "architecture"],
+    description:
+      "Health-check Linear projects for slipping dates, stale in-progress work, orphan issues, and tracking anti-patterns.",
+  },
+  {
+    slug: "linear-discipline",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-discipline/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-discipline/SKILL.md",
+    name: "linear-discipline",
+    topics: ["tooling", "code-quality"],
+    description:
+      "Keep Linear tracking honest during development with search-before-create, lifecycle updates, and close-the-loop discipline.",
+  },
+  {
+    slug: "linear-finish-install",
+    user: "tjcages",
+    repo: "linear",
+    rawUrl:
+      "https://raw.githubusercontent.com/tjcages/linear/main/skills/linear-finish-install/SKILL.md",
+    githubUrl:
+      "https://github.com/tjcages/linear/blob/main/skills/linear-finish-install/SKILL.md",
+    name: "linear-finish-install",
+    topics: ["tooling", "architecture"],
+    description:
+      "Complete Linear tracking installation by writing always-on rules and verifying Linear MCP authentication.",
+  },
+  {
+    slug: "landing-page-design",
+    user: "elayadesign",
+    repo: "ai-design-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/elayadesign/ai-design-skills/main/skills/landing-page-design/SKILL.md",
+    githubUrl:
+      "https://github.com/elayadesign/ai-design-skills/blob/main/skills/landing-page-design/SKILL.md",
+    name: "landing-page-design",
+    topics: ["visual", "frontend", "craft", "interaction"],
+    description:
+      "Build high-converting landing pages with intake questions, page structure, conversion copy, SEO, and a disciplined visual system.",
+  },
+  {
+    slug: "find-animation-opportunities",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/find-animation-opportunities/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/find-animation-opportunities/SKILL.md",
+    name: "find-animation-opportunities",
+    topics: ["motion", "interaction", "craft"],
+    description:
+      "Find high-conviction opportunities for useful interface motion while rejecting animation that adds noise or slows users down.",
+  },
+  {
+    slug: "pick-ui-library",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/pick-ui-library/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md",
+    name: "pick-ui-library",
+    topics: ["tooling", "frontend", "architecture"],
+    description:
+      "Choose an opinionated, trusted library for common frontend tasks including components, motion, charts, interaction, state, and styling.",
+  },
+  {
+    slug: "prototype",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/prototype/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/prototype/SKILL.md",
+    name: "prototype",
+    topics: ["frontend", "interaction", "visual", "systems"],
+    description:
+      "Build multiple genuinely different UI variants behind a visual picker so the strongest direction can be evaluated and promoted.",
+  },
+  {
+    slug: "better-interface",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/better-interface/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/better-interface/SKILL.md",
+    name: "better-interface",
+    topics: ["visual", "accessibility", "systems", "craft"],
+    description:
+      "Run a holistic interface review across accessibility, layout, writing, typography, color, and visual polish.",
+  },
+  {
+    slug: "better-accessibility",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/better-accessibility/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/better-accessibility/SKILL.md",
+    name: "better-accessibility",
+    topics: ["accessibility", "interaction", "testing"],
+    description:
+      "Review and improve focus states, keyboard support, ARIA, forms, screen readers, hit areas, and motion accessibility.",
+  },
+  {
+    slug: "better-layout",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/better-layout/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/better-layout/SKILL.md",
+    name: "better-layout",
+    topics: ["systems", "visual", "frontend", "architecture"],
+    description:
+      "Improve interface structure through grouping, alignment, reading order, progressive disclosure, and adaptive responsive layouts.",
+  },
+  {
+    slug: "better-writing",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/better-writing/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/better-writing/SKILL.md",
+    name: "better-writing",
+    topics: ["frontend", "accessibility", "craft"],
+    description:
+      "Improve UX writing for interface labels, errors, empty states, settings, notifications, and product voice consistency.",
   },
 ];
 
