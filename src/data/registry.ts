@@ -2625,6 +2625,19 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Improve UX writing for interface labels, errors, empty states, settings, notifications, and product voice consistency.",
   },
+  {
+    slug: "gh-stack",
+    user: "github",
+    repo: "gh-stack",
+    rawUrl:
+      "https://raw.githubusercontent.com/github/gh-stack/main/skills/gh-stack/SKILL.md",
+    githubUrl:
+      "https://github.com/github/gh-stack/blob/main/skills/gh-stack/SKILL.md",
+    name: "gh-stack",
+    topics: ["tooling", "architecture", "code-quality"],
+    description:
+      "Manage stacked branches and dependent pull requests with the gh stack GitHub CLI extension.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
