@@ -1,0 +1,38 @@
+<div class="grid gap-5 sm:grid-cols-2">
+  <div aria-hidden="true" class="space-y-3">
+    <p class="text-parchment-500 font-mono text-xs">Detached error</p>
+    <label
+      for="playbook-email-bad"
+      class="text-parchment-700 block text-sm font-medium">Email</label
+    >
+    <input
+      id="playbook-email-bad"
+      value="hello"
+      readonly
+      class="border-parchment-300 text-parchment-900 w-full rounded-lg border bg-white px-3 py-2 text-base"
+    />
+    <p class="text-parchment-500 text-sm">
+      Something went wrong with this form.
+    </p>
+  </div>
+  <div
+    class="border-parchment-200 space-y-3 border-t pt-5 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5"
+  >
+    <p class="text-parchment-500 font-mono text-xs">Inline and linked</p>
+    <label
+      for="playbook-email-good"
+      class="text-parchment-700 block text-sm font-medium">Email</label
+    >
+    <input
+      id="playbook-email-good"
+      value="hello"
+      readonly
+      aria-invalid="true"
+      aria-describedby="playbook-email-error"
+      class="border-parchment-500 text-parchment-900 focus-visible:outline-parchment-900 w-full rounded-lg border bg-white px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2"
+    />
+    <p id="playbook-email-error" class="text-parchment-600 text-sm">
+      Enter a valid email address.
+    </p>
+  </div>
+</div>
