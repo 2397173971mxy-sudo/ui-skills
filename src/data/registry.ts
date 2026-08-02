@@ -2638,6 +2638,32 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Manage stacked branches and dependent pull requests with the gh stack GitHub CLI extension.",
   },
+  {
+    slug: "simple-english",
+    user: "AminBlg",
+    repo: "SimpleEnglish",
+    rawUrl:
+      "https://raw.githubusercontent.com/AminBlg/SimpleEnglish/main/skills/simple-english/SKILL.md",
+    githubUrl:
+      "https://github.com/AminBlg/SimpleEnglish/blob/main/skills/simple-english/SKILL.md",
+    name: "simple-english",
+    topics: ["tooling", "code-quality", "craft"],
+    description:
+      "Write or rewrite technical text with ASD-STE100 Simplified Technical English for clear, unambiguous, translation-friendly documentation and interface copy.",
+  },
+  {
+    slug: "smooth-shadow-ring",
+    user: "flornkm",
+    repo: "shadow-plugin",
+    rawUrl:
+      "https://raw.githubusercontent.com/flornkm/shadow-plugin/main/.claude/skills/smooth-shadow-ring/SKILL.md",
+    githubUrl:
+      "https://github.com/flornkm/shadow-plugin/blob/main/.claude/skills/smooth-shadow-ring/SKILL.md",
+    name: "smooth-shadow-ring",
+    topics: ["visual", "craft", "systems", "frontend"],
+    description:
+      "Style elevated surfaces with smooth shadow ring utilities instead of combining borders or rings with shadows and creating double edges.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
