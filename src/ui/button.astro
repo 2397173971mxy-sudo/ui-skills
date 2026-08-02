@@ -1,7 +1,7 @@
 ---
 type Props = {
   href?: string;
-  variant?: "default" | "ghost";
+  variant?: "default" | "ghost" | "black";
   className?: string;
   type?: "button" | "submit" | "reset";
 } & Record<string, any>;
@@ -19,8 +19,10 @@ const baseClass =
 
 const variantClass =
   variant === "ghost"
-    ? "border border-transparent bg-transparent font-[450] text-parchment-700 hover:bg-parchment-100 hover:text-parchment-900"
-    : "border border-neutral-200 bg-transparent px-3 py-1.5 font-[450] text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100";
+    ? "h-8 border border-transparent bg-transparent font-[450] text-parchment-700 hover:bg-parchment-100 hover:text-parchment-900"
+    : variant === "black"
+      ? "h-8 border border-black bg-black px-3 font-[450] text-white hover:border-neutral-900 hover:bg-neutral-900"
+      : "h-8 border border-neutral-200 bg-transparent px-3 font-[450] text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100";
 ---
 
 {

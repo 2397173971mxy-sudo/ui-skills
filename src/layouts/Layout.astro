@@ -92,8 +92,7 @@ const githubStars = await getGithubStars();
       is:inline
       defer
       src="https://assets.onedollarstats.com/stonks.js"
-      data-hostname="ui-skills.com"
-    ></script>
+      data-hostname="ui-skills.com"></script>
     {
       structuredData ? (
         <script
@@ -115,7 +114,7 @@ const githubStars = await getGithubStars();
       <header
         class="absolute inset-x-0 top-0 z-10 flex justify-end px-4 pt-6 sm:px-8"
       >
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-3">
           <CommandDialog items={commandItems} client:idle />
           <GitHubStarButton
             href="https://github.com/ibelick/ui-skills"

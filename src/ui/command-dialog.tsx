@@ -7,6 +7,8 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
+import { CommandKShortcut } from "./keyboard-shortcut";
+import { Tooltip, TooltipProvider } from "./tooltip";
 
 type CommandItem = {
   slug: string;
@@ -56,9 +58,6 @@ const idForPath = (pathSlug: string) =>
   `skills-search-item-${pathSlug.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
 const keycapClass =
   "bg-parchment-200/70 text-parchment-700 rounded-[4px] px-1.5 py-0.5 text-[10px] font-medium leading-none font-mono";
-const searchShortcutClass =
-  "pointer-events-none ml-0 inline-flex h-[18px] select-none items-center gap-0.5 rounded border border-parchment-200 bg-parchment-900/[0.04] px-1 font-mono text-[10px]";
-
 const plainText = (value?: string) =>
   (value ?? "")
     .replace(/^---[\s\S]*?---/, " ")
@@ -107,7 +106,7 @@ const highlightText = (value: string, query: string): ReactNode => {
     part.toLowerCase() === normalizedQuery.toLowerCase() ? (
       <mark
         key={`${part}-${index}`}
-        className="text-parchment-900 rounded-[3px] bg-[#efe6bf] px-[2px]"
+        className="text-parchment-900"
       >
         {part}
       </mark>
@@ -287,147 +286,139 @@ export function CommandDialog({ items }: CommandDialogProps) {
   };
 
   return (
-    <DialogPrimitive.Root open={open} onOpenChange={handleOpenChange}>
-      <DialogPrimitive.Trigger
-        aria-label="Open skills search"
-        className="hover:bg-parchment-100 text-parchment-700 hover:text-parchment-900 focus-visible:outline-primary inline-flex items-center gap-2 rounded-[6px] border border-transparent bg-transparent px-2.5 py-2 text-[14px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
-      >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+    <TooltipProvider>
+      <DialogPrimitive.Root open={open} onOpenChange={handleOpenChange}>
+        <Tooltip
+          content={
+            <span className="inline-flex items-center gap-2">
+              Search
+              <CommandKShortcut />
+            </span>
+          }
         >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.3-4.3" />
-        </svg>
-        Search
-        <kbd className={searchShortcutClass}>
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
+          <DialogPrimitive.Trigger
+            aria-label="Search skills"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-[6px] border border-neutral-200 bg-transparent text-[14px] font-[450] text-parchment-900 transition-colors hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
-          </svg>
-          K
-        </kbd>
-      </DialogPrimitive.Trigger>
-
-      <DialogPrimitive.Portal>
-        <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm" />
-        <DialogPrimitive.Popup className="fixed top-24 left-1/2 z-50 w-[min(92vw,680px)] -translate-x-1/2 rounded-[12px] border border-neutral-200 bg-white shadow-xl outline-none">
-          <DialogPrimitive.Title className="sr-only">
-            Search skills
-          </DialogPrimitive.Title>
-          <div className="border-parchment-200 flex items-center gap-2 border-b px-4 py-3">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-parchment-500"
+              className="size-4 shrink-0"
             >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
             </svg>
-            <input
-              autoFocus
-              value={query}
-              onChange={onInputChange}
-              onKeyDown={onInputKeyDown}
-              placeholder="Search skills..."
-              className="text-parchment-900 placeholder:text-parchment-400 w-full bg-transparent text-base outline-none sm:text-base"
-              role="combobox"
-              aria-expanded={open}
-              aria-controls="skills-search-results"
-              aria-activedescendant={
-                filteredItems[activeIndex]
-                  ? idForPath(filteredItems[activeIndex].pathSlug)
-                  : undefined
-              }
-            />
-          </div>
+          </DialogPrimitive.Trigger>
+        </Tooltip>
 
-          <div
-            className="max-h-[55vh] overflow-y-auto p-2"
-            role="listbox"
-            id="skills-search-results"
-          >
-            {filteredItems.length === 0 ? (
-              <div className="text-parchment-500 px-2 py-8 text-center text-sm">
-                No skills found.
-              </div>
-            ) : (
-              filteredItems.map((item, index) => (
-                <button
-                  key={item.pathSlug}
-                  id={idForPath(item.pathSlug)}
-                  role="option"
-                  aria-selected={index === activeIndex}
-                  type="button"
-                  onClick={() => onSelect(item.pathSlug)}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${
-                    index === activeIndex
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm" />
+          <DialogPrimitive.Popup className="fixed top-24 left-1/2 z-50 w-[min(92vw,680px)] -translate-x-1/2 rounded-[12px] border border-neutral-200 bg-white shadow-xl outline-none">
+            <DialogPrimitive.Title className="sr-only">
+              Search skills
+            </DialogPrimitive.Title>
+            <div className="border-parchment-200 flex items-center gap-2 border-b px-4 py-3">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-parchment-500"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                autoFocus
+                value={query}
+                onChange={onInputChange}
+                onKeyDown={onInputKeyDown}
+                placeholder="Search skills..."
+                className="text-parchment-900 placeholder:text-parchment-400 w-full bg-transparent text-base outline-none sm:text-base"
+                role="combobox"
+                aria-expanded={open}
+                aria-controls="skills-search-results"
+                aria-activedescendant={
+                  filteredItems[activeIndex]
+                    ? idForPath(filteredItems[activeIndex].pathSlug)
+                    : undefined
+                }
+              />
+            </div>
+
+            <div
+              className="max-h-[55vh] overflow-y-auto p-2"
+              role="listbox"
+              id="skills-search-results"
+            >
+              {filteredItems.length === 0 ? (
+                <div className="text-parchment-500 px-2 py-8 text-center text-sm">
+                  No skills found.
+                </div>
+              ) : (
+                filteredItems.map((item, index) => (
+                  <button
+                    key={item.pathSlug}
+                    id={idForPath(item.pathSlug)}
+                    role="option"
+                    aria-selected={index === activeIndex}
+                    type="button"
+                    onClick={() => onSelect(item.pathSlug)}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${index === activeIndex
                       ? "bg-parchment-100"
                       : "hover:bg-parchment-100"
-                  }`}
-                >
-                  <div className="text-parchment-900 text-sm font-medium">
-                    {highlightText(item.slug, query)}
-                  </div>
-                  <div className="text-parchment-500 mt-0.5 text-xs">
-                    {highlightText(item.sourceLabel ?? "Ibelick", query)}
-                  </div>
-                  {item.snippet ? (
-                    <div className="text-parchment-500 mt-1 line-clamp-2 text-[12px] leading-snug">
-                      {highlightText(item.snippet, query)}
+                      }`}
+                  >
+                    <div className="text-parchment-900 text-sm font-medium">
+                      {highlightText(item.slug, query)}
                     </div>
-                  ) : null}
-                </button>
-              ))
-            )}
-          </div>
-
-          <div className="text-parchment-500 border-parchment-200 flex items-center justify-between border-t px-4 py-2 text-[11px]">
-            <span>{filteredItems.length} results</span>
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1.5">
-                <span className="flex items-center gap-1">
-                  <kbd className={keycapClass}>↑</kbd>
-                  <kbd className={keycapClass}>↓</kbd>
-                </span>
-                move
-              </span>
-              <span>
-                <kbd className={keycapClass}>Enter</kbd> open
-              </span>
-              <span>
-                <kbd className={keycapClass}>Esc</kbd> close
-              </span>
+                    <div className="text-parchment-500 mt-0.5 text-xs">
+                      {highlightText(item.sourceLabel ?? "Ibelick", query)}
+                    </div>
+                    {item.snippet ? (
+                      <div className="text-parchment-500 mt-1 line-clamp-2 text-[12px] leading-snug">
+                        {highlightText(item.snippet, query)}
+                      </div>
+                    ) : null}
+                  </button>
+                ))
+              )}
             </div>
-          </div>
-        </DialogPrimitive.Popup>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
+
+            <div className="text-parchment-500 border-parchment-200 flex items-center justify-between border-t px-4 py-2 text-[11px]">
+              <span>{filteredItems.length} results</span>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1">
+                    <kbd className={keycapClass}>↑</kbd>
+                    <kbd className={keycapClass}>↓</kbd>
+                  </span>
+                  move
+                </span>
+                <span>
+                  <kbd className={keycapClass}>Enter</kbd> open
+                </span>
+                <span>
+                  <kbd className={keycapClass}>Esc</kbd> close
+                </span>
+              </div>
+            </div>
+          </DialogPrimitive.Popup>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
+    </TooltipProvider>
   );
 }
