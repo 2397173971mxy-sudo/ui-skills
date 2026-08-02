@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import CodeBlock from "../../ui/code-block.astro";
+import AgentStartHere from "../../ui/agent-start-here.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
 import { agentById, agents } from "../../data/agents";
 
@@ -117,134 +117,116 @@ const structuredDataItems = agent
   description={pageDescription}
   structuredData={structuredDataItems}
 >
-  {agent ? (
-    <div class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4">
-      <div class="relative mt-20 w-full max-w-3xl sm:px-0">
-        <div class="mx-auto flex w-full flex-col gap-10">
-          <Breadcrumbs items={breadcrumbItems} />
+  {
+    agent ? (
+      <div class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4">
+        <div class="relative mt-20 w-full max-w-3xl sm:px-0">
+          <div class="mx-auto flex w-full flex-col gap-10">
+            <Breadcrumbs items={breadcrumbItems} />
 
-          <div class="px-4 sm:px-0">
-            <div class="flex items-center gap-3">
-              <img
-                src={agent.faviconUrl}
-                alt={`${agent.name} logo`}
-                width="32"
-                height="32"
-                loading="lazy"
-                class="size-8 rounded-full border border-neutral-200"
-              />
-              <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
-                {agent.name}
-              </h1>
-            </div>
+            <div class="px-4 sm:px-0">
+              <div class="flex items-center gap-3">
+                <img
+                  src={agent.faviconUrl}
+                  alt={`${agent.name} logo`}
+                  width="32"
+                  height="32"
+                  loading="lazy"
+                  class="size-8 rounded-full border border-neutral-200"
+                />
+                <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
+                  {agent.name}
+                </h1>
+              </div>
 
-            <p class="text-parchment-500 mt-3 max-w-2xl text-lg leading-snug">
-              {agent.description}
-            </p>
-
-            <p class="text-parchment-500 mt-4 max-w-2xl text-lg leading-snug text-pretty">
-              UI Skills helps you find the right skills depending on the current
-              context so {agent.name} can load the most useful guidance across
-              sessions.
-            </p>
-
-            {focusSentence ? (
-              <p class="text-parchment-500 mt-3 max-w-2xl text-base leading-snug text-pretty">
-                {focusSentence}
+              <p class="text-parchment-500 mt-3 max-w-2xl text-lg leading-snug">
+                {agent.description}
               </p>
-            ) : null}
-          </div>
 
-          <section class="bg-parchment-200/40 rounded-[12px] p-4 sm:p-5">
-            <h2 class="text-parchment-900 text-base font-medium text-balance">
-              How to use
-            </h2>
-            <p class="text-parchment-600 mt-3 max-w-2xl text-base leading-snug text-pretty">
-              Ask your agent to run the CLI first so it can choose the right skill
-              before making changes.
-            </p>
-            <div class="mt-4 flex w-full">
-              <CodeBlock
-                className="w-full"
-                align="center"
-                mobileSurface
-                wrapOnMobile
-                lines={[[{ text: "Run `npx ui-skills start` to fix this dialog motion." }]]}
-                copyContent="Run `npx ui-skills start` to fix this dialog motion."
-              />
+              <p class="text-parchment-500 mt-4 max-w-2xl text-lg leading-snug text-pretty">
+                UI Skills helps you find the right skills depending on the
+                current context so {agent.name} can load the most useful
+                guidance across sessions.
+              </p>
+
+              {focusSentence ? (
+                <p class="text-parchment-500 mt-3 max-w-2xl text-base leading-snug text-pretty">
+                  {focusSentence}
+                </p>
+              ) : null}
             </div>
-            <p class="text-parchment-600 mt-4 max-w-2xl text-base leading-snug text-pretty">
-              Or browse the collection below to find the best design-engineering
-              skills.
-            </p>
-          </section>
 
-          <section class="px-4 sm:px-0">
-            <h2 class="text-parchment-900 mb-3 text-lg font-medium">
-              Explore topics
-            </h2>
-            <div class="mt-3 flex flex-wrap gap-2">
-              {exploreTopics.map((topic) => (
-                <a
-                  href={topic.href}
-                  class="text-parchment-700 hover:bg-parchment-100 inline-flex h-8 items-center gap-1.5 rounded-lg border border-neutral-200 bg-transparent px-2.5 text-sm font-medium tracking-normal transition-colors"
-                >
-                  <span>{topic.label}</span>
-                </a>
-              ))}
-            </div>
-          </section>
+            <AgentStartHere />
 
-          <section class="px-4 sm:px-0">
-            <h2 class="text-parchment-900 text-base font-medium">Other agents</h2>
-            <div class="mt-3 grid gap-3 sm:grid-cols-2">
-              {otherAgents.map((otherAgent) => (
+            <section class="px-4 sm:px-0">
+              <h2 class="text-parchment-900 mb-3 text-lg font-medium">
+                Explore topics
+              </h2>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {exploreTopics.map((topic) => (
+                  <a
+                    href={topic.href}
+                    class="text-parchment-700 hover:bg-parchment-100 inline-flex h-8 items-center gap-1.5 rounded-lg border border-neutral-200 bg-transparent px-2.5 text-sm font-medium tracking-normal transition-colors"
+                  >
+                    <span>{topic.label}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+
+            <section class="px-4 sm:px-0">
+              <h2 class="text-parchment-900 text-base font-medium">
+                Other agents
+              </h2>
+              <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                {otherAgents.map((otherAgent) => (
+                  <a
+                    href={`/agents/${otherAgent.id}`}
+                    class="hover:border-parchment-300 hover:bg-parchment-100 rounded-[10px] border border-neutral-200 px-4 py-3 transition-colors"
+                  >
+                    <div class="flex items-center gap-3">
+                      <img
+                        src={otherAgent.faviconUrl}
+                        alt={`${otherAgent.name} logo`}
+                        width="24"
+                        height="24"
+                        loading="lazy"
+                        class="size-6 rounded-full border border-neutral-200"
+                      />
+                      <div class="text-parchment-900 font-[450]">
+                        {otherAgent.name}
+                      </div>
+                    </div>
+                    <div class="text-parchment-500 mt-1 line-clamp-2 text-[14px] leading-snug">
+                      {otherAgent.description}
+                    </div>
+                  </a>
+                ))}
                 <a
-                  href={`/agents/${otherAgent.id}`}
+                  href="/agents"
                   class="hover:border-parchment-300 hover:bg-parchment-100 rounded-[10px] border border-neutral-200 px-4 py-3 transition-colors"
                 >
-                  <div class="flex items-center gap-3">
-                    <img
-                      src={otherAgent.faviconUrl}
-                      alt={`${otherAgent.name} logo`}
-                      width="24"
-                      height="24"
-                      loading="lazy"
-                      class="size-6 rounded-full border border-neutral-200"
-                    />
-                    <div class="text-parchment-900 font-[450]">
-                      {otherAgent.name}
-                    </div>
-                  </div>
+                  <div class="text-parchment-900 font-[450]">More</div>
                   <div class="text-parchment-500 mt-1 line-clamp-2 text-[14px] leading-snug">
-                    {otherAgent.description}
+                    Browse the full agent collection.
                   </div>
                 </a>
-              ))}
-              <a
-                href="/agents"
-                class="hover:border-parchment-300 hover:bg-parchment-100 rounded-[10px] border border-neutral-200 px-4 py-3 transition-colors"
-              >
-                <div class="text-parchment-900 font-[450]">More</div>
-                <div class="text-parchment-500 mt-1 line-clamp-2 text-[14px] leading-snug">
-                  Browse the full agent collection.
-                </div>
-              </a>
-            </div>
-          </section>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <div class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4">
-      <div class="relative mt-20 w-full max-w-3xl px-4 sm:px-0">
-        <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
-          Agent not found
-        </h1>
-        <p class="text-parchment-500 mt-3 text-base leading-snug">
-          The agent you requested does not exist.
-        </p>
+    ) : (
+      <div class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4">
+        <div class="relative mt-20 w-full max-w-3xl px-4 sm:px-0">
+          <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
+            Agent not found
+          </h1>
+          <p class="text-parchment-500 mt-3 text-base leading-snug">
+            The agent you requested does not exist.
+          </p>
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 </Layout>
