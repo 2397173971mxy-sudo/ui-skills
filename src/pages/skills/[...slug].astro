@@ -384,7 +384,7 @@ const commandSegments = (() => {
                         width="32"
                         height="32"
                         loading="lazy"
-                        class="size-8 rounded-full border border-neutral-200"
+                        class="border-parchment-200 size-8 rounded-full border"
                       />
                     </a>
                     <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
@@ -492,7 +492,7 @@ const commandSegments = (() => {
                       width="22"
                       height="22"
                       loading="lazy"
-                      class="size-[22px] rounded-full border border-neutral-200"
+                      class="border-parchment-200 size-[22px] rounded-full border"
                     />
                     <span class="text-parchment-700 hover:text-parchment-900 text-[18px] leading-none font-[450]">
                       {skillOwnerLabel}
@@ -530,7 +530,7 @@ const commandSegments = (() => {
                     {relatedSkills.map((entry) => (
                       <a
                         href={skillHref(entry)}
-                        class="hover:border-parchment-300 hover:bg-parchment-100 rounded-[10px] border border-neutral-200 px-4 py-3 transition-colors"
+                        class="hover:border-parchment-300 hover:bg-parchment-100 border-parchment-200 rounded-[10px] border px-4 py-3 transition-colors"
                       >
                         <div class="text-parchment-900 font-[450]">
                           {entry.pathSlug}

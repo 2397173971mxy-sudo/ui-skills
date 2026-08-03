@@ -104,10 +104,7 @@ const highlightText = (value: string, query: string): ReactNode => {
 
   return parts.map((part, index) =>
     part.toLowerCase() === normalizedQuery.toLowerCase() ? (
-      <mark
-        key={`${part}-${index}`}
-        className="text-parchment-900"
-      >
+      <mark key={`${part}-${index}`} className="text-parchment-900">
         {part}
       </mark>
     ) : (
@@ -298,7 +295,7 @@ export function CommandDialog({ items }: CommandDialogProps) {
         >
           <DialogPrimitive.Trigger
             aria-label="Search skills"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[6px] border border-neutral-200 bg-transparent text-[14px] font-[450] text-parchment-900 transition-colors hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-8 w-8 items-center justify-center rounded-[6px] border bg-transparent text-[14px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
           >
             <svg
               aria-hidden="true"
@@ -319,7 +316,7 @@ export function CommandDialog({ items }: CommandDialogProps) {
 
         <DialogPrimitive.Portal>
           <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm" />
-          <DialogPrimitive.Popup className="fixed top-24 left-1/2 z-50 w-[min(92vw,680px)] -translate-x-1/2 rounded-[12px] border border-neutral-200 bg-white shadow-xl outline-none">
+          <DialogPrimitive.Popup className="border-parchment-200 fixed top-24 left-1/2 z-50 w-[min(92vw,680px)] -translate-x-1/2 rounded-[12px] border bg-white shadow-xl outline-none">
             <DialogPrimitive.Title className="sr-only">
               Search skills
             </DialogPrimitive.Title>
@@ -377,10 +374,11 @@ export function CommandDialog({ items }: CommandDialogProps) {
                     type="button"
                     onClick={() => onSelect(item.pathSlug)}
                     onMouseEnter={() => setActiveIndex(index)}
-                    className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${index === activeIndex
-                      ? "bg-parchment-100"
-                      : "hover:bg-parchment-100"
-                      }`}
+                    className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${
+                      index === activeIndex
+                        ? "bg-parchment-100"
+                        : "hover:bg-parchment-100"
+                    }`}
                   >
                     <div className="text-parchment-900 text-sm font-medium">
                       {highlightText(item.slug, query)}

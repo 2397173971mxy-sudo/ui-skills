@@ -29,7 +29,7 @@ export function CopyButton({
     <button
       onClick={handleCopy}
       type="button"
-      className={`flex h-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:text-neutral-900 ${className}`}
+      className={`text-parchment-400 hover:text-parchment-900 flex h-8 items-center justify-center rounded-full transition-colors ${className}`}
       aria-label="Copy to clipboard"
       {...props}
     >

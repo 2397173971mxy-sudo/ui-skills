@@ -7,7 +7,9 @@ type Props = {
 const { previousHref, nextHref } = Astro.props as Props;
 ---
 
-<div class="inline-flex items-stretch overflow-hidden rounded-[8px] border border-neutral-200 bg-white">
+<div
+  class="border-parchment-200 inline-flex items-stretch overflow-hidden rounded-[8px] border bg-white"
+>
   {
     previousHref ? (
       <a
@@ -50,7 +52,7 @@ const { previousHref, nextHref } = Astro.props as Props;
       </span>
     )
   }
-  <span class="bg-neutral-200 self-stretch w-px" aria-hidden="true" />
+  <span class="bg-parchment-200 w-px self-stretch" aria-hidden="true"></span>
   {
     nextHref ? (
       <a
