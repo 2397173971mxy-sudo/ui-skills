@@ -1,37 +1,12 @@
 ---
 import type { PlaybookEntry } from "../data/playbook.ts";
-import DemoShell from "./playbook/demo-shell.astro";
-import AccessibleIconButtonDemo from "./playbook/accessible-icon-button-demo.astro";
-import CompositorMotionDemo from "./playbook/compositor-motion-demo.astro";
-import FocusVisibleDemo from "./playbook/focus-visible-demo.astro";
-import InlineValidationDemo from "./playbook/inline-validation-demo.astro";
-import ReducedMotionDemo from "./playbook/reduced-motion-demo.astro";
-import StableMediaDemo from "./playbook/stable-media-demo.astro";
-import TabularNumsDemo from "./playbook/tabular-nums-demo.astro";
-import TextBalanceDemo from "./playbook/text-balance-demo.astro";
-import TouchTargetDemo from "./playbook/touch-target-demo.astro";
+import { PlaybookDemoRouter } from "./playbook/demo-router.tsx";
 
 type Props = {
   entry: PlaybookEntry;
 };
 
 const { entry } = Astro.props as Props;
-
-const demos = {
-  "text-balance": TextBalanceDemo,
-  "tabular-nums": TabularNumsDemo,
-  "accessible-icon-button": AccessibleIconButtonDemo,
-  "focus-visible": FocusVisibleDemo,
-  "touch-target": TouchTargetDemo,
-  "compositor-motion": CompositorMotionDemo,
-  "reduced-motion": ReducedMotionDemo,
-  "inline-validation": InlineValidationDemo,
-  "stable-media": StableMediaDemo,
-} as const;
-
-const Demo = demos[entry.demo];
 ---
 
-<DemoShell>
-  <Demo />
-</DemoShell>
+<PlaybookDemoRouter client:load demoId={entry.demo} />
