@@ -22,22 +22,30 @@ export function PlaybookDemoCard({
     <div className="relative rounded-2xl bg-white p-6 shadow-2xs ring-1 ring-black/10 sm:p-8">
       <div
         className="absolute top-5 right-5 z-10 flex items-center gap-2.5 sm:top-6 sm:right-6"
+        role="group"
+        aria-label="Compare modes"
       >
-        <span
-          className={`text-xs transition-colors ${showTip ? "text-parchment-400" : "text-parchment-700"}`}
+        <button
+          type="button"
+          onClick={() => setShowTip(false)}
+          aria-pressed={!showTip}
+          className={`text-xs transition-colors hover:text-parchment-900 ${showTip ? "text-parchment-400" : "text-parchment-900"}`}
         >
           {withoutLabel}
-        </span>
+        </button>
         <PlaybookSwitch
           checked={showTip}
           onCheckedChange={setShowTip}
           aria-label={`${withoutLabel} or ${withLabel}`}
         />
-        <span
-          className={`text-xs transition-colors ${showTip ? "text-parchment-700" : "text-parchment-400"}`}
+        <button
+          type="button"
+          onClick={() => setShowTip(true)}
+          aria-pressed={showTip}
+          className={`text-xs transition-colors hover:text-parchment-900 ${showTip ? "text-parchment-900" : "text-parchment-400"}`}
         >
           {withLabel}
-        </span>
+        </button>
       </div>
       <div className="relative z-0 h-72">
         <div

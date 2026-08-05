@@ -1,38 +1,62 @@
 import { PlaybookDemoCard } from "./demo-card";
 
+function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  );
+}
+
+function TouchTargetIconButton({ showHitTarget }: { showHitTarget: boolean }) {
+  if (!showHitTarget) {
+    return (
+      <button
+        type="button"
+        aria-label="Close"
+        className="bg-parchment-100 text-parchment-900 hover:bg-parchment-200 inline-flex size-6 items-center justify-center rounded-full transition-colors"
+      >
+        <CloseIcon />
+      </button>
+    );
+  }
+
+  return (
+    <div className="relative size-11">
+      <div
+        aria-hidden="true"
+        className="border-parchment-400 pointer-events-none absolute inset-0 rounded-full border border-dashed"
+      />
+      <button
+        type="button"
+        aria-label="Close"
+        className="group inline-flex size-11 items-center justify-center rounded-full"
+      >
+        <span
+          className="bg-parchment-100 text-parchment-900 flex size-6 items-center justify-center rounded-full transition-colors ease-out duration-150 group-hover:bg-parchment-200"
+        >
+          <CloseIcon />
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export default function TouchTargetDemo() {
   return (
     <PlaybookDemoCard
-      withoutLabel="Too small"
+      withoutLabel="Default"
       withLabel="44px target"
-      without={
-        <div
-          className="border-parchment-300 flex items-center gap-3 rounded-lg border border-dashed p-5"
-        >
-          <button
-            type="button"
-            aria-label="Close"
-            className="border-parchment-300 text-parchment-700 inline-flex size-6 items-center justify-center rounded border"
-          >
-            ×
-          </button>
-          <span className="text-parchment-500 text-sm">Easy to miss</span>
-        </div>
-      }
-      with={
-        <div
-          className="border-parchment-200 bg-parchment-50 flex items-center gap-3 rounded-lg border p-5"
-        >
-          <button
-            type="button"
-            aria-label="Close"
-            className="border-parchment-300 text-parchment-900 inline-flex size-11 items-center justify-center rounded-lg border bg-white text-xl"
-          >
-            ×
-          </button>
-          <span className="text-parchment-600 text-sm">Easy to hit</span>
-        </div>
-      }
+      contentClassName="flex w-full justify-center"
+      without={<TouchTargetIconButton showHitTarget={false} />}
+      with={<TouchTargetIconButton showHitTarget />}
     />
   );
 }
