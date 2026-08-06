@@ -1,36 +1,31 @@
 import { PlaybookDemoCard } from "./demo-card";
 
+function TextWrapDemo({ balanced = false }: { balanced?: boolean }) {
+  return (
+    <div className="w-80 text-left">
+      <h2
+        className={`text-parchment-900 text-3xl font-medium leading-tight tracking-tight ${balanced ? "text-balance" : ""}`}
+      >
+        Make every headline feel intentional
+      </h2>
+      <p
+        className={`text-parchment-600 mt-4 text-base leading-relaxed ${balanced ? "text-pretty" : ""}`}
+      >
+        Body copy should wrap cleanly without leaving a single word stranded
+        on the last line.
+      </p>
+    </div>
+  );
+}
+
 export default function TextBalanceDemo() {
   return (
     <PlaybookDemoCard
-      withoutLabel="Without balance"
-      withLabel="With balance"
-      without={
-        <div className="space-y-3">
-          <h2
-            className="text-parchment-900 max-w-[14ch] text-3xl font-medium tracking-tight"
-          >
-            Design with fewer awkward line breaks
-          </h2>
-          <p className="text-parchment-600 max-w-xl text-base leading-snug">
-            Body copy can also create uneven lines that make a short paragraph
-            harder to scan.
-          </p>
-        </div>
-      }
-      with={
-        <div className="space-y-3">
-          <h2
-            className="text-parchment-900 max-w-[14ch] text-3xl font-medium tracking-tight text-balance"
-          >
-            Design with fewer awkward line breaks
-          </h2>
-          <p className="text-parchment-600 max-w-xl text-base leading-snug text-pretty">
-            Body copy can also create uneven lines that make a short paragraph
-            easier to scan.
-          </p>
-        </div>
-      }
+      withoutLabel="Default"
+      withLabel="Balanced"
+      contentClassName="flex w-full justify-center"
+      without={<TextWrapDemo />}
+      with={<TextWrapDemo balanced />}
     />
   );
 }

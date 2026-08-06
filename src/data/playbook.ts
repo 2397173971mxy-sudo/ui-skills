@@ -4,13 +4,22 @@ import type { TopicSlug } from "./registry.ts";
 export type PlaybookDemoId =
   | "text-balance"
   | "tabular-nums"
-  | "accessible-icon-button"
-  | "focus-visible"
   | "touch-target"
-  | "compositor-motion"
-  | "reduced-motion"
-  | "inline-validation"
-  | "stable-media";
+  | "concentric-radius"
+  | "scale-on-press"
+  | "popover-origin"
+  | "space-not-lines"
+  | "scroll-peek"
+  | "image-outline"
+  | "line-clamp"
+  | "text-contrast"
+  | "scale-enter"
+  | "skeleton-loading"
+  | "one-accent"
+  | "line-measure"
+  | "shadow-elevation"
+  | "focus-ring"
+  | "inline-error";
 
 export type PlaybookEntry = {
   slug: string;
@@ -40,79 +49,8 @@ const playbook: PlaybookEntry[] = [
     badExample: `<h1 className="text-3xl font-medium">Ship cleaner UI</h1>\n<p className="text-base">Longer body copy wraps naturally without any typographic tuning.</p>`,
     prompt:
       "Update this layout so headings use `text-balance` and body copy uses `text-pretty`.",
-    relatedSkills: [
-      "frontend-design",
-      "fixing-metadata",
-      "web-design-guidelines",
-    ],
+    relatedSkills: ["better-typography", "make-interfaces-feel-better"],
     topics: ["typography", "visual", "craft"],
-  },
-  {
-    slug: "use-aria-labels-for-icon-buttons",
-    skillSlug: "fixing-accessibility",
-    demo: "accessible-icon-button",
-    title: "Name every icon-only control",
-    direct: "Give every icon-only button a clear accessible name.",
-    rule: "MUST add `aria-label` to icon-only buttons.",
-    why: "Assistive tech needs a clear accessible name when no visible text exists.",
-    goodExample: `<button aria-label="Close dialog">\n  <svg aria-hidden="true" viewBox="0 0 24 24">...</svg>\n</button>`,
-    badExample: `<button>\n  <svg viewBox="0 0 24 24">...</svg>\n</button>`,
-    prompt:
-      "Audit every icon-only control in this view and add a clear `aria-label`.",
-    relatedSkills: ["baseline-ui", "web-design-guidelines", "frontend-design"],
-    topics: ["accessibility", "frontend", "interaction"],
-  },
-  {
-    slug: "use-visible-focus-states",
-    skillSlug: "fixing-accessibility",
-    demo: "focus-visible",
-    title: "Keep keyboard focus visible",
-    direct:
-      "Give keyboard users a clear focus state on every interactive control.",
-    rule: "MUST keep a visible focus indicator for keyboard users.",
-    why: "A visible focus state shows where keyboard input will go.",
-    goodExample: `<button className="focus-visible:outline-2 focus-visible:outline-offset-2">Save</button>`,
-    badExample: `<button className="focus:outline-none">Save</button>`,
-    prompt:
-      "Add a visible focus state to every interactive control without hiding keyboard focus.",
-    relatedSkills: ["baseline-ui", "web-design-guidelines"],
-    topics: ["accessibility", "interaction", "frontend"],
-  },
-  {
-    slug: "animate-transform-and-opacity-only",
-    skillSlug: "fixing-motion-performance",
-    demo: "compositor-motion",
-    title: "Keep motion on the compositor",
-    direct:
-      "Animate `transform` and `opacity`, not layout properties like `width` or `left`.",
-    rule: "MUST animate only `transform` and `opacity`.",
-    why: "Those properties avoid layout thrash and usually stay smooth.",
-    goodExample: `motion.div animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.18 }}`,
-    badExample: `motion.div animate={{ width: 320, left: 24 }} transition={{ duration: 0.18 }}`,
-    prompt:
-      "Replace layout-based animation with transform/opacity-only motion.",
-    relatedSkills: [
-      "baseline-ui",
-      "frontend-design",
-      "remotion-best-practices",
-    ],
-    topics: ["motion", "performance", "frontend"],
-  },
-  {
-    slug: "respect-reduced-motion",
-    skillSlug: "fixing-motion-performance",
-    demo: "reduced-motion",
-    title: "Respect reduced motion",
-    direct:
-      "Reduce movement when the user prefers less motion, without hiding useful feedback.",
-    rule: "MUST provide a reduced-motion alternative for non-essential movement.",
-    why: "Users should be able to understand state changes without triggering motion sensitivity.",
-    goodExample: `.panel { transition: transform 200ms ease-out; }\n@media (prefers-reduced-motion: reduce) {\n  .panel { transition: opacity 150ms ease-out; }\n}`,
-    badExample: `.panel { animation: slide-in 700ms ease-out; }`,
-    prompt:
-      "Add a prefers-reduced-motion alternative while preserving the state change.",
-    relatedSkills: ["baseline-ui", "frontend-design", "web-design-guidelines"],
-    topics: ["motion", "accessibility", "performance"],
   },
   {
     slug: "use-tabular-nums-for-data",
@@ -125,12 +63,12 @@ const playbook: PlaybookEntry[] = [
     goodExample: `<span className="tabular-nums">98.4%</span>`,
     badExample: `<span>98.4%</span>`,
     prompt: "Apply `tabular-nums` anywhere numbers need to line up.",
-    relatedSkills: ["frontend-design", "web-design-guidelines"],
+    relatedSkills: ["better-typography", "make-interfaces-feel-better"],
     topics: ["typography", "systems", "craft"],
   },
   {
     slug: "use-large-touch-targets",
-    skillSlug: "ui-ux-pro-max",
+    skillSlug: "better-accessibility",
     demo: "touch-target",
     title: "Make touch targets easy to hit",
     direct:
@@ -141,39 +79,233 @@ const playbook: PlaybookEntry[] = [
     badExample: `<button className="size-6" aria-label="Close">×</button>`,
     prompt:
       "Increase small interactive controls to a minimum 44px touch target.",
-    relatedSkills: ["fixing-accessibility", "adapt", "web-design-guidelines"],
+    relatedSkills: ["fixing-accessibility", "better-ui"],
     topics: ["interaction", "accessibility", "frontend"],
   },
   {
-    slug: "show-inline-validation-errors",
-    skillSlug: "fixing-accessibility",
-    demo: "inline-validation",
-    title: "Put errors beside the field",
+    slug: "use-concentric-border-radius",
+    skillSlug: "better-ui",
+    demo: "concentric-radius",
+    title: "Nest corners concentrically",
     direct:
-      "Place form errors beside the field and connect them with `aria-describedby`.",
-    rule: "MUST associate field errors with the invalid input.",
-    why: "People can understand and fix an error without searching the page.",
-    goodExample: `<input aria-invalid="true" aria-describedby="email-error" />\n<p id="email-error">Enter a valid email.</p>`,
-    badExample: `<input />\n<div className="alert">Invalid email.</div>`,
+      "Set the outer radius to inner radius plus padding on nested surfaces: outer = inner + padding (e.g. 24px = 16px + 8px).",
+    rule: "SHOULD keep nested border radii concentric: outer = inner + padding.",
+    why: "Matched radii on nested elements make corners look pinched and off.",
+    goodExample: `<div className="rounded-2xl p-2"><div className="rounded-lg">...</div></div>`,
+    badExample: `<div className="rounded-xl p-2"><div className="rounded-xl">...</div></div>`,
     prompt:
-      "Move form errors beside their fields and link them with aria-describedby.",
-    relatedSkills: ["web-design-guidelines", "ui-ux-pro-max"],
+      "Fix nested border radii so outer corners follow inner radius plus padding.",
+    relatedSkills: ["make-interfaces-feel-better", "better-interface"],
+    topics: ["visual", "craft", "systems"],
+  },
+  {
+    slug: "add-scale-on-press",
+    skillSlug: "emil-design-eng",
+    demo: "scale-on-press",
+    title: "Give buttons press feedback",
+    direct: "Scale pressable controls to about `0.96` on `:active`.",
+    rule: "SHOULD use a subtle `scale(0.96)` press state on interactive controls.",
+    why: "A tiny scale-down confirms the interface heard the tap.",
+    goodExample: `<button className="transition-transform active:scale-[0.96]">Save</button>`,
+    badExample: `<button>Save</button>`,
+    prompt: "Add subtle press feedback with `active:scale-[0.96]`.",
+    relatedSkills: ["better-ui", "improve-animations"],
+    topics: ["interaction", "motion", "craft"],
+  },
+  {
+    slug: "anchor-popovers-to-triggers",
+    skillSlug: "emil-design-eng",
+    demo: "popover-origin",
+    title: "Grow popovers from their trigger",
+    direct:
+      "Set `transform-origin` to the trigger edge instead of the panel center.",
+    rule: "SHOULD animate popovers from their trigger, not from center.",
+    why: "Origin-aware motion keeps the relationship between trigger and surface clear.",
+    goodExample: `.popover { transform-origin: var(--transform-origin); }`,
+    badExample: `.popover { transform-origin: center; }`,
+    prompt:
+      "Make this popover scale from its trigger instead of from its center.",
+    relatedSkills: ["better-ui", "improve-animations"],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "group-with-space-not-lines",
+    skillSlug: "better-layout",
+    demo: "space-not-lines",
+    title: "Group with space, not lines",
+    direct: "Separate groups with spacing at least 2× the gap inside a group.",
+    rule: "SHOULD group related content with space before adding separator lines.",
+    why: "Whitespace communicates structure with less visual noise than rules everywhere.",
+    goodExample: `<section className="space-y-8"><div className="space-y-2">...</div></section>`,
+    badExample: `<div className="divide-y border-b">...</div>`,
+    prompt:
+      "Replace repeated divider lines with spacing between content groups.",
+    relatedSkills: ["better-interface", "baseline-ui"],
+    topics: ["systems", "visual", "craft"],
+  },
+  {
+    slug: "peek-the-next-scroll-item",
+    skillSlug: "better-layout",
+    demo: "scroll-peek",
+    title: "Peek the next scroll item",
+    direct:
+      "Let the next item show 16–32px past the scroll edge as a scroll cue.",
+    rule: "SHOULD reveal a sliver of the next item in horizontal scrollers.",
+    why: "A hidden edge makes carousels and chip rows feel finished too early.",
+    goodExample: `<div className="overflow-x-auto pr-6">...</div>`,
+    badExample: `<div className="overflow-x-auto">...</div>`,
+    prompt: "Adjust this scroller so the next item peeks past the edge.",
+    relatedSkills: ["better-interface", "better-ui"],
+    topics: ["interaction", "systems", "frontend"],
+  },
+  {
+    slug: "outline-images-neutrally",
+    skillSlug: "better-ui",
+    demo: "image-outline",
+    title: "Outline images with neutral hairlines",
+    direct:
+      "Use a low-opacity neutral outline on images instead of a tinted ring.",
+    rule: "SHOULD use a pure black or white hairline outline on images, not tinted borders.",
+    why: "Tinted outlines pick up the surface color and read as dirt on the edge.",
+    goodExample: `<img className="outline outline-1 outline-black/10" />`,
+    badExample: `<img className="ring-1 ring-zinc-300" />`,
+    prompt:
+      "Replace the tinted image border with a neutral low-opacity outline.",
+    relatedSkills: ["make-interfaces-feel-better", "better-colors"],
+    topics: ["visual", "craft", "color"],
+  },
+  {
+    slug: "clamp-overflowing-titles",
+    skillSlug: "better-typography",
+    demo: "line-clamp",
+    title: "Clamp overflowing titles",
+    direct:
+      "Use `line-clamp` or `truncate` when dense UI cannot grow with copy.",
+    rule: "SHOULD use `truncate` or `line-clamp` for dense UI.",
+    why: "Long titles should not blow up card height in lists and tables.",
+    goodExample: `<h3 className="line-clamp-2">...</h3>`,
+    badExample: `<h3>...</h3>`,
+    prompt: "Clamp this title so the card keeps a stable height.",
+    relatedSkills: ["baseline-ui", "better-interface"],
+    topics: ["typography", "systems", "frontend"],
+  },
+  {
+    slug: "keep-secondary-text-readable",
+    skillSlug: "better-accessibility",
+    demo: "text-contrast",
+    title: "Keep secondary text readable",
+    direct: "Ensure body and helper text meet contrast on their background.",
+    rule: "MUST keep text contrast sufficient for reading on its surface.",
+    why: "Washed-out secondary copy is hard to scan and fails accessibility checks.",
+    goodExample: `<p className="text-parchment-700">...</p>`,
+    badExample: `<p className="text-parchment-300">...</p>`,
+    prompt: "Increase contrast for this secondary text on a white surface.",
+    relatedSkills: ["fixing-accessibility", "better-colors"],
+    topics: ["accessibility", "typography", "color"],
+  },
+  {
+    slug: "avoid-entering-from-scale-zero",
+    skillSlug: "emil-design-eng",
+    demo: "scale-enter",
+    title: "Avoid entering from scale zero",
+    direct:
+      "Start entrances around `scale(0.95)` with opacity, not `scale(0)`.",
+    rule: "SHOULD not animate elements from `scale(0)`.",
+    why: "Nothing in the real world pops into existence from a single point.",
+    goodExample: `{ opacity: 0, scale: 0.95 }`,
+    badExample: `{ opacity: 0, scale: 0 }`,
+    prompt:
+      "Change this entrance animation to start from `scale(0.95)` instead of `scale(0)`.",
+    relatedSkills: ["improve-animations", "better-ui"],
+    topics: ["motion", "craft", "interaction"],
+  },
+  {
+    slug: "use-structural-skeletons",
+    skillSlug: "baseline-ui",
+    demo: "skeleton-loading",
+    title: "Use structural skeletons",
+    direct:
+      "Prefer skeleton placeholders that match content shape over spinners.",
+    rule: "SHOULD use structural skeletons for loading states.",
+    why: "Skeletons preserve layout and preview what is coming.",
+    goodExample: `<div className="h-3 w-24 animate-pulse rounded-full bg-parchment-200" />`,
+    badExample: `<Spinner />`,
+    prompt: "Replace this loading spinner with a structural skeleton.",
+    relatedSkills: ["better-ui", "better-interface"],
+    topics: ["interaction", "systems", "frontend"],
+  },
+  {
+    slug: "limit-accent-color-usage",
+    skillSlug: "baseline-ui",
+    demo: "one-accent",
+    title: "Limit accent color usage",
+    direct: "Use one accent per view and keep secondary actions neutral.",
+    rule: "SHOULD limit accent color usage to one per view.",
+    why: "Multiple loud accents compete and make the hierarchy unclear.",
+    goodExample: `<button className="bg-parchment-900">Save</button>`,
+    badExample: `<button className="bg-blue-600">Save</button><button className="bg-emerald-600">Publish</button>`,
+    prompt: "Reduce this screen to one accent color and neutralize the rest.",
+    relatedSkills: ["better-colors", "better-ui"],
+    topics: ["visual", "color", "taste"],
+  },
+  {
+    slug: "cap-line-length",
+    skillSlug: "better-typography",
+    demo: "line-measure",
+    title: "Cap line length",
+    direct: "Keep long-form copy around 60–75 characters per line.",
+    rule: "SHOULD cap paragraph measure for comfortable reading.",
+    why: "Full-width paragraphs are harder to track across long lines.",
+    goodExample: `<p className="max-w-prose">...</p>`,
+    badExample: `<p className="w-full">...</p>`,
+    prompt: "Cap this paragraph to a comfortable reading measure.",
+    relatedSkills: ["baseline-ui", "better-interface"],
+    topics: ["typography", "visual", "craft"],
+  },
+  {
+    slug: "use-shadow-for-elevation",
+    skillSlug: "better-ui",
+    demo: "shadow-elevation",
+    title: "Use shadow for elevation",
+    direct:
+      "Prefer layered transparent shadows for depth; keep borders for structure.",
+    rule: "SHOULD use shadow for elevation instead of heavy decorative borders.",
+    why: "Borders used only for depth feel harsh; shadows lift surfaces more naturally.",
+    goodExample: `<div className="shadow-lg ring-1 ring-black/5" />`,
+    badExample: `<div className="border-2 border-parchment-200" />`,
+    prompt:
+      "Replace this decorative border with a subtle layered shadow treatment.",
+    relatedSkills: ["make-interfaces-feel-better", "better-interface"],
+    topics: ["visual", "craft", "systems"],
+  },
+  {
+    slug: "show-visible-focus-rings",
+    skillSlug: "better-accessibility",
+    demo: "focus-ring",
+    title: "Show visible focus rings",
+    direct:
+      "Style `:focus-visible` with a clear ring instead of removing outlines.",
+    rule: "MUST not remove focus outlines without a visible replacement.",
+    why: "Keyboard users need to see which control is active.",
+    goodExample: `<button className="focus-visible:ring-2 focus-visible:ring-offset-2">...</button>`,
+    badExample: `<button className="outline-none">...</button>`,
+    prompt: "Add a visible `focus-visible` ring to this control.",
+    relatedSkills: ["fixing-accessibility", "baseline-ui"],
     topics: ["accessibility", "interaction", "frontend"],
   },
   {
-    slug: "reserve-space-for-media",
-    skillSlug: "ui-ux-pro-max",
-    demo: "stable-media",
-    title: "Reserve space for media",
-    direct: "Reserve an image's space before it loads to prevent layout shift.",
-    rule: "MUST reserve the rendered dimensions of media before loading it.",
-    why: "Stable geometry keeps content from jumping while images load.",
-    goodExample: `<img width="640" height="360" src="hero.webp" alt="..." />`,
-    badExample: `<img src="hero.webp" alt="..." />`,
-    prompt:
-      "Reserve space for images and media so content does not shift while loading.",
-    relatedSkills: ["fixing-motion-performance", "web-design-guidelines"],
-    topics: ["performance", "visual", "frontend"],
+    slug: "show-errors-beside-fields",
+    skillSlug: "baseline-ui",
+    demo: "inline-error",
+    title: "Show errors beside fields",
+    direct: "Place validation errors directly under the field they describe.",
+    rule: "MUST show errors next to where the action happens.",
+    why: "Distant error text forces users to hunt for what failed.",
+    goodExample: `<input aria-invalid /><p id="email-error">Invalid email</p>`,
+    badExample: `<input /><p className="mt-8">Invalid email</p>`,
+    prompt: "Move this validation error next to the input it belongs to.",
+    relatedSkills: ["better-accessibility", "fixing-accessibility"],
+    topics: ["interaction", "accessibility", "frontend"],
   },
 ];
 

@@ -1,24 +1,42 @@
 import type { PlaybookDemoId } from "../../data/playbook.ts";
-import AccessibleIconButtonDemo from "./accessible-icon-button-demo";
-import CompositorMotionDemo from "./compositor-motion-demo";
-import FocusVisibleDemo from "./focus-visible-demo";
-import InlineValidationDemo from "./inline-validation-demo";
-import ReducedMotionDemo from "./reduced-motion-demo";
-import StableMediaDemo from "./stable-media-demo";
+import ConcentricRadiusDemo from "./concentric-radius-demo";
+import FocusRingDemo from "./focus-ring-demo";
+import ImageOutlineDemo from "./image-outline-demo";
+import InlineErrorDemo from "./inline-error-demo";
+import LineClampDemo from "./line-clamp-demo";
+import LineMeasureDemo from "./line-measure-demo";
+import OneAccentDemo from "./one-accent-demo";
+import PopoverOriginDemo from "./popover-origin-demo";
+import ScaleEnterDemo from "./scale-enter-demo";
+import ScaleOnPressDemo from "./scale-on-press-demo";
+import ScrollPeekDemo from "./scroll-peek-demo";
+import ShadowElevationDemo from "./shadow-elevation-demo";
+import SkeletonLoadingDemo from "./skeleton-loading-demo";
+import SpaceNotLinesDemo from "./space-not-lines-demo";
 import TabularNumsDemo from "./tabular-nums-demo";
 import TextBalanceDemo from "./text-balance-demo";
+import TextContrastDemo from "./text-contrast-demo";
 import TouchTargetDemo from "./touch-target-demo";
 
 const demos = {
   "text-balance": TextBalanceDemo,
   "tabular-nums": TabularNumsDemo,
-  "accessible-icon-button": AccessibleIconButtonDemo,
-  "focus-visible": FocusVisibleDemo,
   "touch-target": TouchTargetDemo,
-  "compositor-motion": CompositorMotionDemo,
-  "reduced-motion": ReducedMotionDemo,
-  "inline-validation": InlineValidationDemo,
-  "stable-media": StableMediaDemo,
+  "concentric-radius": ConcentricRadiusDemo,
+  "scale-on-press": ScaleOnPressDemo,
+  "popover-origin": PopoverOriginDemo,
+  "space-not-lines": SpaceNotLinesDemo,
+  "scroll-peek": ScrollPeekDemo,
+  "image-outline": ImageOutlineDemo,
+  "line-clamp": LineClampDemo,
+  "text-contrast": TextContrastDemo,
+  "scale-enter": ScaleEnterDemo,
+  "skeleton-loading": SkeletonLoadingDemo,
+  "one-accent": OneAccentDemo,
+  "line-measure": LineMeasureDemo,
+  "shadow-elevation": ShadowElevationDemo,
+  "focus-ring": FocusRingDemo,
+  "inline-error": InlineErrorDemo,
 } as const;
 
 type PlaybookDemoRouterProps = {

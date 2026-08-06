@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
-import SkillCard from "../../ui/skill-card.astro";
 import SkillNav from "../../ui/skill-nav.astro";
 import PlaybookDemo from "../../ui/playbook-demo.astro";
 import { playbook, playbookBySlug } from "../../data/playbook.ts";
@@ -22,9 +21,6 @@ if (!entry) {
 }
 
 const sourceSkill = entry ? skills.find((skill) => skill.slug === entry.skillSlug) : undefined;
-const relatedSkills = (entry?.relatedSkills ?? [])
-  .map((skillSlug) => skills.find((skill) => skill.slug === skillSlug))
-  .filter((skill): skill is NonNullable<typeof skill> => Boolean(skill));
 
 const playbookIndex = entry ? playbook.findIndex((item) => item.slug === entry.slug) : -1;
 const previousPlaybook = playbookIndex > 0 ? playbook[playbookIndex - 1] : undefined;
@@ -75,7 +71,7 @@ const structuredData = entry
               <h1 class="text-parchment-900 text-3xl font-medium tracking-tight text-balance">
                 {entry.title}
               </h1>
-              <p class="text-parchment-600 max-w-3xl text-lg text-pretty leading-snug">
+              <p class="text-parchment-600 max-w-2xl text-base text-pretty leading-snug">
                 {entry.direct}
               </p>
             </div>
@@ -89,47 +85,6 @@ const structuredData = entry
 
           <div class="px-4 sm:px-0">
             <PlaybookDemo entry={entry} />
-          </div>
-
-          <div class="px-4 sm:px-0">
-            <p class="text-parchment-500 max-w-2xl text-base text-pretty leading-snug">
-              {entry.why}
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-6 px-4 sm:px-0">
-            <div>
-              <h2 class="text-parchment-900 mb-3 text-lg font-medium text-balance">
-                Source skill
-              </h2>
-              <SkillCard
-                href={`/skills/${sourceSkill.pathSlug}`}
-                slug={sourceSkill.label}
-                description={sourceSkill.description}
-                ownerLabel={sourceSkill.sourceLabel ?? sourceSkill.label}
-                avatarUrl={`https://github.com/${sourceSkill.sourceKey ?? "ibelick"}.png?size=40`}
-              />
-            </div>
-
-            {relatedSkills.length > 0 ? (
-              <div>
-                <h2 class="text-parchment-900 mb-3 text-lg font-medium text-balance">
-                  Related skills
-                </h2>
-                <div class="grid gap-4 sm:grid-cols-2">
-                  {relatedSkills.map((skill) => (
-                    <SkillCard
-                      href={`/skills/${skill.pathSlug}`}
-                      slug={skill.label}
-                      description={skill.description}
-                      ownerLabel={skill.sourceLabel ?? skill.label}
-                      avatarUrl={`https://github.com/${skill.sourceKey ?? "ibelick"}.png?size=40`}
-                    />
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
           </div>
         </div>
       </div>
