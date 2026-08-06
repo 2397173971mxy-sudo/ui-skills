@@ -16,6 +16,12 @@ const variantStyles = {
   outline: "bg-white text-parchment-900 ring-1 ring-black/10 hover:bg-parchment-50",
 };
 
+const sizeStyles = {
+  sm: "gap-1 px-3.5 py-1.5 text-xs has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
+  default:
+    "gap-1.5 px-5 py-2.5 text-sm has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4 [&_svg:not([class*='size-'])]:size-4",
+};
+
 export function Button({
   shape = "default",
   size = "default",
@@ -25,27 +31,16 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const sizeClass =
-    size === "sm"
-      ? "px-3.5 py-1.5 text-xs"
-      : shape === "round"
-        ? "rounded-full px-5 py-2.5"
-        : "rounded-lg px-5 py-2.5";
-
   return (
     <button
       type={type}
       className={cn(
         "inline-flex select-none items-center justify-center font-medium transition-[background-color,transform] duration-150 ease-out",
-        size === "default" && "text-sm",
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0",
         variantStyles[variant],
         icon
-          ? "size-9 p-0"
-          : cn(
-              shape === "round" ? "rounded-full" : "rounded-lg",
-              !icon && sizeClass,
-            ),
-        shape === "round" && icon && "rounded-full",
+          ? cn("size-9 p-0", shape === "round" && "rounded-full", shape === "default" && "rounded-lg")
+          : cn(shape === "round" ? "rounded-full" : "rounded-lg", sizeStyles[size]),
         className,
       )}
       {...props}

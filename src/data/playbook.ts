@@ -19,7 +19,16 @@ export type PlaybookDemoId =
   | "line-measure"
   | "shadow-elevation"
   | "focus-ring"
-  | "inline-error";
+  | "inline-error"
+  | "label-form-fields"
+  | "empty-state-cta"
+  | "sentence-case-labels"
+  | "status-not-color-alone"
+  | "ease-out-enter"
+  | "optical-alignment"
+  | "icon-stroke-weight"
+  | "outline-icons-default"
+  | "no-glow-cta";
 
 export type PlaybookEntry = {
   slug: string;
@@ -301,6 +310,143 @@ const playbook: PlaybookEntry[] = [
       "wcag-audit-patterns",
     ],
     topics: ["interaction", "accessibility", "frontend"],
+  },
+  {
+    slug: "label-every-form-field",
+    skillSlug: "fixing-accessibility",
+    demo: "label-form-fields",
+    title: "Label every form field",
+    description: "Use a visible label; never rely on placeholder text alone.",
+    relatedSkills: [
+      "better-accessibility",
+      "baseline-ui",
+      "wcag-audit-patterns",
+      "web-design-guidelines",
+      "interaction-design",
+    ],
+    topics: ["accessibility", "interaction", "frontend"],
+  },
+  {
+    slug: "give-empty-states-one-action",
+    skillSlug: "baseline-ui",
+    demo: "empty-state-cta",
+    title: "Give empty states one action",
+    description: "Empty states need one clear next step, not just explanation.",
+    relatedSkills: [
+      "better-ui",
+      "better-interface",
+      "improve-ui",
+      "ui-ux-pro-max",
+      "interaction-design",
+    ],
+    topics: ["interaction", "systems", "craft"],
+  },
+  {
+    slug: "use-sentence-case-labels",
+    skillSlug: "better-typography",
+    demo: "sentence-case-labels",
+    title: "Use sentence case labels",
+    description: "Write labels in sentence case, not ALL CAPS.",
+    relatedSkills: [
+      "baseline-ui",
+      "better-interface",
+      "make-interfaces-feel-better",
+      "web-design-guidelines",
+      "design-lab",
+    ],
+    topics: ["typography", "visual", "craft"],
+  },
+  {
+    slug: "pair-status-with-labels",
+    skillSlug: "better-accessibility",
+    demo: "status-not-color-alone",
+    title: "Pair status with labels",
+    description: "Never rely on color alone. Add text or an icon beside status.",
+    relatedSkills: [
+      "fixing-accessibility",
+      "wcag-audit-patterns",
+      "baseline-ui",
+      "web-design-guidelines",
+      "better-colors",
+    ],
+    topics: ["accessibility", "visual", "color"],
+  },
+  {
+    slug: "use-ease-out-on-enter",
+    skillSlug: "emil-design-eng",
+    demo: "ease-out-enter",
+    title: "Use ease-out on enter",
+    description: "Entrances should use `ease-out`. `ease-in` feels sluggish on open.",
+    relatedSkills: [
+      "apple-design",
+      "improve-animations",
+      "better-ui",
+      "fixing-motion-performance",
+      "interaction-design",
+    ],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "align-icons-optically",
+    skillSlug: "better-ui",
+    demo: "optical-alignment",
+    title: "Align icons optically",
+    description:
+      "When geometric centering looks off, nudge icons so they align with the eye.",
+    relatedSkills: [
+      "emil-design-eng",
+      "make-interfaces-feel-better",
+      "better-interface",
+      "apple-design",
+      "frontend-design",
+    ],
+    topics: ["visual", "craft", "systems"],
+  },
+  {
+    slug: "match-icon-stroke-weight",
+    skillSlug: "better-ui",
+    demo: "icon-stroke-weight",
+    title: "Match icon stroke to text",
+    description:
+      "Use 2px icon stroke beside semibold text; 1.5px beside regular.",
+    relatedSkills: [
+      "better-typography",
+      "make-interfaces-feel-better",
+      "better-interface",
+      "apple-design",
+      "frontend-design",
+    ],
+    topics: ["visual", "typography", "craft"],
+  },
+  {
+    slug: "use-outline-icons-by-default",
+    skillSlug: "better-ui",
+    demo: "outline-icons-default",
+    title: "Use outline icons by default",
+    description: "Outline icons are default. Reserve fill for the active state.",
+    relatedSkills: [
+      "make-interfaces-feel-better",
+      "better-interface",
+      "apple-design",
+      "frontend-design",
+      "design-lab",
+    ],
+    topics: ["visual", "systems", "craft"],
+  },
+  {
+    slug: "avoid-glow-primary-actions",
+    skillSlug: "baseline-ui",
+    demo: "no-glow-cta",
+    title: "Avoid glow on primary actions",
+    description: "Do not use glow effects as the main call to action.",
+    relatedSkills: [
+      "better-ui",
+      "make-interfaces-feel-better",
+      "frontend-design",
+      "design-lab",
+      "ui-ux-pro-max",
+    ],
+    topics: ["visual", "taste", "color"],
   },
 ];
 
