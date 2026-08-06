@@ -1,24 +1,26 @@
 import { PlaybookDemoCard } from "./demo-card";
 
-const body =
-  "Long paragraphs are harder to scan when every line stretches across the full width of the card. A comfortable measure keeps the eye moving down the page.";
+const copy =
+  "When every line stretches from edge to edge, reading feels like work. Your eye travels farther across each line, then jumps all the way back to start the next one. A shorter measure keeps the rhythm calm.";
 
 function MeasureText({ capped = false }: { capped?: boolean }) {
   return (
-    <p
-      className={`text-parchment-700 text-left text-base leading-relaxed ${capped ? "max-w-prose" : "w-full max-w-xl"}`}
-    >
-      {body}
-    </p>
+    <div className="w-[75ch] max-w-full text-left">
+      <p
+        className={`text-parchment-700 text-base leading-relaxed ${capped ? "max-w-[60ch]" : "w-full"}`}
+      >
+        {copy}
+      </p>
+    </div>
   );
 }
 
 export default function LineMeasureDemo() {
   return (
     <PlaybookDemoCard
-      withoutLabel="Full width"
-      withLabel="Capped"
-      contentClassName="flex w-full justify-center px-4"
+      withoutLabel="Too wide"
+      withLabel="60ch"
+      contentClassName="absolute inset-x-8 inset-y-0 flex w-[calc(100%-4rem)] items-center"
       without={<MeasureText />}
       with={<MeasureText capped />}
     />

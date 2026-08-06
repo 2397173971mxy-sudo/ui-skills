@@ -1,13 +1,22 @@
+import { Button } from "../button";
 import { PlaybookDemoCard } from "./demo-card";
 
-function FocusButton({ focused = false }: { focused?: boolean }) {
+function FocusButton({ withRing = false }: { withRing?: boolean }) {
   return (
-    <button
-      type="button"
-      className={`bg-parchment-100 text-parchment-900 rounded-lg px-4 py-2 text-sm font-medium ring-1 ring-black/10 ${focused ? "ring-parchment-900 ring-2 ring-offset-2" : "outline-none"}`}
-    >
-      Continue
-    </button>
+    <div className="flex flex-col items-center gap-3">
+      <p className="text-parchment-500 text-xs">Tab to focus</p>
+      <Button
+        shape="round"
+        variant="outline"
+        className={`outline-none ${
+          withRing
+            ? "focus-visible:ring-parchment-900 focus-visible:ring-2 focus-visible:ring-offset-2"
+            : "focus-visible:outline-none"
+        }`}
+      >
+        Continue
+      </Button>
+    </div>
   );
 }
 
@@ -18,7 +27,7 @@ export default function FocusRingDemo() {
       withLabel="Visible"
       contentClassName="flex w-full justify-center"
       without={<FocusButton />}
-      with={<FocusButton focused />}
+      with={<FocusButton withRing />}
     />
   );
 }
