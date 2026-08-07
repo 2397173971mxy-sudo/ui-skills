@@ -28,7 +28,19 @@ export type PlaybookDemoId =
   | "optical-alignment"
   | "icon-stroke-weight"
   | "outline-icons-default"
-  | "no-glow-cta";
+  | "no-glow-cta"
+  | "icon-state-crossfade"
+  | "breathing-room"
+  | "inset-cta"
+  | "heading-line-height"
+  | "tracking-by-size"
+  | "destructive-dialog"
+  | "scroll-edge-fade"
+  | "stagger-enter"
+  | "subtle-exit"
+  | "tooltip-warm"
+  | "interruptible-transition"
+  | "motion-restraint";
 
 export type PlaybookEntry = {
   slug: string;
@@ -447,6 +459,187 @@ const playbook: PlaybookEntry[] = [
       "ui-ux-pro-max",
     ],
     topics: ["visual", "taste", "color"],
+  },
+  {
+    slug: "animate-icon-state-changes",
+    skillSlug: "better-ui",
+    demo: "icon-state-crossfade",
+    title: "Animate icon state changes",
+    description: "Cross-fade contextual icons with opacity, scale, and blur.",
+    relatedSkills: [
+      "improve-animations",
+      "emil-design-eng",
+      "make-interfaces-feel-better",
+      "apple-design",
+      "fixing-motion-performance",
+    ],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "give-targets-breathing-room",
+    skillSlug: "better-layout",
+    demo: "breathing-room",
+    title: "Give targets breathing room",
+    description: "Leave ~12px between adjacent bordered controls.",
+    relatedSkills: [
+      "better-accessibility",
+      "better-interface",
+      "baseline-ui",
+      "ui-ux-pro-max",
+      "interaction-design",
+    ],
+    topics: ["systems", "interaction", "craft"],
+  },
+  {
+    slug: "inset-primary-actions",
+    skillSlug: "better-layout",
+    demo: "inset-cta",
+    title: "Inset primary actions",
+    description: "Keep full-width buttons inside layout margins, not edge to edge.",
+    relatedSkills: [
+      "better-interface",
+      "better-ui",
+      "ui-ux-pro-max",
+      "interaction-design",
+      "apple-design",
+    ],
+    topics: ["systems", "interaction", "frontend"],
+  },
+  {
+    slug: "tighten-heading-line-height",
+    skillSlug: "better-typography",
+    demo: "heading-line-height",
+    title: "Tighten heading line-height",
+    description: "Use tighter line-height on short headings (~1.1).",
+    relatedSkills: [
+      "baseline-ui",
+      "apple-design",
+      "better-interface",
+      "make-interfaces-feel-better",
+      "web-design-guidelines",
+    ],
+    topics: ["typography", "visual", "craft"],
+  },
+  {
+    slug: "tune-tracking-by-size",
+    skillSlug: "better-typography",
+    demo: "tracking-by-size",
+    title: "Tune tracking by size",
+    description: "Large display text often needs slightly negative letter-spacing.",
+    relatedSkills: [
+      "apple-design",
+      "baseline-ui",
+      "better-interface",
+      "make-interfaces-feel-better",
+      "design-lab",
+    ],
+    topics: ["typography", "visual", "craft"],
+  },
+  {
+    slug: "confirm-destructive-actions",
+    skillSlug: "baseline-ui",
+    demo: "destructive-dialog",
+    title: "Confirm destructive actions",
+    description: "Use a dialog before irreversible or destructive actions.",
+    relatedSkills: [
+      "fixing-accessibility",
+      "better-accessibility",
+      "interaction-design",
+      "ui-ux-pro-max",
+      "web-design-guidelines",
+    ],
+    topics: ["interaction", "accessibility", "frontend"],
+  },
+  {
+    slug: "fade-scroll-edges",
+    skillSlug: "apple-design",
+    demo: "scroll-edge-fade",
+    title: "Fade scroll edges",
+    description:
+      "Use a `mask-image` scroll fade on the list so edges dissolve as you scroll.",
+    relatedSkills: [
+      "better-layout",
+      "better-ui",
+      "make-interfaces-feel-better",
+      "frontend-design",
+      "design-lab",
+    ],
+    topics: ["visual", "systems", "craft"],
+  },
+  {
+    slug: "stagger-infrequent-entrances",
+    skillSlug: "better-ui",
+    demo: "stagger-enter",
+    title: "Stagger infrequent entrances",
+    description: "Stagger hero chunks by ~100ms on first load, not routine UI.",
+    relatedSkills: [
+      "improve-animations",
+      "emil-design-eng",
+      "make-interfaces-feel-better",
+      "apple-design",
+      "fixing-motion-performance",
+    ],
+    topics: ["motion", "craft", "interaction"],
+  },
+  {
+    slug: "keep-exits-subtle",
+    skillSlug: "better-ui",
+    demo: "subtle-exit",
+    title: "Keep exits subtle",
+    description: "Use a small fixed translateY on exit; softer than the enter.",
+    relatedSkills: [
+      "improve-animations",
+      "emil-design-eng",
+      "fixing-motion-performance",
+      "apple-design",
+      "interaction-design",
+    ],
+    topics: ["motion", "craft", "interaction"],
+  },
+  {
+    slug: "warm-toolbar-tooltips",
+    skillSlug: "emil-design-eng",
+    demo: "tooltip-warm",
+    title: "Warm toolbar tooltips",
+    description: "Skip tooltip delay after the first one in a toolbar opens.",
+    relatedSkills: [
+      "better-ui",
+      "interaction-design",
+      "make-interfaces-feel-better",
+      "apple-design",
+      "ui-ux-pro-max",
+    ],
+    topics: ["interaction", "motion", "craft"],
+  },
+  {
+    slug: "use-interruptible-transitions",
+    skillSlug: "better-ui",
+    demo: "interruptible-transition",
+    title: "Use interruptible transitions",
+    description: "Prefer CSS transitions over keyframes for interactive open/close.",
+    relatedSkills: [
+      "emil-design-eng",
+      "fixing-motion-performance",
+      "improve-animations",
+      "interaction-design",
+      "apple-design",
+    ],
+    topics: ["motion", "interaction", "frontend"],
+  },
+  {
+    slug: "restrain-high-frequency-motion",
+    skillSlug: "better-ui",
+    demo: "motion-restraint",
+    title: "Restrain high-frequency motion",
+    description: "Skip expressive animation on every row hover or tab switch.",
+    relatedSkills: [
+      "fixing-motion-performance",
+      "emil-design-eng",
+      "improve-animations",
+      "apple-design",
+      "interaction-design",
+    ],
+    topics: ["motion", "interaction", "craft"],
   },
 ];
 

@@ -72,6 +72,7 @@ type PlaybookDemoCardProps = {
   withLabel?: string;
   contentClassName?: string;
   headerExtra?: ReactNode;
+  belowControls?: ReactNode;
   controlsLayout?: "row" | "stack";
   without: ReactNode;
   with: ReactNode;
@@ -82,6 +83,7 @@ export function PlaybookDemoCard({
   withLabel = "With tip",
   contentClassName = "w-full max-w-2xl",
   headerExtra,
+  belowControls,
   controlsLayout = "row",
   without,
   with: withContent,
@@ -118,7 +120,10 @@ export function PlaybookDemoCard({
 
   return (
     <div className="relative rounded-2xl bg-white p-6 shadow-2xs ring-1 ring-black/10 sm:p-8">
-      <div className="absolute top-5 right-5 z-10 sm:top-6 sm:right-6">{controls}</div>
+      <div className="absolute top-5 right-5 z-10 flex flex-col items-end gap-2 sm:top-6 sm:right-6">
+        {controls}
+        {belowControls}
+      </div>
       <div className="relative z-0 h-72">
         <div
           className={`absolute inset-0 flex items-center justify-center ${showTip ? "hidden" : ""}`}
