@@ -2,6 +2,7 @@
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/fira-mono/400.css";
 @import "tailwindcss";
+@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
 @theme {

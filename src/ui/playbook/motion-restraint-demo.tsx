@@ -1,44 +1,70 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { cn } from "../../lib/cn";
 import { PlaybookDemoCard } from "./demo-card";
 
-const rows = ["Inbox", "Drafts", "Archive", "Trash"];
+const TABS = [
+  { id: "overview", label: "Overview", content: "3 open tasks" },
+  { id: "files", label: "Files", content: "12 shared files" },
+  { id: "team", label: "Team", content: "8 members" },
+] as const;
 
-function ListRows({ restrained = false }: { restrained?: boolean }) {
+type TabId = (typeof TABS)[number]["id"];
+
+function WorkbenchTabs({ restrained = false }: { restrained?: boolean }) {
+  const [active, setActive] = useState<TabId>("overview");
+  const activeTab = TABS.find((tab) => tab.id === active)!;
+
   return (
-    <ul className="w-48 overflow-hidden rounded-lg ring-1 ring-black/10">
-      {rows.map((row) => (
-        <li key={row}>
-          {restrained ? (
+    <div className="w-56">
+      <div className="border-parchment-200 flex border-b" role="tablist" aria-label="Workbench">
+        {TABS.map((tab) => {
+          const selected = active === tab.id;
+
+          return (
             <button
+              key={tab.id}
               type="button"
-              className="text-parchment-900 hover:bg-parchment-50 block w-full px-3 py-2 text-left text-sm transition-colors duration-150"
+              role="tab"
+              aria-selected={selected}
+              onClick={() => setActive(tab.id)}
+              className={cn(
+                "-mb-px flex-1 border-b-2 py-2 text-xs font-medium",
+                selected
+                  ? "text-parchment-900 border-parchment-900"
+                  : "text-parchment-500 border-transparent",
+                restrained && "transition-colors duration-100 ease-out",
+              )}
             >
-              {row}
+              {tab.label}
             </button>
-          ) : (
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.04, x: 4 }}
-              transition={{ type: "spring", stiffness: 500, damping: 18 }}
-              className="text-parchment-900 block w-full px-3 py-2 text-left text-sm"
-            >
-              {row}
-            </motion.button>
-          )}
-        </li>
-      ))}
-    </ul>
+          );
+        })}
+      </div>
+
+      <div className="pt-4" role="tabpanel">
+        {restrained ? (
+          <p className="text-parchment-600 text-sm">{activeTab.content}</p>
+        ) : (
+          <p
+            key={active}
+            className="text-parchment-600 animate-in fade-in slide-in-from-bottom-2 blur-in fill-mode-both text-sm duration-300 ease-out"
+          >
+            {activeTab.content}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default function MotionRestraintDemo() {
   return (
     <PlaybookDemoCard
-      withoutLabel="Bouncy rows"
-      withLabel="Color only"
+      withoutLabel="Enter every switch"
+      withLabel="Instant switch"
       contentClassName="flex w-full justify-center"
-      without={<ListRows />}
-      with={<ListRows restrained />}
+      without={<WorkbenchTabs />}
+      with={<WorkbenchTabs restrained />}
     />
   );
 }

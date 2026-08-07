@@ -74,6 +74,7 @@ type PlaybookDemoCardProps = {
   headerExtra?: ReactNode;
   belowControls?: ReactNode;
   controlsLayout?: "row" | "stack";
+  flush?: boolean;
   without: ReactNode;
   with: ReactNode;
 };
@@ -81,14 +82,16 @@ type PlaybookDemoCardProps = {
 export function PlaybookDemoCard({
   withoutLabel = "Without",
   withLabel = "With tip",
-  contentClassName = "w-full max-w-2xl",
+  contentClassName,
   headerExtra,
   belowControls,
   controlsLayout = "row",
+  flush = false,
   without,
   with: withContent,
 }: PlaybookDemoCardProps) {
   const [showTip, setShowTip] = useState(false);
+  const resolvedContentClassName = contentClassName ?? (flush ? "h-full w-full" : "w-full max-w-2xl");
 
   const compareControls = (
     <PlaybookSwitchRow
@@ -119,21 +122,34 @@ export function PlaybookDemoCard({
     );
 
   return (
-    <div className="relative rounded-2xl bg-white p-6 shadow-2xs ring-1 ring-black/10 sm:p-8">
-      <div className="absolute top-5 right-5 z-10 flex flex-col items-end gap-2 sm:top-6 sm:right-6">
+    <div
+      className={cn(
+        "relative rounded-2xl bg-white shadow-2xs ring-1 ring-black/10",
+        flush ? "overflow-hidden" : "p-6 sm:p-8",
+      )}
+    >
+      <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2 sm:top-5 sm:right-5">
         {controls}
         {belowControls}
       </div>
       <div className="relative z-0 h-72">
         <div
-          className={`absolute inset-0 flex items-center justify-center ${showTip ? "hidden" : ""}`}
+          className={cn(
+            "absolute inset-0",
+            !flush && "flex items-center justify-center",
+            showTip ? "hidden" : "",
+          )}
         >
-          <div className={contentClassName}>{without}</div>
+          <div className={resolvedContentClassName}>{without}</div>
         </div>
         <div
-          className={`absolute inset-0 flex items-center justify-center ${showTip ? "" : "hidden"}`}
+          className={cn(
+            "absolute inset-0",
+            !flush && "flex items-center justify-center",
+            showTip ? "" : "hidden",
+          )}
         >
-          <div className={contentClassName}>{withContent}</div>
+          <div className={resolvedContentClassName}>{withContent}</div>
         </div>
       </div>
     </div>

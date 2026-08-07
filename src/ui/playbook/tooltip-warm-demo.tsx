@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type FocusEvent } from "react";
 import { PlaybookDemoCard } from "./demo-card";
 
 const TOOLTIP_DELAY_MS = 500;
@@ -20,10 +20,18 @@ function TooltipToolbar({ warm = false }: { warm?: boolean }) {
 
   const showTip = (label: string) => {
     if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+
     const delay = warm && warmedRef.current ? 0 : TOOLTIP_DELAY_MS;
-    timeoutRef.current = window.setTimeout(() => {
+
+    if (delay === 0) {
       setActiveTip(label);
       warmedRef.current = true;
+      return;
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
+      setActiveTip(label);
+      if (warm) warmedRef.current = true;
     }, delay);
   };
 
@@ -32,8 +40,18 @@ function TooltipToolbar({ warm = false }: { warm?: boolean }) {
     setActiveTip(null);
   };
 
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      hideTip();
+    }
+  };
+
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseLeave={warm ? hideTip : undefined}
+      onBlur={warm ? handleBlur : undefined}
+    >
       <div className="flex gap-1 rounded-lg bg-white p-1 ring-1 ring-black/10">
         {labels.map((label) => (
           <button
@@ -41,9 +59,9 @@ function TooltipToolbar({ warm = false }: { warm?: boolean }) {
             type="button"
             aria-label={label}
             onMouseEnter={() => showTip(label)}
-            onMouseLeave={hideTip}
+            onMouseLeave={warm ? undefined : hideTip}
             onFocus={() => showTip(label)}
-            onBlur={hideTip}
+            onBlur={warm ? undefined : hideTip}
             className="text-parchment-700 hover:bg-parchment-50 inline-flex size-8 items-center justify-center rounded-md"
           >
             <ToolbarIcon />

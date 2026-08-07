@@ -586,7 +586,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-ui",
     demo: "subtle-exit",
     title: "Keep exits subtle",
-    description: "Use a small fixed translateY on exit; softer than the enter.",
+    description:
+      "Use a small fixed translateY on exit. Softer than the enter, not full-height travel.",
     relatedSkills: [
       "improve-animations",
       "emil-design-eng",
@@ -631,7 +632,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-ui",
     demo: "motion-restraint",
     title: "Restrain high-frequency motion",
-    description: "Skip expressive animation on every row hover or tab switch.",
+    description:
+      "Reserve enter animations for first load. Tab switches need instant feedback, not a replayed entrance.",
     relatedSkills: [
       "fixing-motion-performance",
       "emil-design-eng",
