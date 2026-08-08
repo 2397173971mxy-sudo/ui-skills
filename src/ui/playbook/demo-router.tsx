@@ -1,5 +1,6 @@
 import type { PlaybookDemoId } from "../../data/playbook.ts";
 import BreathingRoomDemo from "./breathing-room-demo";
+import ColorMeansLinkDemo from "./color-means-link-demo";
 import ConcentricRadiusDemo from "./concentric-radius-demo";
 import DestructiveDialogDemo from "./destructive-dialog-demo";
 import EaseOutEnterDemo from "./ease-out-enter-demo";
@@ -15,6 +16,8 @@ import InterruptibleTransitionDemo from "./interruptible-transition-demo";
 import LabelFormFieldsDemo from "./label-form-fields-demo";
 import LineClampDemo from "./line-clamp-demo";
 import LineMeasureDemo from "./line-measure-demo";
+import MenuExitDemo from "./menu-exit-demo";
+import ModalScrimDemo from "./modal-scrim-demo";
 import MotionRestraintDemo from "./motion-restraint-demo";
 import NoGlowCtaDemo from "./no-glow-cta-demo";
 import OneAccentDemo from "./one-accent-demo";
@@ -29,6 +32,7 @@ import SentenceCaseLabelsDemo from "./sentence-case-labels-demo";
 import ShadowElevationDemo from "./shadow-elevation-demo";
 import SkeletonLoadingDemo from "./skeleton-loading-demo";
 import SpaceNotLinesDemo from "./space-not-lines-demo";
+import SpringVsEaseDemo from "./spring-vs-ease-demo";
 import StaggerEnterDemo from "./stagger-enter-demo";
 import StatusNotColorAloneDemo from "./status-not-color-alone-demo";
 import SubtleExitDemo from "./subtle-exit-demo";
@@ -79,6 +83,10 @@ const demos = {
   "tooltip-warm": TooltipWarmDemo,
   "interruptible-transition": InterruptibleTransitionDemo,
   "motion-restraint": MotionRestraintDemo,
+  "spring-vs-ease": SpringVsEaseDemo,
+  "menu-exit": MenuExitDemo,
+  "color-means-link": ColorMeansLinkDemo,
+  "modal-scrim": ModalScrimDemo,
 } as const;
 
 type PlaybookDemoRouterProps = {

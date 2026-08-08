@@ -40,7 +40,11 @@ export type PlaybookDemoId =
   | "subtle-exit"
   | "tooltip-warm"
   | "interruptible-transition"
-  | "motion-restraint";
+  | "motion-restraint"
+  | "spring-vs-ease"
+  | "menu-exit"
+  | "color-means-link"
+  | "modal-scrim";
 
 export type PlaybookEntry = {
   slug: string;
@@ -642,6 +646,65 @@ const playbook: PlaybookEntry[] = [
       "interaction-design",
     ],
     topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "use-ease-not-spring-for-feedback",
+    skillSlug: "to-spring-or-not-to-spring",
+    demo: "spring-vs-ease",
+    title: "Use ease-out for system feedback",
+    description: "System state changes should ease out. Springs wobble on toggles and toasts.",
+    relatedSkills: [
+      "better-ui",
+      "emil-design-eng",
+      "improve-animations",
+      "fixing-motion-performance",
+      "interaction-design",
+    ],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "fade-menus-out",
+    skillSlug: "mastering-animate-presence",
+    demo: "menu-exit",
+    title: "Fade menus out",
+    description: "Let menus exit with a short fade. Don't yank them off screen.",
+    relatedSkills: [
+      "better-ui",
+      "improve-animations",
+      "emil-design-eng",
+      "interaction-design",
+      "fixing-motion-performance",
+    ],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "reserve-brand-color-for-links",
+    skillSlug: "better-colors",
+    demo: "color-means-link",
+    title: "Reserve brand color for links",
+    description: "Keep headings neutral. Reserve link color for actions.",
+    relatedSkills: [
+      "baseline-ui",
+      "better-ui",
+      "make-interfaces-feel-better",
+      "web-design-guidelines",
+    ],
+    topics: ["color", "visual", "craft"],
+  },
+  {
+    slug: "use-solid-modal-scrims",
+    skillSlug: "fixing-motion-performance",
+    demo: "modal-scrim",
+    title: "Use solid modal scrims",
+    description: "Backdrop blur repaints the whole screen.",
+    relatedSkills: [
+      "60fps-animation",
+      "better-ui",
+      "apple-design",
+      "make-interfaces-feel-better",
+      "interaction-design",
+    ],
+    topics: ["motion", "performance", "visual"],
   },
 ];
 
