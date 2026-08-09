@@ -17,8 +17,9 @@ server.stderr.on("data", (chunk) => {
   output += chunk.toString();
 });
 
-const fetchLocal = (path, timeoutMs = 5000) =>
+const fetchLocal = (path, init = {}, timeoutMs = 5000) =>
   fetch(`http://127.0.0.1:${port}${path}`, {
+    ...init,
     signal: AbortSignal.timeout(timeoutMs),
   });
 
@@ -70,6 +71,24 @@ try {
   const apiCatalogType = apiCatalog.headers.get("content-type") ?? "";
   if (!apiCatalogType.startsWith("application/linkset+json")) {
     throw new Error(`API catalog returned unexpected type: ${apiCatalogType}`);
+  }
+
+  const markdownHomepage = await fetchLocal("/", {
+    headers: { Accept: "text/markdown" },
+  });
+  if (markdownHomepage.status !== 200) {
+    throw new Error(`Markdown homepage returned ${markdownHomepage.status}`);
+  }
+  const markdownType = markdownHomepage.headers.get("content-type") ?? "";
+  if (!markdownType.startsWith("text/markdown")) {
+    throw new Error(`Markdown homepage content-type was ${markdownType}`);
+  }
+  if (markdownHomepage.headers.get("x-markdown-tokens") === null) {
+    throw new Error("Markdown homepage is missing x-markdown-tokens");
+  }
+  const markdownBody = await markdownHomepage.text();
+  if (!markdownBody.trim()) {
+    throw new Error("Markdown homepage body was empty");
   }
 
   const registry = await fetchLocal("/skills/registry.json");
