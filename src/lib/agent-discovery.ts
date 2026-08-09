@@ -12,6 +12,8 @@ export function buildDiscoveryLinkHeader(origin: string = SITE_ORIGIN): string {
   return [
     `<${origin}/llms.txt>; rel="describedby"; type="text/plain"; title="Site index for LLMs"`,
     `<${origin}${API_CATALOG_PATH}>; rel="api-catalog"; type="application/linkset+json"; title="API catalog"`,
+    `<${origin}/.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"; title="Agent skills index"`,
+    `<${origin}/.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"; title="MCP server card"`,
     `<${origin}/design.md>; rel="service-doc"; type="text/markdown"; title="Design system"`,
     `<${origin}/skills/registry.json>; rel="service-desc"; type="application/json"; title="Skills registry"`,
     `<${origin}/sitemap.xml>; rel="sitemap"; type="application/xml"; title="Sitemap"`,
@@ -46,6 +48,21 @@ export function buildApiCatalogDocument(
             href: `${origin}/skills/registry.txt`,
             type: "text/plain",
             title: "Skills registry (text)",
+          },
+          {
+            href: `${origin}/.well-known/agent-skills/index.json`,
+            type: "application/json",
+            title: "Agent skills discovery index",
+          },
+          {
+            href: `${origin}/.well-known/mcp/server-card.json`,
+            type: "application/json",
+            title: "MCP server card",
+          },
+          {
+            href: `${origin}/mcp`,
+            type: "application/json",
+            title: "MCP endpoint",
           },
           {
             href: `${origin}/llms.txt`,

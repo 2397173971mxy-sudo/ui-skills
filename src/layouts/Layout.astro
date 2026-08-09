@@ -6,6 +6,7 @@ import { skills } from "../data/skills";
 import Footer from "../ui/footer.astro";
 import { CommandDialog } from "../ui/command-dialog";
 import GitHubStarButton from "../ui/github-star-button.astro";
+import { WebMcpTools } from "../ui/webmcp-tools";
 import { serializeJsonLd } from "../lib/serialize-json-ld";
 
 type Props = {
@@ -104,6 +105,7 @@ const githubStars = await getGithubStars();
     }
   </head>
   <body>
+    <WebMcpTools client:load />
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-black"

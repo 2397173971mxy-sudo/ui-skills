@@ -24,6 +24,14 @@ describe("agent discovery", () => {
       /<https:\/\/www\.ui-skills\.com\/\.well-known\/api-catalog>/,
     );
     assert.match(link, /<https:\/\/www\.ui-skills\.com\/llms\.txt>/);
+    assert.match(
+      link,
+      /<https:\/\/www\.ui-skills\.com\/\.well-known\/agent-skills\/index\.json>/,
+    );
+    assert.match(
+      link,
+      /<https:\/\/www\.ui-skills\.com\/\.well-known\/mcp\/server-card\.json>/,
+    );
   });
 
   test("api catalog document is a linkset with profileable items", () => {
@@ -38,6 +46,18 @@ describe("agent discovery", () => {
     assert.ok(
       catalog.linkset[0]?.item.some(
         (item) => item.href === "https://www.ui-skills.com/skills/registry.json",
+      ),
+    );
+    assert.ok(
+      catalog.linkset[0]?.item.some(
+        (item) =>
+          item.href ===
+          "https://www.ui-skills.com/.well-known/agent-skills/index.json",
+      ),
+    );
+    assert.ok(
+      catalog.linkset[0]?.item.some(
+        (item) => item.href === "https://www.ui-skills.com/mcp",
       ),
     );
   });
