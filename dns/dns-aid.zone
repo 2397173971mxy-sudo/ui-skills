@@ -3,11 +3,16 @@
 ;
 ; Publish with:
 ;   CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
+; Dry run (no writes):
+;   DRY_RUN=1 CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
 ; Optionally enable DNSSEC:
 ;   ENABLE_DNSSEC=1 CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
 ;
 ; ServiceMode HTTPS records (priority >= 1) with alpn + port.
+; Include mandatory="alpn,port" so clients must understand those params.
 ; Target the canonical site host (www.ui-skills.com).
+; Keep these DNS-only (not proxied) so Cloudflare serves the manual HTTPS RRs.
 
-_index._agents.ui-skills.com.      3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
-_index._agents.www.ui-skills.com.  3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
+_index._agents.ui-skills.com.      3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"
+_index._agents.www.ui-skills.com.  3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"
+_mcp._agents.ui-skills.com.        3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"

@@ -3,19 +3,20 @@
 # Publish DNS-AID (DNS for AI Discovery) records for ui-skills.com.
 # Reference: draft-mozleywilliams-dnsop-dnsaid + RFC 9460 (SVCB/HTTPS).
 #
-# Records managed (idempotent):
-#   _index._agents.ui-skills.com      HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
-#   _index._agents.www.ui-skills.com  HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
-#
-# MCP/A2A labels are omitted until those agent protocols are publicly offered
-# as first-class DNS discovery targets beyond the HTTP MCP card.
+# Records managed (idempotent, DNS-only / not proxied):
+#   _index._agents.ui-skills.com      HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"
+#   _index._agents.www.ui-skills.com  HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"
+#   _mcp._agents.ui-skills.com        HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443 mandatory="alpn,port"
 #
 # Usage:
 #   CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
+#   DRY_RUN=1 CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
 #   ENABLE_DNSSEC=1 CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
 #
 # Required token scopes: Zone:DNS:Edit on ui-skills.com.
 # Optional (for DNSSEC): Zone:DNSSEC:Edit.
+#
+# Merging this PR alone does not publish live DNS. Run this script after merge.
 
 set -euo pipefail
 
@@ -23,19 +24,36 @@ set -euo pipefail
 
 ZONE="ui-skills.com"
 TARGET="www.ui-skills.com"
+VALUE='alpn="h3,h2" port=443 mandatory="alpn,port"'
 API="https://api.cloudflare.com/client/v4"
 H_AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
 H_TYPE="Content-Type: application/json"
+DRY_RUN="${DRY_RUN:-0}"
+ENABLE_DNSSEC="${ENABLE_DNSSEC:-0}"
 
 echo "→ Looking up zone ID for ${ZONE}…"
-ZONE_ID=$(curl -sS -H "${H_AUTH}" "${API}/zones?name=${ZONE}" \
-  | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result'][0]['id']) if d.get('result') else sys.exit('zone not found')")
+ZONE_RESP=$(curl -sS -H "${H_AUTH}" "${API}/zones?name=${ZONE}")
+ZONE_ID=$(python3 -c "
+import json,sys
+d=json.loads(sys.argv[1])
+if not d.get('success', True) and d.get('errors'):
+  for e in d['errors']:
+    print(f\"[{e.get('code')}] {e.get('message')}\", file=sys.stderr)
+  sys.exit(1)
+result=d.get('result') or []
+if not result:
+  sys.exit('zone not found — check token Zone:Read/DNS permissions')
+print(result[0]['id'])
+" "${ZONE_RESP}")
 echo "  zone_id=${ZONE_ID}"
+
+if [[ "${DRY_RUN}" == "1" ]]; then
+  echo "  dry-run enabled — no DNS writes will be made"
+fi
 
 upsert_https_record() {
   local name=$1
   local fqdn="${name}.${ZONE}"
-  local value='alpn="h3,h2" port=443'
 
   local existing_id
   existing_id=$(curl -sS -H "${H_AUTH}" \
@@ -43,7 +61,7 @@ upsert_https_record() {
     | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d.get("result") or []; print(r[0]["id"] if r else "")')
 
   local payload
-  payload=$(python3 -c 'import json,sys; print(json.dumps({"type":"HTTPS","name":sys.argv[1],"data":{"priority":1,"target":sys.argv[2],"value":sys.argv[3]},"ttl":3600,"comment":"DNS-AID — agent discovery"}))' "${fqdn}" "${TARGET}" "${value}")
+  payload=$(python3 -c 'import json,sys; print(json.dumps({"type":"HTTPS","name":sys.argv[1],"proxied":False,"data":{"priority":1,"target":sys.argv[2],"value":sys.argv[3]},"ttl":3600,"comment":"DNS-AID — agent discovery"}))' "${fqdn}" "${TARGET}" "${VALUE}")
 
   local method url verb
   if [[ -n "${existing_id}" ]]; then
@@ -57,6 +75,12 @@ upsert_https_record() {
   fi
 
   echo "→ ${verb} HTTPS ${fqdn} → ${TARGET}…"
+  if [[ "${DRY_RUN}" == "1" ]]; then
+    echo "  (dry-run) ${method} ${url}"
+    echo "  (dry-run) ${payload}"
+    return 0
+  fi
+
   curl -sS -X "${method}" "${url}" \
     -H "${H_AUTH}" -H "${H_TYPE}" \
     --data "${payload}" \
@@ -65,7 +89,7 @@ import json,sys
 d=json.load(sys.stdin)
 if d.get('success'):
   r=d['result']
-  print(f\"  ✓ {r['name']} {r['type']} {r['content']}\")
+  print(f\"  ✓ {r['name']} {r['type']} {r.get('content') or r.get('data')}\")
 else:
   for e in d.get('errors', []):
     print(f\"  ✗ [{e.get('code')}] {e.get('message')}\")
@@ -75,13 +99,33 @@ else:
 
 upsert_https_record "_index._agents"
 upsert_https_record "_index._agents.www"
+upsert_https_record "_mcp._agents"
 
-if [[ "${ENABLE_DNSSEC:-0}" == "1" ]]; then
+echo "→ Checking DNSSEC status…"
+DNSSEC_RESP=$(curl -sS -H "${H_AUTH}" "${API}/zones/${ZONE_ID}/dnssec")
+python3 -c "
+import json,sys
+d=json.loads(sys.argv[1])
+if not d.get('success'):
+  for e in d.get('errors', []):
+    print(f\"  ✗ [{e.get('code')}] {e.get('message')}\")
+  sys.exit(0)
+r=d.get('result') or {}
+print(f\"  status: {r.get('status')}\")
+ds=r.get('ds')
+if ds:
+  print(f\"  DS: {ds}\")
+" "${DNSSEC_RESP}"
+
+if [[ "${ENABLE_DNSSEC}" == "1" ]]; then
   echo "→ Enabling DNSSEC on the zone…"
-  curl -sS -X PATCH "${API}/zones/${ZONE_ID}/dnssec" \
-    -H "${H_AUTH}" -H "${H_TYPE}" \
-    --data '{"status":"active"}' \
-    | python3 -c "
+  if [[ "${DRY_RUN}" == "1" ]]; then
+    echo "  (dry-run) PATCH ${API}/zones/${ZONE_ID}/dnssec status=active"
+  else
+    curl -sS -X PATCH "${API}/zones/${ZONE_ID}/dnssec" \
+      -H "${H_AUTH}" -H "${H_TYPE}" \
+      --data '{"status":"active"}' \
+      | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
 if not d.get('success'):
@@ -93,15 +137,18 @@ print(f\"  ✓ DNSSEC status: {r.get('status')}\")
 ds=r.get('ds')
 if ds:
   print('')
-  print('  DS record (copy to your registrar if ui-skills.com is not at Cloudflare Registrar):')
+  print('  DS record (copy to your registrar if Cloudflare did not auto-publish it):')
   print(f\"  {ds}\")
 "
+  fi
 fi
 
 echo
 echo "Done. Verify with:"
 echo "  dig +short HTTPS _index._agents.${ZONE}"
 echo "  dig +short HTTPS _index._agents.www.${ZONE}"
+echo "  dig +short HTTPS _mcp._agents.${ZONE}"
+echo "  dig +dnssec HTTPS _index._agents.${ZONE} | rg RRSIG"
 echo "  dig +short DS ${ZONE}"
 echo
 echo "Then re-scan:"
