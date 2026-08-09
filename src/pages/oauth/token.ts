@@ -38,10 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (typeof body.scope === "string") scope = body.scope;
   }
 
-  if (
-    grantType !== "client_credentials" &&
-    grantType !== "urn:ietf:params:oauth:grant-type:jwt-bearer"
-  ) {
+  if (grantType !== "client_credentials") {
     return new Response(
       JSON.stringify({
         error: "unsupported_grant_type",

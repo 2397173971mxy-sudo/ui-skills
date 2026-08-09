@@ -27,18 +27,10 @@ export function buildAuthorizationServerMetadata(origin: string) {
     registration_endpoint: `${origin}/oauth/register`,
     revocation_endpoint: `${origin}/oauth/revoke`,
     jwks_uri: `${origin}/.well-known/jwks.json`,
-    response_types_supported: ["code", "token"],
-    grant_types_supported: [
-      "authorization_code",
-      "client_credentials",
-      "urn:ietf:params:oauth:grant-type:jwt-bearer",
-    ],
-    token_endpoint_auth_methods_supported: [
-      "client_secret_basic",
-      "client_secret_post",
-      "none",
-    ],
-    code_challenge_methods_supported: ["S256"],
+    // Agents use anonymous client_credentials; interactive code flow is not offered.
+    response_types_supported: ["token"],
+    grant_types_supported: ["client_credentials"],
+    token_endpoint_auth_methods_supported: ["none"],
     scopes_supported: [...PUBLIC_SCOPES],
     service_documentation: `${origin}/auth.md`,
     agent_auth: {
@@ -60,7 +52,8 @@ export function buildOpenIdConfiguration(origin: string) {
     ...as,
     userinfo_endpoint: `${origin}/oauth/userinfo`,
     subject_types_supported: ["public"],
-    id_token_signing_alg_values_supported: ["RS256"],
+    // No ID tokens are issued today; keep discovery complete without claiming RS256 keys.
+    id_token_signing_alg_values_supported: ["none"],
     claims_supported: ["sub", "iss", "aud", "exp", "iat"],
   };
 }
@@ -136,7 +129,11 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=client_credentials&scope=skills:read
 \`\`\`
 
-Or use the claim endpoint advertised in \`agent_auth.anonymous.claim_uri\`.
+Or use the claim endpoint advertised in \`agent_auth.anonymous.claim_uri\`:
+
+\`\`\`http
+POST ${origin}/oauth/claim
+\`\`\`
 
 ## Step 4 — Call APIs
 
@@ -147,6 +144,8 @@ Public endpoints (no token required):
 - \`${origin}/design.md\`
 - \`${origin}/.well-known/api-catalog\`
 - \`${origin}/.well-known/agent-skills/index.json\`
+- \`${origin}/.well-known/mcp/server-card.json\`
+- \`${origin}/mcp\`
 
 When you hold a token, send it as:
 
@@ -156,8 +155,9 @@ Authorization: Bearer <access_token>
 
 ## Notes
 
-UI Skills does not currently revoke agent credentials. If revocation is added,
-it will be advertised on \`revocation_endpoint\` and in \`agent_auth\` events.
+Tokens are ephemeral public-read credentials for attribution. UI Skills does not
+currently persist or revoke them server-side. Catalog reads remain available
+without a token.
 `;
 }
 
