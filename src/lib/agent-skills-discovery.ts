@@ -225,6 +225,6 @@ export function buildMcpServerCard(origin: string) {
 
 export const discoveryJsonHeaders = {
   "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "public, max-age=300",
+  "Cache-Control": "public, max-age=3600, s-maxage=86400",
   "Access-Control-Allow-Origin": "*",
 } as const;
