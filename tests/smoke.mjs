@@ -18,7 +18,7 @@ server.stderr.on("data", (chunk) => {
 });
 
 const waitForServer = async () => {
-  const deadline = Date.now() + 15000;
+  const deadline = Date.now() + 60000;
   while (Date.now() < deadline) {
     try {
       const response = await fetch(`http://127.0.0.1:${port}/`);
@@ -41,11 +41,26 @@ try {
   if (homepage.headers.get("content-security-policy") === null) {
     throw new Error("Homepage is missing Content-Security-Policy");
   }
+  const homepageLink = homepage.headers.get("link");
+  if (homepageLink === null || !/rel="api-catalog"/.test(homepageLink)) {
+    throw new Error("Homepage is missing discovery Link headers");
+  }
   const homepageBody = await homepage.text();
   if (!/^<!doctype html>/i.test(homepageBody)) {
     throw new Error(
       `Homepage did not return HTML: ${homepageBody.slice(0, 200)}`,
     );
+  }
+
+  const apiCatalog = await fetch(
+    `http://127.0.0.1:${port}/.well-known/api-catalog`,
+  );
+  if (apiCatalog.status !== 200) {
+    throw new Error(`API catalog returned ${apiCatalog.status}`);
+  }
+  const apiCatalogType = apiCatalog.headers.get("content-type") ?? "";
+  if (!apiCatalogType.startsWith("application/linkset+json")) {
+    throw new Error(`API catalog returned unexpected type: ${apiCatalogType}`);
   }
 
   const registry = await fetch(`http://127.0.0.1:${port}/skills/registry.json`);

@@ -1,0 +1,12 @@
+; DNS for AI Discovery (DNS-AID) records for ui-skills.com
+; Spec: draft-mozleywilliams-dnsop-dnsaid + RFC 9460 (SVCB/HTTPS)
+;
+; Publish with: CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
+; Optionally enable DNSSEC: ENABLE_DNSSEC=1 CLOUDFLARE_API_TOKEN=... ./scripts/publish-dns-aid.sh
+;
+; ServiceMode HTTPS records (priority >= 1) with alpn + port.
+; Target the canonical site host (www.ui-skills.com).
+; MCP/A2A labels are omitted until those endpoints exist.
+
+_index._agents.ui-skills.com.      3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
+_index._agents.www.ui-skills.com.  3600 IN HTTPS 1 www.ui-skills.com. alpn="h3,h2" port=443
