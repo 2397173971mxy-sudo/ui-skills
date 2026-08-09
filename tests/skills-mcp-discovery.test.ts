@@ -8,6 +8,7 @@ import {
   getRegistrySkillByDiscoveryName,
   skillArtifactPath,
   toDiscoveryName,
+  toPublicAgentSkillsIndex,
 } from "../src/lib/agent-skills-discovery.ts";
 import { GET as getSkillsIndex } from "../src/pages/.well-known/agent-skills/index.json.ts";
 import { GET as getServerCard } from "../src/pages/.well-known/mcp/server-card.json.ts";
@@ -28,6 +29,7 @@ describe("skills and MCP discovery", () => {
   test("indexes the full registry using CLI artifact URLs", async () => {
     const index = await buildAgentSkillsIndex(origin, {
       loadContent: async (entry) => `# ${entry.pathSlug}\n\n${entry.description}\n`,
+      usePrecomputedDigests: false,
     });
 
     assert.equal(
@@ -47,6 +49,13 @@ describe("skills and MCP discovery", () => {
     );
     assert.match(baseline.url, /\/skills\/ibelick\/baseline-ui\/llms\.txt$/);
     assert.match(baseline.digest, /^sha256:[a-f0-9]{64}$/);
+
+    const published = toPublicAgentSkillsIndex(index);
+    assert.equal(published.skills.length, registry.length);
+    assert.equal(
+      Object.keys(published.skills[0]!).sort().join(","),
+      "description,digest,name,type,url",
+    );
   });
 
   test("resolves discovery names the same way as CLI path/slug lookups", () => {
@@ -87,8 +96,13 @@ describe("skills and MCP discovery", () => {
       const card = await getServerCard(siteCtx);
 
       assert.equal(skills.status, 200);
-      const body = (await skills.json()) as { skills: unknown[] };
-      assert.ok(body.skills.length >= registry.length - 5);
+      const body = (await skills.json()) as {
+        skills: Array<Record<string, unknown>>;
+      };
+      // Digests are precomputed at build time; unreachable upstream skills are omitted.
+      assert.ok(body.skills.length >= Math.floor(registry.length * 0.75));
+      assert.ok(!("pathSlug" in (body.skills[0] ?? {})));
+      assert.match(String(body.skills[0]?.digest ?? ""), /^sha256:[a-f0-9]{64}$/);
 
       assert.equal(card.status, 200);
       assert.equal((await card.json()).serverInfo.name, "UI Skills");

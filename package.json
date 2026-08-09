@@ -8,8 +8,10 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node --import tsx ./scripts/precompute-agent-skills-digests.mjs",
     "build": "astro build",
     "postbuild": "node ./scripts/write-assetsignore.mjs",
+    "digests": "node --import tsx ./scripts/precompute-agent-skills-digests.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",

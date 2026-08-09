@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { registry, type RegistrySkill } from "../data/registry";
+import digestsManifest from "../data/agent-skills-digests.json";
 import { getRemoteSkill } from "./remote-skill";
 
 const SCHEMA =
@@ -69,6 +70,12 @@ const localSkillMarkdownBySlug = new Map(
     const slug = slugFromModulePath(path);
     return slug ? ([[slug, markdown]] as const) : [];
   }),
+);
+
+const precomputedDigests = new Map(
+  Object.entries(
+    (digestsManifest as { digests?: Record<string, string> }).digests ?? {},
+  ),
 );
 
 /** Discovery-safe name derived from the catalog pathSlug (CLI-compatible identity). */
@@ -157,6 +164,8 @@ export async function buildAgentSkillsIndex(
   options: {
     loadContent?: SkillContentLoader;
     concurrency?: number;
+    /** Prefer build-time digests (default true). */
+    usePrecomputedDigests?: boolean;
   } = {},
 ): Promise<{
   $schema: string;
@@ -164,10 +173,29 @@ export async function buildAgentSkillsIndex(
 }> {
   const loadContent = options.loadContent ?? defaultSkillContentLoader;
   const concurrency = options.concurrency ?? 8;
+  const usePrecomputedDigests = options.usePrecomputedDigests ?? true;
+  const digestCatalogReady =
+    usePrecomputedDigests &&
+    !options.loadContent &&
+    precomputedDigests.size > 0;
 
   const skills = (
     await mapPool(registry, concurrency, async (entry) => {
       try {
+        if (digestCatalogReady) {
+          const digest = precomputedDigests.get(entry.pathSlug);
+          // Omit unreachable upstream skills until the next digest refresh.
+          if (!digest) return null;
+          return {
+            name: toDiscoveryName(entry.pathSlug),
+            type: "skill-md" as const,
+            description: entry.description.slice(0, 1024),
+            url: `${origin}${skillArtifactPath(entry.pathSlug)}`,
+            digest,
+            pathSlug: entry.pathSlug,
+          } satisfies DiscoveredSkill;
+        }
+
         const content = await loadContent(entry);
         return {
           name: toDiscoveryName(entry.pathSlug),
@@ -189,6 +217,23 @@ export async function buildAgentSkillsIndex(
   return {
     $schema: SCHEMA,
     skills,
+  };
+}
+
+/** Public discovery document (RFC fields only). */
+export function toPublicAgentSkillsIndex(index: {
+  $schema: string;
+  skills: DiscoveredSkill[];
+}) {
+  return {
+    $schema: index.$schema,
+    skills: index.skills.map(({ name, type, description, url, digest }) => ({
+      name,
+      type,
+      description,
+      url,
+      digest,
+    })),
   };
 }
 
