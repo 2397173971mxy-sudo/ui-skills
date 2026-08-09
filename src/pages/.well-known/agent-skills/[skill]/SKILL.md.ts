@@ -1,32 +1,40 @@
 import type { APIRoute } from "astro";
 
-import { readLocalSkillMarkdown } from "../../../../lib/agent-skills-discovery";
+import {
+  defaultSkillContentLoader,
+  getRegistrySkillByDiscoveryName,
+} from "../../../../lib/agent-skills-discovery";
 
 export const prerender = false;
 
-export const GET: APIRoute = ({ params }) => {
+export const GET: APIRoute = async ({ params }) => {
   const slug = params.skill;
   if (!slug) {
     return new Response("Skill not found", { status: 404 });
   }
 
-  const markdown = readLocalSkillMarkdown(slug);
-  if (!markdown) {
+  const entry = getRegistrySkillByDiscoveryName(slug);
+  if (!entry) {
     return new Response("Skill not found", { status: 404 });
   }
 
-  return new Response(markdown, {
-    headers: {
-      "Content-Type": "text/markdown; charset=utf-8",
-      "Cache-Control": "public, max-age=300",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+  try {
+    const content = await defaultSkillContentLoader(entry);
+    return new Response(content, {
+      headers: {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Cache-Control": "public, max-age=300",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  } catch {
+    return new Response("Skill source unavailable", { status: 502 });
+  }
 };
 
 export const HEAD: APIRoute = ({ params }) => {
   const slug = params.skill;
-  if (!slug || !readLocalSkillMarkdown(slug)) {
+  if (!slug || !getRegistrySkillByDiscoveryName(slug)) {
     return new Response(null, { status: 404 });
   }
   return new Response(null, {

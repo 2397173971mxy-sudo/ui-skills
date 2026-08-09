@@ -1,8 +1,12 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { registry, type RegistrySkill } from "../data/registry";
+import { getRemoteSkill } from "./remote-skill";
+
 const SCHEMA =
   "https://schemas.agentskills.io/discovery/0.2.0/schema.json";
+const PACKAGE_VERSION = "0.2.4";
 
 export type DiscoveredSkill = {
   name: string;
@@ -10,7 +14,11 @@ export type DiscoveredSkill = {
   description: string;
   url: string;
   digest: string;
+  /** Same pathSlug the CLI and /skills registry use. */
+  pathSlug: string;
 };
+
+export type SkillContentLoader = (entry: RegistrySkill) => Promise<string>;
 
 type ViteImportMeta = ImportMeta & {
   glob?: (
@@ -49,27 +57,54 @@ function loadSkillModules(): Record<string, string> {
   return loadSkillsFromFs();
 }
 
-const skillModules = loadSkillModules();
+const localSkillModules = loadSkillModules();
 
 function slugFromModulePath(path: string): string | null {
   const match = /\/skills\/([^/]+)\/SKILL\.md$/.exec(path.replaceAll("\\", "/"));
   return match?.[1] ?? null;
 }
 
-function parseFrontmatterDescription(markdown: string): string {
-  const match = /^---\r?\n([\s\S]*?)\r?\n---/.exec(markdown);
-  if (!match) return "UI Skills agent skill.";
-  const block = match[1] ?? "";
-  const description = /^description:\s*(?:>-?\s*)?(.*)$/m.exec(block);
-  if (!description) return "UI Skills agent skill.";
-  let value = (description[1] ?? "").trim();
-  if (
-    (value.startsWith('"') && value.endsWith('"')) ||
-    (value.startsWith("'") && value.endsWith("'"))
-  ) {
-    value = value.slice(1, -1);
-  }
-  return value || "UI Skills agent skill.";
+const localSkillMarkdownBySlug = new Map(
+  Object.entries(localSkillModules).flatMap(([path, markdown]) => {
+    const slug = slugFromModulePath(path);
+    return slug ? ([[slug, markdown]] as const) : [];
+  }),
+);
+
+/** Discovery-safe name derived from the catalog pathSlug (CLI-compatible identity). */
+export function toDiscoveryName(pathSlug: string): string {
+  return pathSlug
+    .toLowerCase()
+    .replaceAll("/", "-")
+    .replaceAll(/[^a-z0-9-]+/g, "-")
+    .replaceAll(/-+/g, "-")
+    .replaceAll(/^-|-$/g, "")
+    .slice(0, 64);
+}
+
+/** Artifact path shared with the CLI (`ui-skills get` fetches the same URL). */
+export function skillArtifactPath(pathSlug: string): string {
+  return `/skills/${pathSlug
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/")}/llms.txt`;
+}
+
+export function getRegistrySkillByDiscoveryName(
+  name: string,
+): RegistrySkill | undefined {
+  const normalized = name.trim().toLowerCase();
+  return registry.find(
+    (entry) =>
+      toDiscoveryName(entry.pathSlug) === normalized ||
+      entry.slug === normalized ||
+      entry.pathSlug === normalized ||
+      entry.pathSlug.endsWith(`/${normalized}`),
+  );
+}
+
+export function readLocalSkillMarkdown(slug: string): string | null {
+  return localSkillMarkdownBySlug.get(slug) ?? null;
 }
 
 async function sha256Digest(content: string): Promise<string> {
@@ -81,37 +116,75 @@ async function sha256Digest(content: string): Promise<string> {
   return `sha256:${hex}`;
 }
 
-export function listLocalSkillSlugs(): string[] {
-  return Object.keys(skillModules)
-    .map(slugFromModulePath)
-    .filter((slug): slug is string => Boolean(slug))
-    .sort();
-}
+/**
+ * Prefer locally bundled SKILL.md for this repo's skills; otherwise reuse the
+ * same remote fetch/cache path as /skills/.../llms.txt and the CLI.
+ */
+export const defaultSkillContentLoader: SkillContentLoader = async (entry) => {
+  if (entry.user.toLowerCase() === "ibelick" && entry.repo === "ui-skills") {
+    const local = readLocalSkillMarkdown(entry.slug);
+    if (local) return local;
+  }
+  const { content } = await getRemoteSkill(entry.rawUrl);
+  return content;
+};
 
-export function readLocalSkillMarkdown(slug: string): string | null {
-  const entry = Object.entries(skillModules).find(
-    ([path]) => slugFromModulePath(path) === slug,
+async function mapPool<T, R>(
+  items: readonly T[],
+  concurrency: number,
+  mapper: (item: T) => Promise<R>,
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    async () => {
+      while (nextIndex < items.length) {
+        const index = nextIndex;
+        nextIndex += 1;
+        results[index] = await mapper(items[index]!);
+      }
+    },
   );
-  return entry?.[1] ?? null;
+
+  await Promise.all(workers);
+  return results;
 }
 
-export async function buildAgentSkillsIndex(origin: string): Promise<{
+export async function buildAgentSkillsIndex(
+  origin: string,
+  options: {
+    loadContent?: SkillContentLoader;
+    concurrency?: number;
+  } = {},
+): Promise<{
   $schema: string;
   skills: DiscoveredSkill[];
 }> {
-  const skills: DiscoveredSkill[] = [];
+  const loadContent = options.loadContent ?? defaultSkillContentLoader;
+  const concurrency = options.concurrency ?? 8;
 
-  for (const name of listLocalSkillSlugs()) {
-    const markdown = readLocalSkillMarkdown(name);
-    if (!markdown) continue;
-    skills.push({
-      name,
-      type: "skill-md",
-      description: parseFrontmatterDescription(markdown),
-      url: `${origin}/.well-known/agent-skills/${name}/SKILL.md`,
-      digest: await sha256Digest(markdown),
-    });
-  }
+  const skills = (
+    await mapPool(registry, concurrency, async (entry) => {
+      try {
+        const content = await loadContent(entry);
+        return {
+          name: toDiscoveryName(entry.pathSlug),
+          type: "skill-md" as const,
+          description: entry.description.slice(0, 1024),
+          url: `${origin}${skillArtifactPath(entry.pathSlug)}`,
+          digest: await sha256Digest(content),
+          pathSlug: entry.pathSlug,
+        } satisfies DiscoveredSkill;
+      } catch {
+        // Keep the index available even if one upstream skill is temporarily down.
+        return null;
+      }
+    })
+  ).filter((skill): skill is DiscoveredSkill => skill !== null);
+
+  skills.sort((a, b) => a.pathSlug.localeCompare(b.pathSlug));
 
   return {
     $schema: SCHEMA,
@@ -123,10 +196,10 @@ export function buildMcpServerCard(origin: string) {
   return {
     serverInfo: {
       name: "UI Skills",
-      version: "0.2.4",
+      version: PACKAGE_VERSION,
     },
     description:
-      "Browse and fetch design-engineering UI skills from the UI Skills catalog.",
+      "Browse and fetch design-engineering UI skills from the UI Skills catalog (same registry as the ui-skills CLI).",
     url: `${origin}/mcp`,
     transport: {
       type: "streamable-http",
@@ -139,11 +212,12 @@ export function buildMcpServerCard(origin: string) {
       {
         name: "list_skills",
         description:
-          "List locally published UI Skills with name and description.",
+          "List skills from the UI Skills registry (same catalog as ui-skills list).",
       },
       {
         name: "get_skill",
-        description: "Fetch a UI skill SKILL.md by skill name/slug.",
+        description:
+          "Fetch skill markdown by discovery name, slug, or pathSlug (same content as ui-skills get).",
       },
     ],
   };

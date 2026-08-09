@@ -1,11 +1,13 @@
 import type { APIRoute } from "astro";
 
 import {
-  listLocalSkillSlugs,
-  readLocalSkillMarkdown,
-  buildAgentSkillsIndex,
+  defaultSkillContentLoader,
+  getRegistrySkillByDiscoveryName,
+  skillArtifactPath,
+  toDiscoveryName,
 } from "../lib/agent-skills-discovery";
 import { getSiteOrigin } from "../lib/agent-discovery";
+import { registry } from "../data/registry";
 
 type JsonRpcRequest = {
   jsonrpc?: string;
@@ -22,9 +24,10 @@ const corsHeaders = {
 };
 
 function jsonRpcResult(id: JsonRpcRequest["id"], result: unknown) {
-  return new Response(JSON.stringify({ jsonrpc: "2.0", id: id ?? null, result }), {
-    headers: corsHeaders,
-  });
+  return new Response(
+    JSON.stringify({ jsonrpc: "2.0", id: id ?? null, result }),
+    { headers: corsHeaders },
+  );
 }
 
 function jsonRpcError(
@@ -46,22 +49,30 @@ function jsonRpcError(
 const tools = [
   {
     name: "list_skills",
-    description: "List locally published UI Skills with name and description.",
+    description:
+      "List skills from the UI Skills registry (same catalog as ui-skills list).",
     inputSchema: {
       type: "object",
-      properties: {},
+      properties: {
+        query: {
+          type: "string",
+          description: "Optional filter over pathSlug, name, or description.",
+        },
+      },
       additionalProperties: false,
     },
   },
   {
     name: "get_skill",
-    description: "Fetch a UI skill SKILL.md by skill name/slug.",
+    description:
+      "Fetch skill markdown by discovery name, slug, or pathSlug (same content as ui-skills get).",
     inputSchema: {
       type: "object",
       properties: {
         name: {
           type: "string",
-          description: "Skill slug such as baseline-ui or improve-ui.",
+          description:
+            "Discovery name, slug, or pathSlug (for example baseline-ui or ibelick/baseline-ui).",
         },
       },
       required: ["name"],
@@ -82,6 +93,7 @@ export const GET: APIRoute = ({ site }) => {
         version: "0.2.4",
         protocol: "mcp",
         endpoint: `${origin}/mcp`,
+        registry: `${origin}/skills/registry.json`,
         tools: tools.map((tool) => tool.name),
       },
       null,
@@ -119,35 +131,71 @@ export const POST: APIRoute = async ({ request, site }) => {
           : {};
 
       if (name === "list_skills") {
-        const index = await buildAgentSkillsIndex(origin);
+        const query =
+          typeof args.query === "string" ? args.query.trim().toLowerCase() : "";
+        const skills = registry
+          .filter((entry) => {
+            if (!query) return true;
+            const haystack =
+              `${entry.slug} ${entry.pathSlug} ${entry.name} ${entry.description}`.toLowerCase();
+            return haystack.includes(query);
+          })
+          .map((entry) => ({
+            name: toDiscoveryName(entry.pathSlug),
+            pathSlug: entry.pathSlug,
+            description: entry.description,
+            url: `${origin}${skillArtifactPath(entry.pathSlug)}`,
+          }));
+
         return jsonRpcResult(body.id, {
           content: [
             {
               type: "text",
-              text: JSON.stringify(index.skills, null, 2),
+              text: JSON.stringify(
+                {
+                  source: `${origin}/skills/registry.json`,
+                  count: skills.length,
+                  skills,
+                },
+                null,
+                2,
+              ),
             },
           ],
         });
       }
 
       if (name === "get_skill") {
-        const skillName =
-          typeof args.name === "string" ? args.name : "";
-        const markdown = readLocalSkillMarkdown(skillName);
-        if (!markdown) {
+        const skillName = typeof args.name === "string" ? args.name : "";
+        const entry = getRegistrySkillByDiscoveryName(skillName);
+        if (!entry) {
           return jsonRpcResult(body.id, {
             isError: true,
             content: [
               {
                 type: "text",
-                text: `Unknown skill "${skillName}". Available: ${listLocalSkillSlugs().join(", ")}`,
+                text: `Unknown skill "${skillName}". Use list_skills or ui-skills list.`,
               },
             ],
           });
         }
-        return jsonRpcResult(body.id, {
-          content: [{ type: "text", text: markdown }],
-        });
+
+        try {
+          const content = await defaultSkillContentLoader(entry);
+          return jsonRpcResult(body.id, {
+            content: [{ type: "text", text: content }],
+          });
+        } catch {
+          return jsonRpcResult(body.id, {
+            isError: true,
+            content: [
+              {
+                type: "text",
+                text: `Failed to fetch skill content for ${entry.pathSlug}`,
+              },
+            ],
+          });
+        }
       }
 
       return jsonRpcError(body.id, -32601, `Unknown tool: ${name}`);

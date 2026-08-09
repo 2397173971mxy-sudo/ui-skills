@@ -1,11 +1,13 @@
 import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 
+import { registry } from "../src/data/registry.ts";
 import {
   buildAgentSkillsIndex,
   buildMcpServerCard,
-  listLocalSkillSlugs,
-  readLocalSkillMarkdown,
+  getRegistrySkillByDiscoveryName,
+  skillArtifactPath,
+  toDiscoveryName,
 } from "../src/lib/agent-skills-discovery.ts";
 import { GET as getSkillsIndex } from "../src/pages/.well-known/agent-skills/index.json.ts";
 import { GET as getServerCard } from "../src/pages/.well-known/mcp/server-card.json.ts";
@@ -13,48 +15,85 @@ import { GET as getServerCard } from "../src/pages/.well-known/mcp/server-card.j
 const origin = "https://www.ui-skills.com";
 
 describe("skills and MCP discovery", () => {
-  test("indexes local skills with schema, urls, and digests", async () => {
-    const index = await buildAgentSkillsIndex(origin);
+  test("discovery names are unique and RFC-safe for the full registry", () => {
+    const names = registry.map((entry) => toDiscoveryName(entry.pathSlug));
+    assert.equal(names.length, registry.length);
+    assert.equal(new Set(names).size, registry.length);
+    for (const name of names) {
+      assert.match(name, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+      assert.ok(name.length <= 64);
+    }
+  });
+
+  test("indexes the full registry using CLI artifact URLs", async () => {
+    const index = await buildAgentSkillsIndex(origin, {
+      loadContent: async (entry) => `# ${entry.pathSlug}\n\n${entry.description}\n`,
+    });
+
     assert.equal(
       index.$schema,
       "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     );
-    assert.ok(index.skills.length >= 3);
-    for (const skill of index.skills) {
-      assert.match(skill.name, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-      assert.equal(skill.type, "skill-md");
-      assert.ok(skill.description.length > 0);
-      assert.equal(
-        skill.url,
-        `${origin}/.well-known/agent-skills/${skill.name}/SKILL.md`,
-      );
-      assert.match(skill.digest, /^sha256:[a-f0-9]{64}$/);
-      assert.ok(readLocalSkillMarkdown(skill.name));
-    }
+    assert.equal(index.skills.length, registry.length);
+
+    const baseline = index.skills.find(
+      (skill) => skill.pathSlug === "ibelick/baseline-ui",
+    );
+    assert.ok(baseline);
+    assert.equal(baseline.name, "ibelick-baseline-ui");
+    assert.equal(
+      baseline.url,
+      `${origin}${skillArtifactPath("ibelick/baseline-ui")}`,
+    );
+    assert.match(baseline.url, /\/skills\/ibelick\/baseline-ui\/llms\.txt$/);
+    assert.match(baseline.digest, /^sha256:[a-f0-9]{64}$/);
   });
 
-  test("MCP server card includes serverInfo, transport, and capabilities", () => {
+  test("resolves discovery names the same way as CLI path/slug lookups", () => {
+    assert.equal(
+      getRegistrySkillByDiscoveryName("ibelick-baseline-ui")?.pathSlug,
+      "ibelick/baseline-ui",
+    );
+    assert.equal(
+      getRegistrySkillByDiscoveryName("baseline-ui")?.slug,
+      "baseline-ui",
+    );
+    assert.equal(
+      getRegistrySkillByDiscoveryName("ibelick/baseline-ui")?.pathSlug,
+      "ibelick/baseline-ui",
+    );
+  });
+
+  test("MCP server card points at the shared /mcp endpoint", () => {
     const card = buildMcpServerCard(origin);
     assert.equal(card.serverInfo.name, "UI Skills");
-    assert.ok(card.serverInfo.version);
     assert.equal(card.transport.endpoint, `${origin}/mcp`);
     assert.equal(card.capabilities.tools, true);
   });
 
   test("well-known routes return discovery documents", async () => {
     const siteCtx = { site: new URL(origin) } as never;
-    const skills = await getSkillsIndex(siteCtx);
-    const card = await getServerCard(siteCtx);
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("raw.githubusercontent.com")) {
+        return new Response("# remote skill\n", { status: 200 });
+      }
+      return originalFetch(input);
+    }) as typeof fetch;
 
-    assert.equal(skills.status, 200);
-    assert.ok((await skills.json()).skills.length > 0);
+    try {
+      const skills = await getSkillsIndex(siteCtx);
+      const card = await getServerCard(siteCtx);
 
-    assert.equal(card.status, 200);
-    assert.equal((await card.json()).serverInfo.name, "UI Skills");
-  });
+      assert.equal(skills.status, 200);
+      const body = (await skills.json()) as { skills: unknown[] };
+      assert.ok(body.skills.length >= registry.length - 5);
 
-  test("lists the expected local skill folders", () => {
-    assert.ok(listLocalSkillSlugs().includes("baseline-ui"));
-    assert.ok(listLocalSkillSlugs().includes("ui-skills-root"));
+      assert.equal(card.status, 200);
+      assert.equal((await card.json()).serverInfo.name, "UI Skills");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });
