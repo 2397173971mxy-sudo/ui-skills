@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-import { jsonHeaders } from "../lib/oauth-discovery";
+import { jsonHeaders } from "../../lib/oauth-discovery";
 
 export const GET: APIRoute = ({ request }) => {
   const url = new URL(request.url);

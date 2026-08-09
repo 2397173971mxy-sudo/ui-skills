@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-import { jsonHeaders, PUBLIC_SCOPES } from "../lib/oauth-discovery";
+import { jsonHeaders, PUBLIC_SCOPES } from "../../lib/oauth-discovery";
 
 const corsHeaders = {
   ...jsonHeaders,
