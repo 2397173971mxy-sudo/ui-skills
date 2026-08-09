@@ -14,6 +14,8 @@ export function buildDiscoveryLinkHeader(origin: string = SITE_ORIGIN): string {
     `<${origin}${API_CATALOG_PATH}>; rel="api-catalog"; type="application/linkset+json"; title="API catalog"`,
     `<${origin}/.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"; title="Agent skills index"`,
     `<${origin}/.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"; title="MCP server card"`,
+    `<${origin}/.well-known/oauth-protected-resource>; rel="oauth-protected-resource"; type="application/json"; title="OAuth protected resource"`,
+    `<${origin}/auth.md>; rel="service-doc"; type="text/markdown"; title="Agent auth"`,
     `<${origin}/design.md>; rel="service-doc"; type="text/markdown"; title="Design system"`,
     `<${origin}/skills/registry.json>; rel="service-desc"; type="application/json"; title="Skills registry"`,
     `<${origin}/sitemap.xml>; rel="sitemap"; type="application/xml"; title="Sitemap"`,
@@ -63,6 +65,26 @@ export function buildApiCatalogDocument(
             href: `${origin}/mcp`,
             type: "application/json",
             title: "MCP endpoint",
+          },
+          {
+            href: `${origin}/.well-known/oauth-protected-resource`,
+            type: "application/json",
+            title: "OAuth protected resource metadata",
+          },
+          {
+            href: `${origin}/.well-known/oauth-authorization-server`,
+            type: "application/json",
+            title: "OAuth authorization server metadata",
+          },
+          {
+            href: `${origin}/.well-known/openid-configuration`,
+            type: "application/json",
+            title: "OpenID Connect discovery",
+          },
+          {
+            href: `${origin}/auth.md`,
+            type: "text/markdown",
+            title: "Agent auth documentation",
           },
           {
             href: `${origin}/llms.txt`,
