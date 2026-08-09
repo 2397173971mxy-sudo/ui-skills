@@ -1,6 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 
 import { buildDiscoveryLinkHeader, getSiteOrigin } from "./lib/agent-discovery";
+import { maybeNegotiateMarkdown } from "./lib/markdown-negotiation";
 
 const securityHeaders = {
   "Content-Security-Policy":
@@ -39,6 +40,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return applyResponseHeaders(response, origin);
   }
 
-  const response = await next();
-  return applyResponseHeaders(response, origin);
+  const response = applyResponseHeaders(await next(), origin);
+  return maybeNegotiateMarkdown(context.request, response);
 });
