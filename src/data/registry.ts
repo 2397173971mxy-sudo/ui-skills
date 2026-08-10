@@ -2301,6 +2301,110 @@ const registrySource: RegistrySourceSkill[] = [
       "Opinionated guidance for building production TypeScript applications with Effect v4, including workflows, services, layers, schemas, configuration, scheduling, caching, streams, HTTP clients, and tests.",
   },
   {
+    slug: "gsap-core",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-core/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-core/SKILL.md",
+    name: "gsap-core",
+    topics: ["motion", "interaction", "frontend"],
+    description:
+      "Official GSAP core API guidance for gsap.to(), from(), easing, stagger, matchMedia, and responsive or reduced-motion animation patterns.",
+  },
+  {
+    slug: "gsap-frameworks",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-frameworks/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-frameworks/SKILL.md",
+    name: "gsap-frameworks",
+    topics: ["motion", "frameworks", "frontend"],
+    description:
+      "Official GSAP guidance for Vue, Nuxt, Svelte, and SvelteKit lifecycle setup, scoped selectors, and cleanup on unmount.",
+  },
+  {
+    slug: "gsap-performance",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-performance/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-performance/SKILL.md",
+    name: "gsap-performance",
+    topics: ["motion", "performance", "frontend"],
+    description:
+      "Official GSAP performance guidance for compositor-friendly transforms, quickTo, stagger batching, and smooth 60fps animation.",
+  },
+  {
+    slug: "gsap-plugins",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-plugins/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-plugins/SKILL.md",
+    name: "gsap-plugins",
+    topics: ["motion", "interaction", "frontend"],
+    description:
+      "Official GSAP plugin guidance for Flip, Draggable, ScrollSmoother, SplitText, SVG tools, CustomEase, and gsap.registerPlugin() usage.",
+  },
+  {
+    slug: "gsap-react",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-react/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-react/SKILL.md",
+    name: "gsap-react",
+    topics: ["motion", "frameworks", "frontend"],
+    description:
+      "Official GSAP guidance for React and Next.js with useGSAP, refs, gsap.context(), contextSafe callbacks, and SSR-safe cleanup.",
+  },
+  {
+    slug: "gsap-scrolltrigger",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-scrolltrigger/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-scrolltrigger/SKILL.md",
+    name: "gsap-scrolltrigger",
+    topics: ["motion", "interaction", "frontend"],
+    description:
+      "Official ScrollTrigger guidance for scroll-linked animation, pinning, scrub, batch triggers, and horizontal containerAnimation patterns.",
+  },
+  {
+    slug: "gsap-timeline",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-timeline/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-timeline/SKILL.md",
+    name: "gsap-timeline",
+    topics: ["motion", "craft", "frontend"],
+    description:
+      "Official GSAP timeline guidance for sequencing, position parameters, labels, nesting, and playback control with gsap.timeline().",
+  },
+  {
+    slug: "gsap-utils",
+    user: "greensock",
+    repo: "gsap-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/greensock/gsap-skills/main/skills/gsap-utils/SKILL.md",
+    githubUrl:
+      "https://github.com/greensock/gsap-skills/blob/main/skills/gsap-utils/SKILL.md",
+    name: "gsap-utils",
+    topics: ["motion", "frontend", "tooling"],
+    description:
+      "Official gsap.utils guidance for clamp, mapRange, snap, distribute, selector scoping, and other animation math helpers.",
+  },
+  {
     slug: "gsap-web",
     user: "iart-ai",
     repo: "web-animation-skills",
@@ -2650,6 +2754,19 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["tooling", "code-quality", "craft"],
     description:
       "Write or rewrite technical text with ASD-STE100 Simplified Technical English for clear, unambiguous, translation-friendly documentation and interface copy.",
+  },
+  {
+    slug: "human-review",
+    user: "petergyang",
+    repo: "human-review",
+    rawUrl:
+      "https://raw.githubusercontent.com/petergyang/human-review/main/src/SKILL.md",
+    githubUrl:
+      "https://github.com/petergyang/human-review/blob/main/src/SKILL.md",
+    name: "human-review",
+    topics: ["tooling", "craft", "frontend"],
+    description:
+      "Open HTML, Markdown, or localhost pages in the browser so the user can edit text directly, leave anchored comments, and send all feedback back in one batch.",
   },
   {
     slug: "smooth-shadow-ring",
