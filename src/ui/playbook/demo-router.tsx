@@ -14,6 +14,7 @@ import InlineErrorDemo from "./inline-error-demo";
 import InsetCtaDemo from "./inset-cta-demo";
 import InterruptibleTransitionDemo from "./interruptible-transition-demo";
 import LabelFormFieldsDemo from "./label-form-fields-demo";
+import LabelMorphDemo from "./label-morph-demo";
 import LineClampDemo from "./line-clamp-demo";
 import LineMeasureDemo from "./line-measure-demo";
 import MenuExitDemo from "./menu-exit-demo";
@@ -24,6 +25,7 @@ import OneAccentDemo from "./one-accent-demo";
 import OpticalAlignmentDemo from "./optical-alignment-demo";
 import OutlineIconsDefaultDemo from "./outline-icons-default-demo";
 import PopoverOriginDemo from "./popover-origin-demo";
+import SamePathMotionDemo from "./same-path-motion-demo";
 import ScaleEnterDemo from "./scale-enter-demo";
 import ScaleOnPressDemo from "./scale-on-press-demo";
 import ScrollEdgeFadeDemo from "./scroll-edge-fade-demo";
@@ -31,6 +33,7 @@ import ScrollPeekDemo from "./scroll-peek-demo";
 import SentenceCaseLabelsDemo from "./sentence-case-labels-demo";
 import ShadowElevationDemo from "./shadow-elevation-demo";
 import SkeletonLoadingDemo from "./skeleton-loading-demo";
+import SoftTruncateDemo from "./soft-truncate-demo";
 import SpaceNotLinesDemo from "./space-not-lines-demo";
 import SpringVsEaseDemo from "./spring-vs-ease-demo";
 import StaggerEnterDemo from "./stagger-enter-demo";
@@ -87,6 +90,9 @@ const demos = {
   "menu-exit": MenuExitDemo,
   "color-means-link": ColorMeansLinkDemo,
   "modal-scrim": ModalScrimDemo,
+  "soft-truncate": SoftTruncateDemo,
+  "same-path-motion": SamePathMotionDemo,
+  "label-morph": LabelMorphDemo,
 } as const;
 
 type PlaybookDemoRouterProps = {

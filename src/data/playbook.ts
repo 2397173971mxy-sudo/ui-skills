@@ -44,7 +44,10 @@ export type PlaybookDemoId =
   | "spring-vs-ease"
   | "menu-exit"
   | "color-means-link"
-  | "modal-scrim";
+  | "modal-scrim"
+  | "soft-truncate"
+  | "same-path-motion"
+  | "label-morph";
 
 export type PlaybookEntry = {
   slug: string;
@@ -705,6 +708,51 @@ const playbook: PlaybookEntry[] = [
       "interaction-design",
     ],
     topics: ["motion", "performance", "visual"],
+  },
+  {
+    slug: "fade-truncated-text",
+    skillSlug: "better-typography",
+    demo: "soft-truncate",
+    title: "Fade truncated text",
+    description: "Soft-fade overflowing labels. A hard ellipsis feels abrupt.",
+    relatedSkills: [
+      "baseline-ui",
+      "better-ui",
+      "apple-design",
+      "better-layout",
+      "make-interfaces-feel-better",
+    ],
+    topics: ["typography", "visual", "craft"],
+  },
+  {
+    slug: "enter-and-exit-on-the-same-path",
+    skillSlug: "apple-design",
+    demo: "same-path-motion",
+    title: "Enter and exit on the same path",
+    description: "Dismiss along the same path the surface arrived on.",
+    relatedSkills: [
+      "better-ui",
+      "emil-design-eng",
+      "improve-animations",
+      "interaction-design",
+      "fixing-motion-performance",
+    ],
+    topics: ["motion", "interaction", "craft"],
+  },
+  {
+    slug: "blur-imperfect-label-morphs",
+    skillSlug: "emil-design-eng",
+    demo: "label-morph",
+    title: "Blur imperfect label morphs",
+    description: "Soften label swaps with a short blur so two states don't flash mid-fade.",
+    relatedSkills: [
+      "better-ui",
+      "improve-animations",
+      "interaction-design",
+      "apple-design",
+      "fixing-motion-performance",
+    ],
+    topics: ["motion", "interaction", "craft"],
   },
 ];
 
