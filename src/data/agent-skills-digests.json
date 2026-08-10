@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-09T15:56:12.326Z",
-  "skillCount": 178,
+  "generatedAt": "2026-08-10T13:25:23.514Z",
+  "skillCount": 186,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
     "ibelick/create-design-md": "sha256:adba4fa94a9ca0291811ac26405e8fe15c1a6375743a80971c6f895bb837eeed",
-    "ayghri/i-have-adhd": "sha256:cae8c063977214b372c6897b7c93ac8faa573214a8635896f767e3bac092adf8",
+    "ayghri/i-have-adhd": "sha256:938d0e350a0c2b0e2e6c3a9032542e062846d108e0f89dd27c798ba5b436397e",
     "mengto/design-first-ui-prompting": "sha256:5e3d4db0eb0ea983f2bedb90f28f358901c292388a7889e2f66ac133ceff743c",
     "mengto/tailwindcss": "sha256:90d2150c24c7453d3f75914791d5356c87606a7c1b933d3371a6120624720c4e",
     "mengto/landing-page": "sha256:6ad9965bc6b8f682340998ddd17c7700f5529ae40603d47c3b4610892c459cad",
@@ -123,10 +123,10 @@
     "pbakaus/harden": "sha256:39a1d14d694a2363335478edc2a67266681feec7fd0d5921a00abeaab60e8e18",
     "pbakaus/delight": "sha256:8f157ae861c578d54b2710ea200a6ba2253bd36ab68b6b4c4b880875bd0a415b",
     "pbakaus/distill": "sha256:d8ac21d2bcb9da65ba1b120287f9b6f4dea432ca44efd2d5c2a96c7e492cc8da",
-    "pbakaus/impeccable": "sha256:990aeecaaabde64f46a62cbdbf6a4c9c4e16c7f5fc22365a79e83986e404166c",
+    "pbakaus/impeccable": "sha256:e250f14b803e9b7eb19e0be448d5b312db024c32c8a7162acaa54afde8eb7555",
     "pbakaus/layout": "sha256:8a2adb09da4e663dc1c21dd521cc4b6439040b95d90e1ab17775746170b5d717",
     "pbakaus/overdrive": "sha256:cebd6a3f093ddcab05eaa2e3a35da1c2393d0b69c3662cc20c417780578282b2",
-    "pbakaus/polish": "sha256:a037ce407def384cce0d1946ba484510ff354466412ca963899b06ac75e93dec",
+    "pbakaus/polish": "sha256:d6e8b5a0d1fc9435b15e8da27983e81d79872868a36aa5bca90696e37d186165",
     "pbakaus/optimize": "sha256:197aa00aba42c85edf4cea25c4b79f4e12f2425454f6cd307f3d1fddfbd11ffd",
     "pbakaus/shape": "sha256:a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23",
     "pbakaus/quieter": "sha256:e93016fbd37100a2c007f5b83980ffc58ee080673fba9f8ff0628cda67c8a8b1",
@@ -179,6 +179,14 @@
     "elayadesign/landing-page-design": "sha256:3aae79f3d33ea293491fe6251f9fee56ee0cbb7aa66d41b3f29cfc662e4bbdd6",
     "aminblg/simple-english": "sha256:b688022acbb9b9b1293f8f3da9bc6305f8b8c6855b0c8e96ef7393e0cf256e25",
     "flornkm/smooth-shadow-ring": "sha256:acc6717961c4cc0719b005e86f6d916be486b415efcf769de4ae5a76993e518a",
-    "emilkowalski/prototype": "sha256:2ad8401c4deaddb54947fb65247f790e7b3d8784e35312bcbedbfb1d59cd89ce"
+    "emilkowalski/prototype": "sha256:2ad8401c4deaddb54947fb65247f790e7b3d8784e35312bcbedbfb1d59cd89ce",
+    "greensock/gsap-core": "sha256:3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3",
+    "greensock/gsap-frameworks": "sha256:842d9d3659ec3ddc8abbdc524708f8facf81f468ac25d0577f48c759c4fa31e6",
+    "greensock/gsap-performance": "sha256:cb5408d6fba707aabcbfe3320317a14c1f8fca6070074e5261047930f50d441e",
+    "greensock/gsap-react": "sha256:88e2a5312b45e8cc7b3c496637ff5bc9af2ae9c925b555c8b235b34cbc989d74",
+    "greensock/gsap-timeline": "sha256:1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02",
+    "greensock/gsap-utils": "sha256:1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba",
+    "greensock/gsap-plugins": "sha256:5838b856c74c07fbc9fa99b6dfd1eee34ea554c3e530c30e0d58014b707d70a4",
+    "greensock/gsap-scrolltrigger": "sha256:9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
   }
 }
