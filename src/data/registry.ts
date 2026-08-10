@@ -2756,6 +2756,19 @@ const registrySource: RegistrySourceSkill[] = [
       "Write or rewrite technical text with ASD-STE100 Simplified Technical English for clear, unambiguous, translation-friendly documentation and interface copy.",
   },
   {
+    slug: "human-review",
+    user: "petergyang",
+    repo: "human-review",
+    rawUrl:
+      "https://raw.githubusercontent.com/petergyang/human-review/main/src/SKILL.md",
+    githubUrl:
+      "https://github.com/petergyang/human-review/blob/main/src/SKILL.md",
+    name: "human-review",
+    topics: ["tooling", "craft", "frontend"],
+    description:
+      "Open HTML, Markdown, or localhost pages in the browser so the user can edit text directly, leave anchored comments, and send all feedback back in one batch.",
+  },
+  {
     slug: "smooth-shadow-ring",
     user: "flornkm",
     repo: "shadow-plugin",

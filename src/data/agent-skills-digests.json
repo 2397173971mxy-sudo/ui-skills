@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-10T13:25:23.514Z",
-  "skillCount": 186,
+  "generatedAt": "2026-08-10T13:27:18.762Z",
+  "skillCount": 187,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
@@ -187,6 +187,7 @@
     "greensock/gsap-timeline": "sha256:1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02",
     "greensock/gsap-utils": "sha256:1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba",
     "greensock/gsap-plugins": "sha256:5838b856c74c07fbc9fa99b6dfd1eee34ea554c3e530c30e0d58014b707d70a4",
-    "greensock/gsap-scrolltrigger": "sha256:9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
+    "greensock/gsap-scrolltrigger": "sha256:9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4",
+    "petergyang/human-review": "sha256:d605ae653c2b46ee16142f3f5176729735ba9b97ef23ff3159f7fdc17263b213"
   }
 }
