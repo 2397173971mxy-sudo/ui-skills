@@ -18,6 +18,7 @@ type Props = {
   truncate?: boolean;
   wrapOnMobile?: boolean;
   mobileSurface?: boolean;
+  compact?: boolean;
   className?: string;
   id?: string;
 };
@@ -32,6 +33,7 @@ const {
   truncate: truncateProp,
   wrapOnMobile: wrapOnMobileProp,
   mobileSurface: mobileSurfaceProp,
+  compact = false,
   className = "",
   id,
 } = Astro.props as Props;
@@ -47,13 +49,14 @@ const content = copyContent ?? code ?? lines.map((line) => line.map((segment) =>
 const alignClass = align === "center" ? "items-center" : "items-start";
 const preStyle = `color: ${CODE_HIGHLIGHT_FOREGROUND}`;
 const preClass = truncate
-  ? "m-0 min-w-0 flex-1 overflow-hidden pr-3 font-mono text-base leading-6 text-ellipsis whitespace-nowrap"
+  ? `m-0 min-w-0 flex-1 overflow-hidden pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"} text-ellipsis whitespace-nowrap`
   : wrapOnMobile
-    ? "m-0 min-w-0 flex-1 whitespace-pre-wrap break-words pr-3 font-mono text-base leading-6 sm:whitespace-nowrap"
-    : "m-0 min-w-0 flex-1 pr-3 font-mono text-base leading-6";
+    ? `m-0 min-w-0 flex-1 whitespace-pre-wrap break-words pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"} sm:whitespace-nowrap`
+    : `m-0 min-w-0 flex-1 pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"}`;
+const paddingClass = compact ? "py-2 pr-3 pl-4" : "py-3.5 pr-4 pl-6";
 const shellClass = mobileSurface
-  ? "relative flex justify-between rounded-[8px] border-none bg-white py-3.5 pr-4 pl-6 shadow-2xs ring-1 ring-black/10"
-  : "relative flex justify-between rounded-none border-t border-b border-parchment-200 bg-white py-3.5 pr-4 pl-6 shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10";
+  ? `relative flex justify-between rounded-[8px] border-none bg-white ${paddingClass} shadow-2xs ring-1 ring-black/10`
+  : `relative flex justify-between rounded-none border-t border-b border-parchment-200 bg-white ${paddingClass} shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10`;
 ---
 
 <div id={id} class={`${shellClass} ${alignClass} ${className}`}>
@@ -79,7 +82,7 @@ const shellClass = mobileSurface
     <CopyButton
       content={content}
       showText={false}
-      className="size-8"
+      className={compact ? "size-7" : "size-8"}
       client:load
     />
   </div>

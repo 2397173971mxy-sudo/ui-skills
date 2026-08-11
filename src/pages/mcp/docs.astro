@@ -94,18 +94,21 @@ const structuredData = {
           <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
             Tools
           </h2>
-          <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-5">
             {
               tools.map((tool) => (
-                <div>
+                <div class="px-4 sm:px-0">
                   <CodeBlock
                     code={tool.name}
                     language="bash"
                     variant="inline"
+                    compact
+                    mobileSurface
                     truncate={false}
+                    className="w-fit max-w-full"
                     copyContent={tool.name}
                   />
-                  <p class="text-parchment-500 mt-3 px-4 text-base leading-snug sm:px-0">
+                  <p class="text-parchment-500 mt-2 max-w-2xl text-base leading-snug">
                     {tool.description}
                   </p>
                 </div>
