@@ -1,9 +1,12 @@
 ---
 import { CopyButton } from "./copy-button";
 
+type CodeBlockVariant = "inline" | "stacked";
+
 type Props = {
   lines?: Array<Array<{ text: string; className?: string }>>;
   copyContent?: string;
+  variant?: CodeBlockVariant;
   align?: "start" | "center";
   truncate?: boolean;
   wrapOnMobile?: boolean;
@@ -15,13 +18,21 @@ type Props = {
 const {
   lines = [],
   copyContent,
-  align = "start",
-  truncate = false,
-  wrapOnMobile = false,
-  mobileSurface = false,
+  variant,
+  align: alignProp,
+  truncate: truncateProp,
+  wrapOnMobile: wrapOnMobileProp,
+  mobileSurface: mobileSurfaceProp,
   className = "",
   id,
 } = Astro.props as Props;
+
+const align =
+  alignProp ?? (variant === "inline" ? "center" : variant === "stacked" ? "start" : "start");
+const truncate = truncateProp ?? variant === "inline";
+const wrapOnMobile = wrapOnMobileProp ?? variant === "stacked";
+const mobileSurface = mobileSurfaceProp ?? variant === "stacked";
+
 const content =
   copyContent ??
   lines.map((line) => line.map((segment) => segment.text).join("")).join("\n");

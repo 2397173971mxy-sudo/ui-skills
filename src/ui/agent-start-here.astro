@@ -1,5 +1,9 @@
 ---
 import CodeBlock from "./code-block.astro";
+import {
+  UI_SKILLS_CLI_COPY,
+  uiSkillsCliLines,
+} from "../lib/code-block-syntax";
 ---
 
 <div class="bg-parchment-200/40 rounded-[12px] p-4 sm:p-5">
@@ -14,62 +18,9 @@ import CodeBlock from "./code-block.astro";
   <div class="mt-4 flex w-full">
     <CodeBlock
       className="w-full"
-      mobileSurface
-      wrapOnMobile
-      lines={[
-        [
-          {
-            text: "npx",
-            className: "text-[#953800]",
-          },
-          {
-            text: " ui-skills start",
-            className: "text-[#0550ae]",
-          },
-        ],
-        [
-          {
-            text: "npx",
-            className: "text-[#953800]",
-          },
-          {
-            text: " ui-skills categories",
-            className: "text-[#0550ae]",
-          },
-        ],
-        [
-          {
-            text: "npx",
-            className: "text-[#953800]",
-          },
-          {
-            text: " ui-skills list --category",
-            className: "text-[#0550ae]",
-          },
-          {
-            text: " <category>",
-            className: "text-parchment-400",
-          },
-        ],
-        [
-          {
-            text: "npx",
-            className: "text-[#953800]",
-          },
-          {
-            text: " ui-skills get",
-            className: "text-[#0550ae]",
-          },
-          {
-            text: " <skill>",
-            className: "text-parchment-400",
-          },
-        ],
-      ]}
-      copyContent={`npx ui-skills start
-npx ui-skills categories
-npx ui-skills list --category <category>
-npx ui-skills get <skill>`}
+      variant="stacked"
+      lines={uiSkillsCliLines()}
+      copyContent={UI_SKILLS_CLI_COPY}
     />
   </div>
 

@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import CodeBlock from "../../ui/code-block.astro";
+import { highlightSkillsInstallCommand } from "../../lib/code-block-syntax";
 import { skills, type Skill } from "../../data/skills";
 import { topicBySlug, relatedTopicSlugs } from "../../data/topics";
 import type { TopicSlug } from "../../data/registry";
@@ -337,14 +338,7 @@ const commandSegments = (() => {
     : "https://github.com/ibelick/ui-skills";
   const skillName = registryEntry?.name ?? skill?.slug ?? canonicalSkillPath;
 
-  return [
-    { text: "npx", className: "text-[#953800]" },
-    { text: " skills", className: "text-[#0a3069]" },
-    { text: " add", className: "text-[#0550ae]" },
-    { text: ` ${repoUrl}`, className: "text-parchment-400" },
-    { text: " --skill", className: "text-[#0550ae]" },
-    { text: ` ${skillName}`, className: "text-parchment-400" },
-  ];
+  return highlightSkillsInstallCommand(repoUrl, skillName);
 })();
 ---
 
@@ -509,7 +503,10 @@ const commandSegments = (() => {
                 <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
                   Install
                 </h2>
-                <CodeBlock lines={[commandSegments]} align="center" truncate />
+                <CodeBlock
+                  lines={[commandSegments]}
+                  variant="inline"
+                />
               </div>
 
               <SkillContentCard
