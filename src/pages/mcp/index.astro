@@ -29,11 +29,6 @@ const tools = [
   },
 ];
 
-const cliCommands = `npx ui-skills start
-npx ui-skills categories
-npx ui-skills list --category
-npx ui-skills get`;
-
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -67,7 +62,7 @@ const structuredData = {
           </p>
         </div>
 
-        <section class="pb-6">
+        <section>
           <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
             Endpoint
           </h2>
@@ -88,60 +83,26 @@ const structuredData = {
           </p>
         </section>
 
-        <section class="px-4 sm:px-0">
-          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
+        <section class="pb-6">
+          <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
             Tools
           </h2>
-          <ul class="mt-3 space-y-4">
+          <div class="flex flex-col gap-8">
             {
               tools.map((tool) => (
-                <li class="border-parchment-200 rounded-[12px] border bg-white px-6 py-5">
+                <div>
                   <CodeBlock
                     lines={[[{ text: tool.name }]]}
+                    align="center"
+                    truncate
                     copyContent={tool.name}
-                    mobileSurface
-                    className="w-full"
                   />
-                  <p class="text-parchment-500 mt-3 text-base leading-snug">
+                  <p class="text-parchment-500 mt-3 px-4 text-base leading-snug sm:px-0">
                     {tool.description}
                   </p>
-                </li>
+                </div>
               ))
             }
-          </ul>
-        </section>
-
-        <section class="px-4 pb-6 sm:px-0">
-          <div class="bg-parchment-200/40 rounded-[12px] p-4 sm:p-5">
-            <div class="flex w-full">
-              <CodeBlock
-                className="w-full"
-                mobileSurface
-                wrapOnMobile
-                lines={[
-                  [
-                    { text: "npx", className: "text-[#953800]" },
-                    { text: " ui-skills start", className: "text-[#0550ae]" },
-                  ],
-                  [
-                    { text: "npx", className: "text-[#953800]" },
-                    { text: " ui-skills categories", className: "text-[#0550ae]" },
-                  ],
-                  [
-                    { text: "npx", className: "text-[#953800]" },
-                    {
-                      text: " ui-skills list --category",
-                      className: "text-[#0550ae]",
-                    },
-                  ],
-                  [
-                    { text: "npx", className: "text-[#953800]" },
-                    { text: " ui-skills get", className: "text-[#0550ae]" },
-                  ],
-                ]}
-                copyContent={cliCommands}
-              />
-            </div>
           </div>
         </section>
       </div>
