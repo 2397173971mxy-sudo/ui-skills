@@ -72,15 +72,18 @@ const structuredData = {
             variant="inline"
             copyContent={mcpEndpoint}
           />
-          <p class="text-parchment-500 mt-3 px-4 text-base leading-snug sm:px-0">
-            Server card:
-            <a
-              href={serverCardUrl}
-              class="text-parchment-900 hover:text-parchment-600 ml-1 underline underline-offset-2"
-            >
-              {serverCardUrl}
-            </a>
-          </p>
+        </section>
+
+        <section>
+          <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
+            Server card
+          </h2>
+          <CodeBlock
+            code={serverCardUrl}
+            language="plaintext"
+            variant="inline"
+            copyContent={serverCardUrl}
+          />
         </section>
 
         <section class="pb-6">

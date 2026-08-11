@@ -42,24 +42,24 @@
 .skill-code-block {
   margin: 1rem 0;
   overflow-x: auto;
-  border: 1px solid #444c56;
+  border: 1px solid var(--color-parchment-200);
   border-radius: 0.5rem;
-  background-color: #24292e !important;
+  background-color: #ffffff;
   padding: 1.125rem 1.25rem;
-  color: #f0f6fc;
+  color: #0e1116;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.5;
   -webkit-overflow-scrolling: touch;
 }
 
 .skill-code-block::selection,
 .skill-code-block *::selection {
-  background-color: #3b434b;
-  color: #ffffff;
+  background-color: oklch(0.84 0 0 / 0.5);
+  color: inherit;
 }
 
-.skill-code-block code {
+.skill-code-block__code {
   display: block;
   min-width: max-content;
   background: transparent !important;

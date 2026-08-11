@@ -1,5 +1,7 @@
 import { marked } from "marked";
 
+import { highlightFencedCode } from "./code-highlighter";
+
 const escapeHtml = (value: string) =>
   value.replace(
     /[&<>"']/g,
@@ -37,16 +39,31 @@ export const renderSkillMarkdown = async (
   const content = markdown.startsWith("---")
     ? markdown.split("---").slice(2).join("---").trim()
     : markdown;
+  const tokens = marked.lexer(content);
+  const highlightedCode = new Map<string, string>();
+
+  for (const token of tokens) {
+    if (token.type !== "code") {
+      continue;
+    }
+
+    highlightedCode.set(
+      token.raw,
+      await highlightFencedCode(token.text, token.lang),
+    );
+  }
+
   const renderer = new marked.Renderer();
 
   renderer.html = () => "";
   renderer.image = () => "";
-  renderer.code = ({ text, lang }) => {
+  renderer.code = ({ raw, lang }) => {
+    const highlighted = highlightedCode.get(raw) ?? "";
     const languageClass = lang
       ? ` language-${escapeHtml(lang.trim().split(/\s+/)[0] ?? "")}`
       : "";
 
-    return `<pre class="skill-code-block"><code class="${languageClass.trim()}">${escapeHtml(text)}</code></pre>`;
+    return `<pre class="skill-code-block"><code class="skill-code-block__code [&_.line]:block${languageClass}">${highlighted}</code></pre>`;
   };
   renderer.link = function ({ href, title, tokens }) {
     const text = this.parser.parseInline(tokens);
@@ -60,7 +77,5 @@ export const renderSkillMarkdown = async (
     return `<a href="${escapeHtml(safeUrl)}"${titleAttribute}>${text}</a>`;
   };
 
-  return marked.parse(content, {
-    renderer,
-  });
+  return marked.parser(tokens, { renderer });
 };

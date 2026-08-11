@@ -75,6 +75,11 @@ try {
   if (!mcpDocsBody.includes("https://www.ui-skills.com/mcp")) {
     throw new Error("MCP docs are missing the endpoint code block");
   }
+  if (
+    !mcpDocsBody.includes("https://www.ui-skills.com/.well-known/mcp/server-card.json")
+  ) {
+    throw new Error("MCP docs are missing the server card code block");
+  }
 
   const apiCatalog = await fetchLocal("/.well-known/api-catalog");
   if (apiCatalog.status !== 200) {

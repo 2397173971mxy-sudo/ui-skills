@@ -1,6 +1,7 @@
 ---
 import { CopyButton } from "./copy-button";
 import {
+  CODE_HIGHLIGHT_FOREGROUND,
   highlightCode,
   type CodeHighlightLanguage,
 } from "../lib/code-highlighter";
@@ -44,6 +45,7 @@ const mobileSurface = mobileSurfaceProp ?? variant === "stacked";
 const highlightedHtml = code ? await highlightCode(code, language) : null;
 const content = copyContent ?? code ?? lines.map((line) => line.map((segment) => segment.text).join("")).join("\n");
 const alignClass = align === "center" ? "items-center" : "items-start";
+const preStyle = `color: ${CODE_HIGHLIGHT_FOREGROUND}`;
 const preClass = truncate
   ? "m-0 min-w-0 flex-1 overflow-hidden pr-3 font-mono text-base leading-6 text-ellipsis whitespace-nowrap"
   : wrapOnMobile
@@ -55,7 +57,7 @@ const shellClass = mobileSurface
 ---
 
 <div id={id} class={`${shellClass} ${alignClass} ${className}`}>
-  <pre class={preClass}>
+  <pre class={preClass} style={preStyle}>
     {
       highlightedHtml ? (
         <code class="[&_.line]:block" set:html={highlightedHtml} />
