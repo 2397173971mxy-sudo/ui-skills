@@ -62,12 +62,12 @@ export function buildApiCatalogDocument(
             title: "MCP server card",
           },
           {
-            href: `${origin}/mcp/rpc`,
+            href: `${origin}/mcp`,
             type: "application/json",
             title: "MCP endpoint",
           },
           {
-            href: `${origin}/mcp`,
+            href: `${origin}/mcp/docs`,
             type: "text/html",
             title: "MCP documentation",
           },

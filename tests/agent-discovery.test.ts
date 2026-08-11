@@ -62,7 +62,7 @@ describe("agent discovery", () => {
     );
     assert.ok(
       catalog.linkset[0]?.item.some(
-        (item) => item.href === "https://www.ui-skills.com/mcp/rpc",
+        (item) => item.href === "https://www.ui-skills.com/mcp",
       ),
     );
     assert.ok(

@@ -9,12 +9,12 @@ const breadcrumbItems = [
 ];
 
 const siteOrigin = Astro.site ?? new URL("https://www.ui-skills.com");
-const mcpEndpoint = new URL("/mcp/rpc", siteOrigin).toString();
+const mcpEndpoint = new URL("/mcp", siteOrigin).toString();
 const serverCardUrl = new URL(
   "/.well-known/mcp/server-card.json",
   siteOrigin,
 ).toString();
-const pageUrl = new URL("/mcp", siteOrigin).toString();
+const pageUrl = new URL("/mcp/docs", siteOrigin).toString();
 
 const tools = [
   {

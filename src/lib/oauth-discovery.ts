@@ -145,7 +145,7 @@ Public endpoints (no token required):
 - \`${origin}/.well-known/api-catalog\`
 - \`${origin}/.well-known/agent-skills/index.json\`
 - \`${origin}/.well-known/mcp/server-card.json\`
-- \`${origin}/mcp/rpc\`
+- \`${origin}/mcp\`
 
 When you hold a token, send it as:
 

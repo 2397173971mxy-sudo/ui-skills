@@ -86,7 +86,7 @@ export const mcpOptions: APIRoute = () =>
 
 export const mcpGet: APIRoute = ({ site }) => {
   const origin = getSiteOrigin(site);
-  const endpoint = `${origin}/mcp/rpc`;
+  const endpoint = `${origin}/mcp`;
   return new Response(
     JSON.stringify(
       {
