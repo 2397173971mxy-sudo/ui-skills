@@ -36,7 +36,7 @@ const buildGroupPaths = (allSkills: Skill[]) =>
 export const GET: APIRoute = ({ site }) => {
   const origin = site?.origin ?? SITE_URL;
 
-  const staticRoutes = ["/", "/skills", "/skills/topics", "/agents"];
+  const staticRoutes = ["/", "/skills", "/skills/topics", "/agents", "/mcp/docs"];
   const topicRoutes = buildTopicRoutes(skills);
   const groupRoutes = buildGroupPaths(skills).map((path) => `/skills/${path}`);
   const skillRoutes = skills.map((skill) => `/skills/${skill.pathSlug}`);
