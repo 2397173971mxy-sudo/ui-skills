@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
 import CodeBlock from "../../ui/code-block.astro";
+import { CopyButton } from "../../ui/copy-button";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -28,6 +29,11 @@ const tools = [
       "Fetch skill markdown by discovery name, slug, or pathSlug.",
   },
 ];
+
+const cliCommands = `npx ui-skills start
+npx ui-skills categories
+npx ui-skills list --category
+npx ui-skills get`;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -62,34 +68,28 @@ const structuredData = {
           </p>
         </div>
 
-        <section class="px-4 sm:px-0">
-          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
+        <section class="pb-6">
+          <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
             Endpoint
           </h2>
-          <p class="text-parchment-500 mt-3 text-base leading-snug">
-            Streamable HTTP transport. Use the server card for discovery.
+          <CodeBlock
+            lines={[[{ text: mcpEndpoint }]]}
+            align="center"
+            truncate
+            copyContent={mcpEndpoint}
+          />
+          <p class="text-parchment-500 mt-3 px-4 text-base leading-snug sm:px-0">
+            Server card:
+            <a
+              href={serverCardUrl}
+              class="text-parchment-900 hover:text-parchment-600 ml-1 underline underline-offset-2"
+            >
+              {serverCardUrl}
+            </a>
           </p>
-          <div class="mt-4 flex w-full flex-col gap-3">
-            <CodeBlock
-              className="w-full"
-              mobileSurface
-              wrapOnMobile
-              lines={[[{ text: mcpEndpoint }]]}
-              copyContent={mcpEndpoint}
-            />
-            <p class="text-parchment-500 text-base leading-snug">
-              Server card:
-              <a
-                href={serverCardUrl}
-                class="text-parchment-900 hover:text-parchment-600 ml-1 underline underline-offset-2"
-              >
-                {serverCardUrl}
-              </a>
-            </p>
-          </div>
         </section>
 
-        <section class="px-4 sm:px-0">
+        <section class="px-4 pb-6 sm:px-0">
           <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
             Tools
           </h2>
@@ -97,9 +97,17 @@ const structuredData = {
             {
               tools.map((tool) => (
                 <li class="border-parchment-200 rounded-[12px] border bg-white px-6 py-5">
-                  <h3 class="text-parchment-900 font-mono text-base font-medium">
-                    {tool.name}
-                  </h3>
+                  <div class="flex items-center justify-between gap-3">
+                    <h3 class="text-parchment-900 font-mono text-base font-medium">
+                      {tool.name}
+                    </h3>
+                    <CopyButton
+                      content={tool.name}
+                      showText={false}
+                      className="size-8 shrink-0"
+                      client:load
+                    />
+                  </div>
                   <p class="text-parchment-500 mt-2 text-base leading-snug">
                     {tool.description}
                   </p>
@@ -110,27 +118,36 @@ const structuredData = {
         </section>
 
         <section class="px-4 pb-6 sm:px-0">
-          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
-            CLI alternative
-          </h2>
-          <p class="text-parchment-500 mt-3 text-base leading-snug">
-            Prefer the terminal? Use
-            <code class="text-[0.875em]">npx ui-skills start</code> to load the
-            smallest relevant skill before UI work.
-          </p>
-          <div class="mt-4 flex w-full">
-            <CodeBlock
-              className="w-full"
-              mobileSurface
-              wrapOnMobile
-              lines={[
-                [
-                  { text: "npx", className: "text-[#953800]" },
-                  { text: " ui-skills start", className: "text-[#0550ae]" },
-                ],
-              ]}
-              copyContent="npx ui-skills start"
-            />
+          <div class="bg-parchment-200/40 rounded-[12px] p-4 sm:p-5">
+            <div class="flex w-full">
+              <CodeBlock
+                className="w-full"
+                mobileSurface
+                wrapOnMobile
+                lines={[
+                  [
+                    { text: "npx", className: "text-[#953800]" },
+                    { text: " ui-skills start", className: "text-[#0550ae]" },
+                  ],
+                  [
+                    { text: "npx", className: "text-[#953800]" },
+                    { text: " ui-skills categories", className: "text-[#0550ae]" },
+                  ],
+                  [
+                    { text: "npx", className: "text-[#953800]" },
+                    {
+                      text: " ui-skills list --category",
+                      className: "text-[#0550ae]",
+                    },
+                  ],
+                  [
+                    { text: "npx", className: "text-[#953800]" },
+                    { text: " ui-skills get", className: "text-[#0550ae]" },
+                  ],
+                ]}
+                copyContent={cliCommands}
+              />
+            </div>
           </div>
         </section>
       </div>
