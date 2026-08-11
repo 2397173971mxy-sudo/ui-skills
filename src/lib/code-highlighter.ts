@@ -1,10 +1,4 @@
 import bash from "@shikijs/langs/bash";
-import css from "@shikijs/langs/css";
-import html from "@shikijs/langs/html";
-import javascript from "@shikijs/langs/javascript";
-import json from "@shikijs/langs/json";
-import markdown from "@shikijs/langs/markdown";
-import typescript from "@shikijs/langs/typescript";
 import githubLightHighContrast from "@shikijs/themes/github-light-high-contrast";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
@@ -15,17 +9,14 @@ export const CODE_HIGHLIGHT_FOREGROUND = "#0e1116";
 
 export type CodeHighlightLanguage = "bash" | "plaintext";
 
-const LANG_MODULES = {
-  bash,
-  css,
-  html,
-  javascript,
-  json,
-  markdown,
-  typescript,
-} as const satisfies Record<string, LanguageRegistration>;
-
-type BundledLang = keyof typeof LANG_MODULES;
+type BundledLang =
+  | "bash"
+  | "css"
+  | "html"
+  | "javascript"
+  | "json"
+  | "markdown"
+  | "typescript";
 
 const LANG_ALIASES: Record<string, BundledLang | "plaintext"> = {
   sh: "bash",
@@ -38,6 +29,22 @@ const LANG_ALIASES: Record<string, BundledLang | "plaintext"> = {
   text: "plaintext",
   txt: "plaintext",
   plain: "plaintext",
+};
+
+const LANG_LOADERS: Record<
+  BundledLang,
+  () => Promise<LanguageRegistration>
+> = {
+  bash: async () => bash,
+  css: () => import("@shikijs/langs/css").then((module) => module.default),
+  html: () => import("@shikijs/langs/html").then((module) => module.default),
+  javascript: () =>
+    import("@shikijs/langs/javascript").then((module) => module.default),
+  json: () => import("@shikijs/langs/json").then((module) => module.default),
+  markdown: () =>
+    import("@shikijs/langs/markdown").then((module) => module.default),
+  typescript: () =>
+    import("@shikijs/langs/typescript").then((module) => module.default),
 };
 
 let highlighterPromise: Promise<HighlighterCore> | null = null;
@@ -58,13 +65,13 @@ async function ensureLanguage(lang: string): Promise<string> {
     return "plaintext";
   }
 
-  const bundle = LANG_MODULES[normalized as BundledLang];
-  if (!bundle) {
+  const loader = LANG_LOADERS[normalized as BundledLang];
+  if (!loader) {
     return "plaintext";
   }
 
   const highlighter = await getHighlighter();
-  await highlighter.loadLanguage(bundle);
+  await highlighter.loadLanguage(await loader());
   return normalized;
 }
 
@@ -87,6 +94,13 @@ function extractCodeInnerHtml(html: string): string {
   return match?.[1]?.trimEnd() ?? "";
 }
 
+function withPlaintextForeground(html: string): string {
+  return html.replace(
+    /<span>([^<]*)<\/span>/g,
+    `<span style="color:${CODE_HIGHLIGHT_FOREGROUND}">$1</span>`,
+  );
+}
+
 async function highlightWithLanguage(
   code: string,
   language: string,
@@ -107,7 +121,10 @@ async function highlightWithLanguage(
     },
   });
 
-  return extractCodeInnerHtml(html);
+  const innerHtml = extractCodeInnerHtml(html);
+  return resolvedLanguage === "plaintext"
+    ? withPlaintextForeground(innerHtml)
+    : innerHtml;
 }
 
 export async function highlightCode(

@@ -68,8 +68,10 @@ const structuredData = {
           </h2>
           <CodeBlock
             code={mcpEndpoint}
-            language="plaintext"
+            language="bash"
             variant="inline"
+            truncate={false}
+            wrapOnMobile={true}
             copyContent={mcpEndpoint}
           />
         </section>
@@ -80,8 +82,10 @@ const structuredData = {
           </h2>
           <CodeBlock
             code={serverCardUrl}
-            language="plaintext"
+            language="bash"
             variant="inline"
+            truncate={false}
+            wrapOnMobile={true}
             copyContent={serverCardUrl}
           />
         </section>
@@ -96,8 +100,9 @@ const structuredData = {
                 <div>
                   <CodeBlock
                     code={tool.name}
-                    language="plaintext"
+                    language="bash"
                     variant="inline"
+                    truncate={false}
                     copyContent={tool.name}
                   />
                   <p class="text-parchment-500 mt-3 px-4 text-base leading-snug sm:px-0">

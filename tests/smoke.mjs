@@ -80,6 +80,9 @@ try {
   ) {
     throw new Error("MCP docs are missing the server card code block");
   }
+  if (!/style="color:#/i.test(mcpDocsBody)) {
+    throw new Error("MCP docs code blocks are missing Shiki theme colors");
+  }
 
   const apiCatalog = await fetchLocal("/.well-known/api-catalog");
   if (apiCatalog.status !== 200) {

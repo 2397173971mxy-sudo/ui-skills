@@ -36,7 +36,13 @@ describe("code highlighter", () => {
   test("renders plain URLs with readable default foreground", async () => {
     const html = await highlightPlainCode("https://www.ui-skills.com/mcp");
     assert.match(html, /https:\/\/www\.ui-skills\.com\/mcp/);
-    assert.doesNotMatch(html, /style="color:#/);
+    assert.match(html, /style="color:#0E1116"/i);
+  });
+
+  test("highlights MCP endpoint URLs with the active theme", async () => {
+    const html = await highlightShellCommand("https://www.ui-skills.com/mcp");
+    assert.match(html, /https:\/\/www\.ui-skills\.com\/mcp/);
+    assert.match(html, /style="color:#/i);
   });
 
   test("highlights multi-line ui-skills CLI copy", async () => {
