@@ -1,4 +1,5 @@
 import bash from "@shikijs/langs/bash";
+import githubDarkDefault from "@shikijs/themes/github-dark-default";
 import githubLightHighContrast from "@shikijs/themes/github-light-high-contrast";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
@@ -6,6 +7,9 @@ import type { LanguageRegistration } from "shiki";
 
 export const CODE_HIGHLIGHT_THEME = "github-light-high-contrast";
 export const CODE_HIGHLIGHT_FOREGROUND = "#0e1116";
+export const SKILL_CODE_THEME = "github-dark-default";
+export const SKILL_CODE_BACKGROUND = "#24292e";
+export const SKILL_CODE_FOREGROUND = "#f0f6fc";
 
 export type CodeHighlightLanguage = "bash" | "plaintext";
 
@@ -51,7 +55,7 @@ let highlighterPromise: Promise<HighlighterCore> | null = null;
 
 function getHighlighter(): Promise<HighlighterCore> {
   highlighterPromise ??= createHighlighterCore({
-    themes: [githubLightHighContrast],
+    themes: [githubLightHighContrast, githubDarkDefault],
     langs: [bash],
     engine: createJavaScriptRegexEngine(),
   });
@@ -94,36 +98,65 @@ function extractCodeInnerHtml(html: string): string {
   return match?.[1]?.trimEnd() ?? "";
 }
 
-function withPlaintextForeground(html: string): string {
+type HighlightSurface = "ui" | "skill";
+
+const HIGHLIGHT_SURFACES: Record<
+  HighlightSurface,
+  {
+    theme: string;
+    foreground: string;
+    background: string;
+    transparentBackground: boolean;
+  }
+> = {
+  ui: {
+    theme: CODE_HIGHLIGHT_THEME,
+    foreground: CODE_HIGHLIGHT_FOREGROUND,
+    background: "transparent",
+    transparentBackground: true,
+  },
+  skill: {
+    theme: SKILL_CODE_THEME,
+    foreground: SKILL_CODE_FOREGROUND,
+    background: SKILL_CODE_BACKGROUND,
+    transparentBackground: false,
+  },
+};
+
+function withPlaintextForeground(html: string, foreground: string): string {
   return html.replace(
     /<span>([^<]*)<\/span>/g,
-    `<span style="color:${CODE_HIGHLIGHT_FOREGROUND}">$1</span>`,
+    `<span style="color:${foreground}">$1</span>`,
   );
 }
 
 async function highlightWithLanguage(
   code: string,
   language: string,
+  surface: HighlightSurface = "ui",
 ): Promise<string> {
   const highlighter = await getHighlighter();
   const resolvedLanguage = await ensureLanguage(language);
   const source =
     resolvedLanguage === "bash" ? prepareShellForHighlight(code) : code;
+  const surfaceConfig = HIGHLIGHT_SURFACES[surface];
 
   const html = highlighter.codeToHtml(source, {
     lang: resolvedLanguage,
-    theme: CODE_HIGHLIGHT_THEME,
-    bg: "transparent",
-    colorReplacements: {
-      [CODE_HIGHLIGHT_THEME]: {
-        "#ffffff": "transparent",
-      },
-    },
+    theme: surfaceConfig.theme,
+    bg: surfaceConfig.background,
+    colorReplacements: surfaceConfig.transparentBackground
+      ? {
+          [surfaceConfig.theme]: {
+            "#ffffff": "transparent",
+          },
+        }
+      : undefined,
   });
 
   const innerHtml = extractCodeInnerHtml(html);
   return resolvedLanguage === "plaintext"
-    ? withPlaintextForeground(innerHtml)
+    ? withPlaintextForeground(innerHtml, surfaceConfig.foreground)
     : innerHtml;
 }
 
@@ -131,14 +164,14 @@ export async function highlightCode(
   code: string,
   language: CodeHighlightLanguage,
 ): Promise<string> {
-  return highlightWithLanguage(code, language);
+  return highlightWithLanguage(code, language, "ui");
 }
 
 export async function highlightFencedCode(
   code: string,
   lang?: string,
 ): Promise<string> {
-  return highlightWithLanguage(code, normalizeLanguage(lang));
+  return highlightWithLanguage(code, normalizeLanguage(lang), "skill");
 }
 
 export async function highlightShellCommand(code: string): Promise<string> {

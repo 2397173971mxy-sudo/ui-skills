@@ -6,7 +6,7 @@ import {
   type CodeHighlightLanguage,
 } from "../lib/code-highlighter";
 
-type CodeBlockVariant = "inline" | "stacked";
+type CodeBlockVariant = "inline" | "stacked" | "chip";
 
 type Props = {
   code?: string;
@@ -18,7 +18,6 @@ type Props = {
   truncate?: boolean;
   wrapOnMobile?: boolean;
   mobileSurface?: boolean;
-  compact?: boolean;
   className?: string;
   id?: string;
 };
@@ -28,44 +27,53 @@ const {
   language = "bash",
   lines = [],
   copyContent,
-  variant,
+  variant = "inline",
   align: alignProp,
   truncate: truncateProp,
   wrapOnMobile: wrapOnMobileProp,
   mobileSurface: mobileSurfaceProp,
-  compact = false,
   className = "",
   id,
 } = Astro.props as Props;
 
+const isChip = variant === "chip";
 const align =
-  alignProp ?? (variant === "inline" ? "center" : variant === "stacked" ? "start" : "start");
+  alignProp ?? (variant === "inline" || isChip ? "center" : "start");
 const truncate = truncateProp ?? variant === "inline";
 const wrapOnMobile = wrapOnMobileProp ?? variant === "stacked";
 const mobileSurface = mobileSurfaceProp ?? variant === "stacked";
 
 const highlightedHtml = code ? await highlightCode(code, language) : null;
-const content = copyContent ?? code ?? lines.map((line) => line.map((segment) => segment.text).join("")).join("\n");
+const content =
+  copyContent ??
+  code ??
+  lines.map((line) => line.map((segment) => segment.text).join("")).join("\n");
 const alignClass = align === "center" ? "items-center" : "items-start";
 const preStyle = `color: ${CODE_HIGHLIGHT_FOREGROUND}`;
 const preClass = truncate
-  ? `m-0 min-w-0 flex-1 overflow-hidden pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"} text-ellipsis whitespace-nowrap`
+  ? "m-0 min-w-0 flex-1 overflow-hidden pr-3 font-mono text-base leading-6 text-ellipsis whitespace-nowrap"
   : wrapOnMobile
-    ? `m-0 min-w-0 flex-1 whitespace-pre-wrap break-words pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"} sm:whitespace-nowrap`
-    : `m-0 min-w-0 flex-1 pr-3 font-mono ${compact ? "text-sm leading-5" : "text-base leading-6"}`;
-const paddingClass = compact ? "py-2 pr-3 pl-4" : "py-3.5 pr-4 pl-6";
+    ? "m-0 min-w-0 flex-1 whitespace-pre-wrap break-words pr-3 font-mono text-base leading-6 sm:whitespace-nowrap"
+    : "m-0 min-w-0 flex-1 pr-3 font-mono text-base leading-6";
 const shellClass = mobileSurface
-  ? `relative flex justify-between rounded-[8px] border-none bg-white ${paddingClass} shadow-2xs ring-1 ring-black/10`
-  : `relative flex justify-between rounded-none border-t border-b border-parchment-200 bg-white ${paddingClass} shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10`;
+  ? "relative flex justify-between rounded-[8px] border-none bg-white py-3.5 pr-4 pl-6 shadow-2xs ring-1 ring-black/10"
+  : "relative flex justify-between rounded-none border-t border-b border-parchment-200 bg-white py-3.5 pr-4 pl-6 shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10";
 ---
 
-<div id={id} class={`${shellClass} ${alignClass} ${className}`}>
-  <pre class={preClass} style={preStyle}>
-    {
-      highlightedHtml ? (
-        <code class="[&_.line]:block" set:html={highlightedHtml} />
+{
+  isChip ? (
+    <div
+      id={id}
+      class={`inline-flex w-fit max-w-full items-center gap-0.5 rounded-[6px] bg-white py-0.5 pr-0.5 pl-2.5 ring-1 ring-black/10 ${className}`}
+    >
+      {highlightedHtml ? (
+        <code
+          class="font-mono text-sm leading-none [&_.line]:inline [&_.line]:before:content-none [&_.line]:after:content-none"
+          style={preStyle}
+          set:html={highlightedHtml}
+        />
       ) : (
-        <code>
+        <code class="font-mono text-sm leading-none" style={preStyle}>
           {lines.map((line, lineIndex) => (
             <>
               {line.map((segment) => (
@@ -75,16 +83,41 @@ const shellClass = mobileSurface
             </>
           ))}
         </code>
-      )
-    }
-  </pre>
-  <div class="flex items-center gap-1">
-    <CopyButton
-      content={content}
-      showText={false}
-      className={compact ? "size-7" : "size-8"}
-      client:load
-    />
-  </div>
-  <slot />
-</div>
+      )}
+      <CopyButton
+        content={content}
+        showText={false}
+        className="size-6 shrink-0"
+        client:load
+      />
+    </div>
+  ) : (
+    <div id={id} class={`${shellClass} ${alignClass} ${className}`}>
+      <pre class={preClass} style={preStyle}>
+        {highlightedHtml ? (
+          <code class="[&_.line]:block" set:html={highlightedHtml} />
+        ) : (
+          <code>
+            {lines.map((line, lineIndex) => (
+              <>
+                {line.map((segment) => (
+                  <span class={segment.className}>{segment.text}</span>
+                ))}
+                {lineIndex < lines.length - 1 ? <br /> : null}
+              </>
+            ))}
+          </code>
+        )}
+      </pre>
+      <div class="flex items-center gap-1">
+        <CopyButton
+          content={content}
+          showText={false}
+          className="size-8"
+          client:load
+        />
+      </div>
+      <slot />
+    </div>
+  )
+}

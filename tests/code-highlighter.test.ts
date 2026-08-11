@@ -3,9 +3,11 @@ import assert from "node:assert/strict";
 
 import {
   highlightCode,
+  highlightFencedCode,
   highlightPlainCode,
   highlightShellCommand,
   prepareShellForHighlight,
+  SKILL_CODE_FOREGROUND,
 } from "../src/lib/code-highlighter.ts";
 import { UI_SKILLS_AGENT_START_COPY } from "../src/lib/ui-skills-cli.ts";
 
@@ -50,5 +52,16 @@ describe("code highlighter", () => {
     assert.match(html, /class="line"/);
     assert.match(html, /ui-skills.*categories/);
     assert.match(html, /&#x3C;category>|&lt;category&gt;/);
+  });
+
+  test("highlights fenced skill code with the dark theme", async () => {
+    const html = await highlightFencedCode("const value = true;", "typescript");
+    assert.match(html, /const/);
+    assert.match(html, /style="color:#/i);
+    assert.doesNotMatch(
+      html,
+      new RegExp(`style="color:${SKILL_CODE_FOREGROUND}"`, "i"),
+      "typed tokens should keep theme colors instead of the plain foreground",
+    );
   });
 });
