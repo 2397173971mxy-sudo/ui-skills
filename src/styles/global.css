@@ -42,24 +42,24 @@
 .skill-code-block {
   margin: 1rem 0;
   overflow-x: auto;
-  border: 1px solid #444c56;
+  border: 1px solid #30363d;
   border-radius: 0.5rem;
-  background-color: #24292e !important;
-  padding: 1.125rem 1.25rem;
+  background-color: #24292e;
+  padding: 0.75rem 1rem;
   color: #f0f6fc;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  line-height: 1.65;
+  line-height: 1.5;
   -webkit-overflow-scrolling: touch;
 }
 
 .skill-code-block::selection,
 .skill-code-block *::selection {
-  background-color: #3b434b;
-  color: #ffffff;
+  background-color: oklch(0.45 0 0 / 0.55);
+  color: inherit;
 }
 
-.skill-code-block code {
+.skill-code-block__code {
   display: block;
   min-width: max-content;
   background: transparent !important;
@@ -110,6 +110,34 @@
   border: 0;
   background: transparent;
   overscroll-behavior-x: contain;
+}
+
+.prose
+  :where(pre.skill-code-block):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
+  margin: 1rem 0;
+  overflow-x: auto;
+  border: 1px solid #30363d;
+  border-radius: 0.5rem;
+  background-color: #24292e !important;
+  padding: 0.75rem 1rem;
+  color: #f0f6fc !important;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.prose
+  :where(pre.skill-code-block code):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
+  background: transparent !important;
+  color: inherit;
+  padding: 0;
+  font-weight: 400;
 }
 
 .prose

@@ -63,6 +63,26 @@ try {
       `Homepage did not return HTML: ${homepageBody.slice(0, 200)}`,
     );
   }
+  if (!homepageBody.includes("npx ui-skills start")) {
+    throw new Error("Homepage is missing highlighted agent command block");
+  }
+
+  const mcpDocs = await fetchLocal("/mcp/docs");
+  if (mcpDocs.status !== 200) {
+    throw new Error(`MCP docs returned ${mcpDocs.status}`);
+  }
+  const mcpDocsBody = await mcpDocs.text();
+  if (!mcpDocsBody.includes("https://www.ui-skills.com/mcp")) {
+    throw new Error("MCP docs are missing the endpoint code block");
+  }
+  if (
+    !mcpDocsBody.includes("https://www.ui-skills.com/.well-known/mcp/server-card.json")
+  ) {
+    throw new Error("MCP docs are missing the server card code block");
+  }
+  if (!/style="color:#/i.test(mcpDocsBody)) {
+    throw new Error("MCP docs code blocks are missing Shiki theme colors");
+  }
 
   const apiCatalog = await fetchLocal("/.well-known/api-catalog");
   if (apiCatalog.status !== 200) {

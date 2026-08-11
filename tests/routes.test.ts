@@ -71,8 +71,8 @@ describe("route boundaries", () => {
     );
 
     assert.match(html, /class="skill-code-block"/);
-    assert.match(html, /class="language-markdown"/);
-    assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+    assert.match(html, /language-markdown/);
+    assert.match(html, /&#x3C;script|&lt;script&gt;/);
     assert.doesNotMatch(html, /<script>/);
   });
 });
