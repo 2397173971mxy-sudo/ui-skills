@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
 import CodeBlock from "../../ui/code-block.astro";
+import { CopyButton } from "../../ui/copy-button";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -97,17 +98,22 @@ const structuredData = {
           <div class="flex flex-col gap-4">
             {
               tools.map((tool) => (
-                <div class="px-4 sm:px-0">
-                  <CodeBlock
-                    code={tool.name}
-                    language="plaintext"
-                    variant="chip"
-                    copyContent={tool.name}
-                  />
-                  <p class="text-parchment-500 mt-1.5 max-w-2xl text-base leading-snug">
+                <article class="border-parchment-200 relative w-full rounded-none border-t border-b bg-white py-3.5 pr-4 pl-6 shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10">
+                  <div class="flex items-center justify-between gap-3">
+                    <code class="text-parchment-900 font-mono text-sm leading-none">
+                      {tool.name}
+                    </code>
+                    <CopyButton
+                      content={tool.name}
+                      showText={false}
+                      className="size-8 shrink-0"
+                      client:load
+                    />
+                  </div>
+                  <p class="text-parchment-500 mt-2 max-w-2xl text-base leading-snug">
                     {tool.description}
                   </p>
-                </div>
+                </article>
               ))
             }
           </div>
