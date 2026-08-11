@@ -2781,6 +2781,32 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Style elevated surfaces with smooth shadow ring utilities instead of combining borders or rings with shadows and creating double edges.",
   },
+  {
+    slug: "seo",
+    user: "iannuttall",
+    repo: "seo",
+    rawUrl:
+      "https://raw.githubusercontent.com/iannuttall/seo/main/skills/seo/SKILL.md",
+    githubUrl:
+      "https://github.com/iannuttall/seo/blob/main/skills/seo/SKILL.md",
+    name: "seo",
+    topics: ["tooling", "frontend", "performance"],
+    description:
+      "Use for SEO audits, rankings, keyword research, indexing, metadata, Search Console, GA4, and AI search visibility. Routes to evidence-backed reports through the local SEO CLI and MCP server.",
+  },
+  {
+    slug: "scroll-world",
+    user: "oso95",
+    repo: "scroll-world",
+    rawUrl:
+      "https://raw.githubusercontent.com/oso95/scroll-world/main/skills/scroll-world/SKILL.md",
+    githubUrl:
+      "https://github.com/oso95/scroll-world/blob/main/skills/scroll-world/SKILL.md",
+    name: "scroll-world",
+    topics: ["3d", "motion", "visual", "interaction", "frontend"],
+    description:
+      "Build an immersive scroll-scrubbed 3D world landing page for any brand with Higgsfield-generated scenes, seamless camera clips, and a portable scroll-scrub engine.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
