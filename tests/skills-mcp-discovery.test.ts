@@ -73,10 +73,10 @@ describe("skills and MCP discovery", () => {
     );
   });
 
-  test("MCP server card points at the shared /mcp endpoint", () => {
+  test("MCP server card points at the shared /mcp/rpc endpoint", () => {
     const card = buildMcpServerCard(origin);
     assert.equal(card.serverInfo.name, "UI Skills");
-    assert.equal(card.transport.endpoint, `${origin}/mcp`);
+    assert.equal(card.transport.endpoint, `${origin}/mcp/rpc`);
     assert.equal(card.capabilities.tools, true);
   });
 

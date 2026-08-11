@@ -62,9 +62,14 @@ export function buildApiCatalogDocument(
             title: "MCP server card",
           },
           {
-            href: `${origin}/mcp`,
+            href: `${origin}/mcp/rpc`,
             type: "application/json",
             title: "MCP endpoint",
+          },
+          {
+            href: `${origin}/mcp`,
+            type: "text/html",
+            title: "MCP documentation",
           },
           {
             href: `${origin}/.well-known/oauth-protected-resource`,

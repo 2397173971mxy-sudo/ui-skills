@@ -5,8 +5,8 @@ import {
   getRegistrySkillByDiscoveryName,
   skillArtifactPath,
   toDiscoveryName,
-} from "../lib/agent-skills-discovery";
-import { getSiteOrigin } from "../lib/agent-discovery";
+} from "./agent-skills-discovery";
+import { getSiteOrigin } from "./agent-discovery";
 import { registry } from "../data/registry";
 
 type JsonRpcRequest = {
@@ -81,18 +81,19 @@ const tools = [
   },
 ];
 
-export const OPTIONS: APIRoute = () =>
+export const mcpOptions: APIRoute = () =>
   new Response(null, { status: 204, headers: corsHeaders });
 
-export const GET: APIRoute = ({ site }) => {
+export const mcpGet: APIRoute = ({ site }) => {
   const origin = getSiteOrigin(site);
+  const endpoint = `${origin}/mcp/rpc`;
   return new Response(
     JSON.stringify(
       {
         name: "UI Skills MCP",
         version: "0.2.4",
         protocol: "mcp",
-        endpoint: `${origin}/mcp`,
+        endpoint,
         registry: `${origin}/skills/registry.json`,
         tools: tools.map((tool) => tool.name),
       },
@@ -103,7 +104,7 @@ export const GET: APIRoute = ({ site }) => {
   );
 };
 
-export const POST: APIRoute = async ({ request, site }) => {
+export const mcpPost: APIRoute = async ({ request, site }) => {
   const body = (await request.json().catch(() => null)) as JsonRpcRequest | null;
   if (!body || body.jsonrpc !== "2.0" || typeof body.method !== "string") {
     return jsonRpcError(null, -32600, "Invalid Request", 400);

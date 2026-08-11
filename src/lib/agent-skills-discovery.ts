@@ -245,10 +245,10 @@ export function buildMcpServerCard(origin: string) {
     },
     description:
       "Browse and fetch design-engineering UI skills from the UI Skills catalog (same registry as the ui-skills CLI).",
-    url: `${origin}/mcp`,
+    url: `${origin}/mcp/rpc`,
     transport: {
       type: "streamable-http",
-      endpoint: `${origin}/mcp`,
+      endpoint: `${origin}/mcp/rpc`,
     },
     capabilities: {
       tools: true,
