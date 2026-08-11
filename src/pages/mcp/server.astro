@@ -1,0 +1,139 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../ui/breadcrumbs.astro";
+import CodeBlock from "../../ui/code-block.astro";
+
+const breadcrumbItems = [
+  { label: "Home", href: "/" },
+  { label: "MCP" },
+];
+
+const siteOrigin = Astro.site ?? new URL("https://www.ui-skills.com");
+const mcpEndpoint = new URL("/mcp", siteOrigin).toString();
+const serverCardUrl = new URL(
+  "/.well-known/mcp/server-card.json",
+  siteOrigin,
+).toString();
+const pageUrl = new URL("/mcp/server", siteOrigin).toString();
+
+const tools = [
+  {
+    name: "list_skills",
+    description:
+      "List skills from the registry. Optional query filter over path, name, or description.",
+  },
+  {
+    name: "get_skill",
+    description:
+      "Fetch skill markdown by discovery name, slug, or pathSlug.",
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "MCP",
+  description:
+    "Connect agents to the UI Skills catalog over Model Context Protocol.",
+  url: pageUrl,
+};
+---
+
+<Layout
+  structuredData={structuredData}
+  title="MCP | UI Skills"
+  description="Connect agents to the UI Skills catalog over Model Context Protocol."
+>
+  <div
+    class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4"
+  >
+    <div class="relative mt-20 w-full max-w-3xl sm:px-0">
+      <div class="mx-auto flex w-full flex-col gap-10">
+        <Breadcrumbs items={breadcrumbItems} />
+
+        <div class="px-4 sm:px-0">
+          <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
+            MCP
+          </h1>
+          <p class="text-parchment-500 mt-3 max-w-2xl text-base leading-snug">
+            Connect agents to the UI Skills catalog over Model Context Protocol.
+            The server exposes the same registry as the
+            <code class="text-[0.875em]">ui-skills</code> CLI.
+          </p>
+        </div>
+
+        <section class="px-4 sm:px-0">
+          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
+            Endpoint
+          </h2>
+          <p class="text-parchment-500 mt-3 text-base leading-snug">
+            Streamable HTTP transport. Use the server card for discovery.
+          </p>
+          <div class="mt-4 flex w-full flex-col gap-3">
+            <CodeBlock
+              className="w-full"
+              mobileSurface
+              wrapOnMobile
+              lines={[[{ text: mcpEndpoint }]]}
+              copyContent={mcpEndpoint}
+            />
+            <p class="text-parchment-500 text-base leading-snug">
+              Server card:
+              <a
+                href={serverCardUrl}
+                class="text-parchment-900 hover:text-parchment-600 ml-1 underline underline-offset-2"
+              >
+                {serverCardUrl}
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <section class="px-4 sm:px-0">
+          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
+            Tools
+          </h2>
+          <ul class="mt-3 space-y-4">
+            {
+              tools.map((tool) => (
+                <li class="border-parchment-200 rounded-[12px] border bg-white px-6 py-5">
+                  <h3 class="text-parchment-900 font-mono text-base font-medium">
+                    {tool.name}
+                  </h3>
+                  <p class="text-parchment-500 mt-2 text-base leading-snug">
+                    {tool.description}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="px-4 pb-6 sm:px-0">
+          <h2 class="text-parchment-900 text-lg font-medium tracking-tight">
+            CLI alternative
+          </h2>
+          <p class="text-parchment-500 mt-3 text-base leading-snug">
+            Prefer the terminal? Use
+            <code class="text-[0.875em]">npx ui-skills start</code> to load the
+            smallest relevant skill before UI work.
+          </p>
+          <div class="mt-4 flex w-full">
+            <CodeBlock
+              className="w-full"
+              mobileSurface
+              wrapOnMobile
+              lines={[
+                [
+                  { text: "npx", className: "text-[#953800]" },
+                  { text: " ui-skills start", className: "text-[#0550ae]" },
+                ],
+              ]}
+              copyContent="npx ui-skills start"
+            />
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
