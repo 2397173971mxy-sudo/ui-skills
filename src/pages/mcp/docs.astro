@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
 import CodeBlock from "../../ui/code-block.astro";
-import { highlightCopyValue } from "../../lib/code-block-syntax";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -68,7 +67,8 @@ const structuredData = {
             Endpoint
           </h2>
           <CodeBlock
-            lines={[highlightCopyValue(mcpEndpoint)]}
+            code={mcpEndpoint}
+            language="plaintext"
             variant="inline"
             copyContent={mcpEndpoint}
           />
@@ -92,7 +92,8 @@ const structuredData = {
               tools.map((tool) => (
                 <div>
                   <CodeBlock
-                    lines={[highlightCopyValue(tool.name)]}
+                    code={tool.name}
+                    language="plaintext"
                     variant="inline"
                     copyContent={tool.name}
                   />

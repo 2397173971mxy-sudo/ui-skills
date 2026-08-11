@@ -1,9 +1,6 @@
 ---
 import CodeBlock from "./code-block.astro";
-import {
-  UI_SKILLS_CLI_COPY,
-  uiSkillsCliLines,
-} from "../lib/code-block-syntax";
+import { UI_SKILLS_CLI_COPY } from "../lib/code-highlighter";
 ---
 
 <div class="bg-parchment-200/40 rounded-[12px] p-4 sm:p-5">
@@ -19,7 +16,8 @@ import {
     <CodeBlock
       className="w-full"
       variant="stacked"
-      lines={uiSkillsCliLines()}
+      code={UI_SKILLS_CLI_COPY}
+      language="bash"
       copyContent={UI_SKILLS_CLI_COPY}
     />
   </div>
