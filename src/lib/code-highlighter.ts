@@ -1,21 +1,17 @@
 import bash from "@shikijs/langs/bash";
+import vitesseLight from "@shikijs/themes/vitesse-light";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
-import { uiSkillsShellTheme } from "./code-block-theme";
-
-export const UI_SKILLS_CLI_COPY = `npx ui-skills start
-npx ui-skills categories
-npx ui-skills list --category <category>
-npx ui-skills get <skill>`;
-
 export type CodeHighlightLanguage = "bash" | "plaintext";
+
+const HIGHLIGHT_THEME = "vitesse-light";
 
 let highlighterPromise: Promise<HighlighterCore> | null = null;
 
 function getHighlighter(): Promise<HighlighterCore> {
   highlighterPromise ??= createHighlighterCore({
-    themes: [uiSkillsShellTheme],
+    themes: [vitesseLight],
     langs: [bash],
     engine: createJavaScriptRegexEngine(),
   });
@@ -42,10 +38,10 @@ export async function highlightCode(
 
   const html = highlighter.codeToHtml(source, {
     lang: language,
-    theme: "ui-skills-shell",
+    theme: HIGHLIGHT_THEME,
     bg: "transparent",
     colorReplacements: {
-      "ui-skills-shell": {
+      [HIGHLIGHT_THEME]: {
         "#ffffff": "transparent",
       },
     },
@@ -60,11 +56,4 @@ export async function highlightShellCommand(code: string): Promise<string> {
 
 export async function highlightPlainCode(code: string): Promise<string> {
   return highlightCode(code, "plaintext");
-}
-
-export function buildSkillsInstallCommand(
-  repoUrl: string,
-  skillName: string,
-): string {
-  return `npx skills add ${repoUrl} --skill ${skillName}`;
 }
