@@ -1,4 +1,6 @@
-import { createHighlighter, type Highlighter, type BundledLanguage } from "shiki";
+import bash from "@shikijs/langs/bash";
+import { createHighlighterCore, type HighlighterCore } from "shiki/core";
+import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
 import { uiSkillsShellTheme } from "./code-block-theme";
 
@@ -9,12 +11,13 @@ npx ui-skills get <skill>`;
 
 export type CodeHighlightLanguage = "bash" | "plaintext";
 
-let highlighterPromise: Promise<Highlighter> | null = null;
+let highlighterPromise: Promise<HighlighterCore> | null = null;
 
-function getHighlighter(): Promise<Highlighter> {
-  highlighterPromise ??= createHighlighter({
+function getHighlighter(): Promise<HighlighterCore> {
+  highlighterPromise ??= createHighlighterCore({
     themes: [uiSkillsShellTheme],
-    langs: ["bash", "plaintext"],
+    langs: [bash],
+    engine: createJavaScriptRegexEngine(),
   });
 
   return highlighterPromise;
@@ -38,7 +41,7 @@ export async function highlightCode(
   const source = language === "bash" ? prepareShellForHighlight(code) : code;
 
   const html = highlighter.codeToHtml(source, {
-    lang: language satisfies BundledLanguage,
+    lang: language,
     theme: "ui-skills-shell",
     bg: "transparent",
     colorReplacements: {
