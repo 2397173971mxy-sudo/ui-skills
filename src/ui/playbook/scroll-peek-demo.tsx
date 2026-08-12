@@ -1,28 +1,39 @@
-import { Badge } from "../badge";
 import { cn } from "../../lib/cn";
 import { PlaybookDemoCard } from "./demo-card";
 
-const topics = ["Visual", "Motion", "Systems", "Interaction", "Performance", "Craft"];
-
-const badgeClass = "w-[calc((18.5rem-2rem-1rem)/3)] shrink-0 justify-center text-xs";
+const topics = [
+  { name: "Visual", count: "12 notes" },
+  { name: "Motion", count: "8 notes" },
+  { name: "Systems", count: "16 notes" },
+  { name: "Interaction", count: "9 notes" },
+];
 
 function Phone({ peek = false }: { peek?: boolean }) {
   return (
     <div className="absolute inset-x-0 bottom-0 flex justify-center">
-      <div className="flex h-48 w-[18.5rem] flex-col overflow-hidden rounded-t-[2rem] border border-b-0 border-neutral-200 bg-white">
-        <div aria-hidden className="flex-1" />
-        <div className="px-4 pb-5">
+      <div className="border-parchment-200 flex h-56 w-[18.5rem] flex-col overflow-hidden rounded-t-[2rem] border border-b-0 bg-white">
+        <div className="mt-auto pb-5">
           <div
-            className={cn(
-              "overflow-x-auto scrollbar-none",
-              peek && "-mr-4 w-[calc(100%+1rem)]",
-            )}
+            className="scrollbar-none overflow-x-auto"
+            aria-label="Scrollable topics"
+            role="region"
           >
-            <div className="flex w-max gap-2 pr-4">
+            <div className={cn("flex w-max gap-2 px-5", peek && "pr-5")}>
               {topics.map((topic) => (
-                <Badge key={topic} className={badgeClass}>
-                  {topic}
-                </Badge>
+                <article
+                  key={topic.name}
+                  className={cn(
+                    "border-parchment-200 flex shrink-0 flex-col justify-between rounded-xl border bg-white p-3",
+                    peek ? "w-40" : "w-64",
+                  )}
+                >
+                  <p className="text-parchment-900 text-sm font-medium">
+                    {topic.name}
+                  </p>
+                  <p className="text-parchment-500 mt-8 text-xs">
+                    {topic.count}
+                  </p>
+                </article>
               ))}
             </div>
           </div>
@@ -38,6 +49,7 @@ export default function ScrollPeekDemo() {
       withoutLabel="Flush"
       withLabel="Peek"
       contentClassName="absolute inset-0"
+      flush
       without={<Phone />}
       with={<Phone peek />}
     />
