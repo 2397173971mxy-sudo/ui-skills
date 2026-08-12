@@ -2,6 +2,7 @@ import { skills } from "./skills.ts";
 import type { TopicSlug } from "./registry.ts";
 
 export type PlaybookDemoId =
+  | "aspect-ratio"
   | "text-balance"
   | "tabular-nums"
   | "touch-target"
@@ -61,11 +62,28 @@ export type PlaybookEntry = {
 
 const playbook: PlaybookEntry[] = [
   {
+    slug: "reserve-space-with-aspect-ratio",
+    skillSlug: "better-layout",
+    demo: "aspect-ratio",
+    title: "Reserve space for media",
+    description:
+      "Use `aspect-ratio` to prevent images from shifting nearby content while they load.",
+    relatedSkills: [
+      "better-interface",
+      "better-ui",
+      "better-layout",
+      "baseline-ui",
+      "fixing-motion-performance",
+    ],
+    topics: ["systems", "frontend", "performance"],
+  },
+  {
     slug: "use-text-balance",
     skillSlug: "baseline-ui",
     demo: "text-balance",
     title: "Balance headings, prettify body copy",
-    description: "Use `text-balance` on headings and `text-pretty` on body copy.",
+    description:
+      "Use `text-balance` on headings and `text-pretty` on body copy.",
     relatedSkills: [
       "better-typography",
       "make-interfaces-feel-better",
@@ -305,7 +323,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-accessibility",
     demo: "focus-ring",
     title: "Show visible focus rings",
-    description: "Style `:focus-visible`. Never remove outlines without a replacement.",
+    description:
+      "Style `:focus-visible`. Never remove outlines without a replacement.",
     relatedSkills: [
       "fixing-accessibility",
       "baseline-ui",
@@ -380,7 +399,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-accessibility",
     demo: "status-not-color-alone",
     title: "Pair status with labels",
-    description: "Never rely on color alone. Add text or an icon beside status.",
+    description:
+      "Never rely on color alone. Add text or an icon beside status.",
     relatedSkills: [
       "fixing-accessibility",
       "wcag-audit-patterns",
@@ -395,7 +415,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "emil-design-eng",
     demo: "ease-out-enter",
     title: "Use ease-out on enter",
-    description: "Entrances should use `ease-out`. `ease-in` feels sluggish on open.",
+    description:
+      "Entrances should use `ease-out`. `ease-in` feels sluggish on open.",
     relatedSkills: [
       "apple-design",
       "improve-animations",
@@ -442,7 +463,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-ui",
     demo: "outline-icons-default",
     title: "Use outline icons by default",
-    description: "Outline icons are default. Reserve fill for the active state.",
+    description:
+      "Outline icons are default. Reserve fill for the active state.",
     relatedSkills: [
       "make-interfaces-feel-better",
       "better-interface",
@@ -502,7 +524,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-layout",
     demo: "inset-cta",
     title: "Inset primary actions",
-    description: "Keep full-width buttons inside layout margins, not edge to edge.",
+    description:
+      "Keep full-width buttons inside layout margins, not edge to edge.",
     relatedSkills: [
       "better-interface",
       "better-ui",
@@ -532,7 +555,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-typography",
     demo: "tracking-by-size",
     title: "Tune tracking by size",
-    description: "Large display text often needs slightly negative letter-spacing.",
+    description:
+      "Large display text often needs slightly negative letter-spacing.",
     relatedSkills: [
       "apple-design",
       "baseline-ui",
@@ -624,7 +648,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "better-ui",
     demo: "interruptible-transition",
     title: "Use interruptible transitions",
-    description: "Prefer CSS transitions over keyframes for interactive open/close.",
+    description:
+      "Prefer CSS transitions over keyframes for interactive open/close.",
     relatedSkills: [
       "emil-design-eng",
       "fixing-motion-performance",
@@ -655,7 +680,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "to-spring-or-not-to-spring",
     demo: "spring-vs-ease",
     title: "Use ease-out for system feedback",
-    description: "System state changes should ease out. Springs wobble on toggles and toasts.",
+    description:
+      "System state changes should ease out. Springs wobble on toggles and toasts.",
     relatedSkills: [
       "better-ui",
       "emil-design-eng",
@@ -670,7 +696,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "mastering-animate-presence",
     demo: "menu-exit",
     title: "Fade menus out",
-    description: "Let menus exit with a short fade. Don't yank them off screen.",
+    description:
+      "Let menus exit with a short fade. Don't yank them off screen.",
     relatedSkills: [
       "better-ui",
       "improve-animations",
@@ -744,7 +771,8 @@ const playbook: PlaybookEntry[] = [
     skillSlug: "emil-design-eng",
     demo: "label-morph",
     title: "Blur imperfect label morphs",
-    description: "Soften label swaps with a short blur so two states don't flash mid-fade.",
+    description:
+      "Soften label swaps with a short blur so two states don't flash mid-fade.",
     relatedSkills: [
       "better-ui",
       "improve-animations",

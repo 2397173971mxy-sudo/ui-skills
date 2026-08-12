@@ -1,4 +1,5 @@
 import type { PlaybookDemoId } from "../../data/playbook.ts";
+import AspectRatioDemo from "./aspect-ratio-demo";
 import BreathingRoomDemo from "./breathing-room-demo";
 import ColorMeansLinkDemo from "./color-means-link-demo";
 import ConcentricRadiusDemo from "./concentric-radius-demo";
@@ -47,6 +48,7 @@ import TouchTargetDemo from "./touch-target-demo";
 import TrackingBySizeDemo from "./tracking-by-size-demo";
 
 const demos = {
+  "aspect-ratio": AspectRatioDemo,
   "text-balance": TextBalanceDemo,
   "tabular-nums": TabularNumsDemo,
   "touch-target": TouchTargetDemo,
