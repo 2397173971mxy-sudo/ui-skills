@@ -9,7 +9,7 @@ const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Playbook" }];
 
 const playbookCards = playbook
   .map((entry) => {
-    const sourceSkill = skills.find((skill) => skill.slug === entry.skillSlug);
+    const sourceSkill = skills.find((skill) => skill.slug === entry.skill);
 
     return sourceSkill ? entry : null;
   })

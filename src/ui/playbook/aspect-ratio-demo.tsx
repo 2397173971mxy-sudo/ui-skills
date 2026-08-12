@@ -41,9 +41,6 @@ function PaintingCard({ stable, replay }: { stable: boolean; replay: number }) {
       <p className="text-parchment-900 mt-2 text-sm font-medium">
         Impression, Sunrise
       </p>
-      <p className="text-parchment-500 mt-0.5 text-xs">
-        {stable ? "Space reserved before load" : "Space appears after load"}
-      </p>
     </div>
   );
 }

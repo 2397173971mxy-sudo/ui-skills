@@ -1,811 +1,634 @@
 import { skills } from "./skills.ts";
-import type { TopicSlug } from "./registry.ts";
-
-export type PlaybookDemoId =
-  | "aspect-ratio"
-  | "text-balance"
-  | "tabular-nums"
-  | "touch-target"
-  | "concentric-radius"
-  | "scale-on-press"
-  | "popover-origin"
-  | "space-not-lines"
-  | "scroll-peek"
-  | "image-outline"
-  | "line-clamp"
-  | "text-contrast"
-  | "scale-enter"
-  | "skeleton-loading"
-  | "one-accent"
-  | "line-measure"
-  | "shadow-elevation"
-  | "focus-ring"
-  | "inline-error"
-  | "label-form-fields"
-  | "empty-state-cta"
-  | "sentence-case-labels"
-  | "status-not-color-alone"
-  | "ease-out-enter"
-  | "optical-alignment"
-  | "icon-stroke-weight"
-  | "outline-icons-default"
-  | "no-glow-cta"
-  | "icon-state-crossfade"
-  | "breathing-room"
-  | "inset-cta"
-  | "heading-line-height"
-  | "tracking-by-size"
-  | "destructive-dialog"
-  | "scroll-edge-fade"
-  | "stagger-enter"
-  | "subtle-exit"
-  | "tooltip-warm"
-  | "interruptible-transition"
-  | "motion-restraint"
-  | "spring-vs-ease"
-  | "menu-exit"
-  | "color-means-link"
-  | "modal-scrim"
-  | "soft-truncate"
-  | "same-path-motion"
-  | "label-morph";
 
 export type PlaybookEntry = {
   slug: string;
-  skillSlug: string;
-  demo: PlaybookDemoId;
+  skill: string;
   title: string;
   description: string;
-  relatedSkills: string[];
-  topics?: TopicSlug[];
+  related: string[];
 };
 
-const playbook: PlaybookEntry[] = [
+const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "reserve-space-with-aspect-ratio",
-    skillSlug: "better-layout",
-    demo: "aspect-ratio",
+    skill: "better-layout",
     title: "Reserve space for media",
     description:
       "Use `aspect-ratio` to prevent images from shifting nearby content while they load.",
-    relatedSkills: [
-      "better-interface",
-      "better-ui",
-      "better-layout",
-      "baseline-ui",
-      "fixing-motion-performance",
-    ],
-    topics: ["systems", "frontend", "performance"],
+    related: ["improve-ui", "better-interface", "better-ui", "better-layout"],
   },
   {
     slug: "use-text-balance",
-    skillSlug: "baseline-ui",
-    demo: "text-balance",
+    skill: "baseline-ui",
     title: "Balance headings, prettify body copy",
     description:
       "Use `text-balance` on headings and `text-pretty` on body copy.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-typography",
       "make-interfaces-feel-better",
       "frontend-design",
-      "web-design-guidelines",
-      "design-lab",
     ],
-    topics: ["typography", "visual", "craft"],
   },
   {
     slug: "use-tabular-nums-for-data",
-    skillSlug: "baseline-ui",
-    demo: "tabular-nums",
+    skill: "baseline-ui",
     title: "Align numeric UI",
     description: "Use `tabular-nums` when numbers need to line up.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-typography",
       "make-interfaces-feel-better",
       "better-interface",
-      "ui-ux-pro-max",
-      "improve-ui",
     ],
-    topics: ["typography", "systems", "craft"],
   },
   {
     slug: "use-large-touch-targets",
-    skillSlug: "better-accessibility",
-    demo: "touch-target",
+    skill: "better-accessibility",
     title: "Make touch targets easy to hit",
     description: "Give interactive controls at least a 44×44px touch target.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-accessibility",
       "better-ui",
       "wcag-audit-patterns",
-      "web-design-guidelines",
-      "interaction-design",
     ],
-    topics: ["interaction", "accessibility", "frontend"],
   },
   {
     slug: "use-concentric-border-radius",
-    skillSlug: "better-ui",
-    demo: "concentric-radius",
+    skill: "better-ui",
     title: "Nest corners concentrically",
     description: "Nested corners: outer radius = inner radius + padding.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "make-interfaces-feel-better",
       "better-interface",
       "emil-design-eng",
-      "design-lab",
-      "frontend-design",
     ],
-    topics: ["visual", "craft", "systems"],
   },
   {
     slug: "add-scale-on-press",
-    skillSlug: "emil-design-eng",
-    demo: "scale-on-press",
+    skill: "emil-design-eng",
     title: "Give buttons press feedback",
     description: "Scale pressable controls to ~0.96 on `:active`.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "improve-animations",
       "make-interfaces-feel-better",
-      "interaction-design",
-      "fixing-motion-performance",
     ],
-    topics: ["interaction", "motion", "craft"],
   },
   {
     slug: "anchor-popovers-to-triggers",
-    skillSlug: "emil-design-eng",
-    demo: "popover-origin",
+    skill: "emil-design-eng",
     title: "Grow popovers from their trigger",
     description: "Animate popovers from the trigger edge, not the center.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "improve-animations",
       "interaction-design",
-      "make-interfaces-feel-better",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "group-with-space-not-lines",
-    skillSlug: "better-layout",
-    demo: "space-not-lines",
+    skill: "better-layout",
     title: "Group with space, not lines",
     description: "Separate groups with spacing before adding divider lines.",
-    relatedSkills: [
-      "better-interface",
-      "baseline-ui",
-      "better-ui",
-      "make-interfaces-feel-better",
-      "web-design-guidelines",
-    ],
-    topics: ["systems", "visual", "craft"],
+    related: ["improve-ui", "better-interface", "baseline-ui", "better-ui"],
   },
   {
     slug: "peek-the-next-scroll-item",
-    skillSlug: "better-layout",
-    demo: "scroll-peek",
+    skill: "better-layout",
     title: "Peek the next scroll item",
     description: "Let 16–32px of the next item peek past the scroll edge.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-interface",
       "better-ui",
       "interaction-design",
-      "emil-design-eng",
-      "ui-ux-pro-max",
     ],
-    topics: ["interaction", "systems", "frontend"],
   },
   {
     slug: "outline-images-neutrally",
-    skillSlug: "better-ui",
-    demo: "image-outline",
+    skill: "better-ui",
     title: "Outline images with neutral hairlines",
     description: "Use a neutral hairline outline on images, not a tinted ring.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "make-interfaces-feel-better",
       "better-colors",
       "better-interface",
-      "frontend-design",
-      "design-lab",
     ],
-    topics: ["visual", "craft", "color"],
   },
   {
     slug: "clamp-overflowing-titles",
-    skillSlug: "better-typography",
-    demo: "line-clamp",
+    skill: "better-typography",
     title: "Clamp overflowing titles",
     description: "Use `line-clamp` or `truncate` in dense UI.",
-    relatedSkills: [
-      "baseline-ui",
-      "better-interface",
-      "better-ui",
-      "better-layout",
-      "improve-ui",
-    ],
-    topics: ["typography", "systems", "frontend"],
+    related: ["improve-ui", "baseline-ui", "better-interface", "better-ui"],
   },
   {
     slug: "keep-secondary-text-readable",
-    skillSlug: "better-accessibility",
-    demo: "text-contrast",
+    skill: "better-accessibility",
     title: "Keep secondary text readable",
     description: "Keep secondary text readable on its background.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-accessibility",
       "better-colors",
       "baseline-ui",
-      "better-typography",
-      "wcag-audit-patterns",
     ],
-    topics: ["accessibility", "typography", "color"],
   },
   {
     slug: "avoid-entering-from-scale-zero",
-    skillSlug: "emil-design-eng",
-    demo: "scale-enter",
+    skill: "emil-design-eng",
     title: "Avoid entering from scale zero",
     description: "Start entrances at ~`scale(0.95)`, not `scale(0)`.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "improve-animations",
       "better-ui",
       "make-interfaces-feel-better",
-      "fixing-motion-performance",
-      "interaction-design",
     ],
-    topics: ["motion", "craft", "interaction"],
   },
   {
     slug: "use-structural-skeletons",
-    skillSlug: "baseline-ui",
-    demo: "skeleton-loading",
+    skill: "baseline-ui",
     title: "Use structural skeletons",
     description: "Match loading placeholders to content shape, not spinners.",
-    relatedSkills: [
-      "better-ui",
-      "better-interface",
-      "improve-ui",
-      "ui-ux-pro-max",
-      "interaction-design",
-    ],
-    topics: ["interaction", "systems", "frontend"],
+    related: ["improve-ui", "better-ui", "better-interface", "baseline-ui"],
   },
   {
     slug: "limit-accent-color-usage",
-    skillSlug: "baseline-ui",
-    demo: "one-accent",
+    skill: "baseline-ui",
     title: "Limit accent color usage",
     description: "One accent per view; keep secondary actions neutral.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-colors",
       "better-ui",
       "make-interfaces-feel-better",
-      "frontend-design",
-      "design-lab",
     ],
-    topics: ["visual", "color", "taste"],
   },
   {
     slug: "cap-line-length",
-    skillSlug: "better-typography",
-    demo: "line-measure",
+    skill: "better-typography",
     title: "Cap line length",
     description: "Cap long-form copy around 60–75 characters per line.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "baseline-ui",
       "better-interface",
       "better-writing",
-      "web-design-guidelines",
-      "make-interfaces-feel-better",
     ],
-    topics: ["typography", "visual", "craft"],
   },
   {
     slug: "use-shadow-for-elevation",
-    skillSlug: "better-ui",
-    demo: "shadow-elevation",
+    skill: "better-ui",
     title: "Use shadow for elevation",
     description: "Use shadow for depth; reserve borders for structure.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "make-interfaces-feel-better",
       "better-interface",
       "beautiful-shadows",
-      "frontend-design",
-      "design-lab",
     ],
-    topics: ["visual", "craft", "systems"],
   },
   {
     slug: "show-visible-focus-rings",
-    skillSlug: "better-accessibility",
-    demo: "focus-ring",
+    skill: "better-accessibility",
     title: "Show visible focus rings",
     description:
       "Style `:focus-visible`. Never remove outlines without a replacement.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-accessibility",
       "baseline-ui",
       "wcag-audit-patterns",
-      "web-design-guidelines",
-      "interaction-design",
     ],
-    topics: ["accessibility", "interaction", "frontend"],
   },
   {
     slug: "show-errors-beside-fields",
-    skillSlug: "baseline-ui",
-    demo: "inline-error",
+    skill: "baseline-ui",
     title: "Show errors beside fields",
     description: "Put validation errors directly under the field.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-accessibility",
       "fixing-accessibility",
       "web-design-guidelines",
-      "interaction-design",
-      "wcag-audit-patterns",
     ],
-    topics: ["interaction", "accessibility", "frontend"],
   },
   {
     slug: "label-every-form-field",
-    skillSlug: "fixing-accessibility",
-    demo: "label-form-fields",
+    skill: "fixing-accessibility",
     title: "Label every form field",
     description: "Use a visible label; never rely on placeholder text alone.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-accessibility",
       "baseline-ui",
       "wcag-audit-patterns",
-      "web-design-guidelines",
-      "interaction-design",
     ],
-    topics: ["accessibility", "interaction", "frontend"],
   },
   {
     slug: "give-empty-states-one-action",
-    skillSlug: "baseline-ui",
-    demo: "empty-state-cta",
+    skill: "baseline-ui",
     title: "Give empty states one action",
     description: "Empty states need one clear next step, not just explanation.",
-    relatedSkills: [
-      "better-ui",
-      "better-interface",
-      "improve-ui",
-      "ui-ux-pro-max",
-      "interaction-design",
-    ],
-    topics: ["interaction", "systems", "craft"],
+    related: ["improve-ui", "better-ui", "better-interface", "better-layout"],
   },
   {
     slug: "use-sentence-case-labels",
-    skillSlug: "better-typography",
-    demo: "sentence-case-labels",
+    skill: "better-typography",
     title: "Use sentence case labels",
     description: "Write labels in sentence case, not ALL CAPS.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "baseline-ui",
       "better-interface",
       "make-interfaces-feel-better",
-      "web-design-guidelines",
-      "design-lab",
     ],
-    topics: ["typography", "visual", "craft"],
   },
   {
     slug: "pair-status-with-labels",
-    skillSlug: "better-accessibility",
-    demo: "status-not-color-alone",
+    skill: "better-accessibility",
     title: "Pair status with labels",
     description:
       "Never rely on color alone. Add text or an icon beside status.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-accessibility",
       "wcag-audit-patterns",
       "baseline-ui",
-      "web-design-guidelines",
-      "better-colors",
     ],
-    topics: ["accessibility", "visual", "color"],
   },
   {
     slug: "use-ease-out-on-enter",
-    skillSlug: "emil-design-eng",
-    demo: "ease-out-enter",
+    skill: "emil-design-eng",
     title: "Use ease-out on enter",
     description:
       "Entrances should use `ease-out`. `ease-in` feels sluggish on open.",
-    relatedSkills: [
-      "apple-design",
-      "improve-animations",
-      "better-ui",
-      "fixing-motion-performance",
-      "interaction-design",
-    ],
-    topics: ["motion", "interaction", "craft"],
+    related: ["improve-ui", "apple-design", "improve-animations", "better-ui"],
   },
   {
     slug: "align-icons-optically",
-    skillSlug: "better-ui",
-    demo: "optical-alignment",
+    skill: "better-ui",
     title: "Align icons optically",
     description:
       "When geometric centering looks off, nudge icons so they align with the eye.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "emil-design-eng",
       "make-interfaces-feel-better",
       "better-interface",
-      "apple-design",
-      "frontend-design",
     ],
-    topics: ["visual", "craft", "systems"],
   },
   {
     slug: "match-icon-stroke-weight",
-    skillSlug: "better-ui",
-    demo: "icon-stroke-weight",
+    skill: "better-ui",
     title: "Match icon stroke to text",
     description:
       "Use 2px icon stroke beside semibold text; 1.5px beside regular.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-typography",
       "make-interfaces-feel-better",
       "better-interface",
-      "apple-design",
-      "frontend-design",
     ],
-    topics: ["visual", "typography", "craft"],
   },
   {
     slug: "use-outline-icons-by-default",
-    skillSlug: "better-ui",
-    demo: "outline-icons-default",
+    skill: "better-ui",
     title: "Use outline icons by default",
     description:
       "Outline icons are default. Reserve fill for the active state.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "make-interfaces-feel-better",
       "better-interface",
       "apple-design",
-      "frontend-design",
-      "design-lab",
     ],
-    topics: ["visual", "systems", "craft"],
   },
   {
     slug: "avoid-glow-primary-actions",
-    skillSlug: "baseline-ui",
-    demo: "no-glow-cta",
+    skill: "baseline-ui",
     title: "Avoid glow on primary actions",
     description: "Do not use glow effects as the main call to action.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "make-interfaces-feel-better",
       "frontend-design",
-      "design-lab",
-      "ui-ux-pro-max",
     ],
-    topics: ["visual", "taste", "color"],
   },
   {
     slug: "animate-icon-state-changes",
-    skillSlug: "better-ui",
-    demo: "icon-state-crossfade",
+    skill: "better-ui",
     title: "Animate icon state changes",
     description: "Cross-fade contextual icons with opacity, scale, and blur.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "improve-animations",
       "emil-design-eng",
       "make-interfaces-feel-better",
-      "apple-design",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "give-targets-breathing-room",
-    skillSlug: "better-layout",
-    demo: "breathing-room",
+    skill: "better-layout",
     title: "Give targets breathing room",
     description: "Leave ~12px between adjacent bordered controls.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-accessibility",
       "better-interface",
       "baseline-ui",
-      "ui-ux-pro-max",
-      "interaction-design",
     ],
-    topics: ["systems", "interaction", "craft"],
   },
   {
     slug: "inset-primary-actions",
-    skillSlug: "better-layout",
-    demo: "inset-cta",
+    skill: "better-layout",
     title: "Inset primary actions",
     description:
       "Keep full-width buttons inside layout margins, not edge to edge.",
-    relatedSkills: [
-      "better-interface",
-      "better-ui",
-      "ui-ux-pro-max",
-      "interaction-design",
-      "apple-design",
-    ],
-    topics: ["systems", "interaction", "frontend"],
+    related: ["improve-ui", "better-interface", "better-ui", "ui-ux-pro-max"],
   },
   {
     slug: "tighten-heading-line-height",
-    skillSlug: "better-typography",
-    demo: "heading-line-height",
+    skill: "better-typography",
     title: "Tighten heading line-height",
     description: "Use tighter line-height on short headings (~1.1).",
-    relatedSkills: [
-      "baseline-ui",
-      "apple-design",
-      "better-interface",
-      "make-interfaces-feel-better",
-      "web-design-guidelines",
-    ],
-    topics: ["typography", "visual", "craft"],
+    related: ["improve-ui", "baseline-ui", "apple-design", "better-interface"],
   },
   {
     slug: "tune-tracking-by-size",
-    skillSlug: "better-typography",
-    demo: "tracking-by-size",
+    skill: "better-typography",
     title: "Tune tracking by size",
     description:
       "Large display text often needs slightly negative letter-spacing.",
-    relatedSkills: [
-      "apple-design",
-      "baseline-ui",
-      "better-interface",
-      "make-interfaces-feel-better",
-      "design-lab",
-    ],
-    topics: ["typography", "visual", "craft"],
+    related: ["improve-ui", "apple-design", "baseline-ui", "better-interface"],
   },
   {
     slug: "confirm-destructive-actions",
-    skillSlug: "baseline-ui",
-    demo: "destructive-dialog",
+    skill: "baseline-ui",
     title: "Confirm destructive actions",
     description: "Use a dialog before irreversible or destructive actions.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-accessibility",
       "better-accessibility",
       "interaction-design",
-      "ui-ux-pro-max",
-      "web-design-guidelines",
     ],
-    topics: ["interaction", "accessibility", "frontend"],
   },
   {
     slug: "fade-scroll-edges",
-    skillSlug: "apple-design",
-    demo: "scroll-edge-fade",
+    skill: "apple-design",
     title: "Fade scroll edges",
     description:
       "Use a `mask-image` scroll fade on the list so edges dissolve as you scroll.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-layout",
       "better-ui",
       "make-interfaces-feel-better",
-      "frontend-design",
-      "design-lab",
     ],
-    topics: ["visual", "systems", "craft"],
   },
   {
     slug: "stagger-infrequent-entrances",
-    skillSlug: "better-ui",
-    demo: "stagger-enter",
+    skill: "better-ui",
     title: "Stagger infrequent entrances",
     description: "Stagger hero chunks by ~100ms on first load, not routine UI.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "improve-animations",
       "emil-design-eng",
       "make-interfaces-feel-better",
-      "apple-design",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "craft", "interaction"],
   },
   {
     slug: "keep-exits-subtle",
-    skillSlug: "better-ui",
-    demo: "subtle-exit",
+    skill: "better-ui",
     title: "Keep exits subtle",
     description:
       "Use a small fixed translateY on exit. Softer than the enter, not full-height travel.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "improve-animations",
       "emil-design-eng",
       "fixing-motion-performance",
-      "apple-design",
-      "interaction-design",
     ],
-    topics: ["motion", "craft", "interaction"],
   },
   {
     slug: "warm-toolbar-tooltips",
-    skillSlug: "emil-design-eng",
-    demo: "tooltip-warm",
+    skill: "emil-design-eng",
     title: "Warm toolbar tooltips",
     description: "Skip tooltip delay after the first one in a toolbar opens.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "interaction-design",
       "make-interfaces-feel-better",
-      "apple-design",
-      "ui-ux-pro-max",
     ],
-    topics: ["interaction", "motion", "craft"],
   },
   {
     slug: "use-interruptible-transitions",
-    skillSlug: "better-ui",
-    demo: "interruptible-transition",
+    skill: "better-ui",
     title: "Use interruptible transitions",
     description:
       "Prefer CSS transitions over keyframes for interactive open/close.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "emil-design-eng",
       "fixing-motion-performance",
       "improve-animations",
-      "interaction-design",
-      "apple-design",
     ],
-    topics: ["motion", "interaction", "frontend"],
   },
   {
     slug: "restrain-high-frequency-motion",
-    skillSlug: "better-ui",
-    demo: "motion-restraint",
+    skill: "better-ui",
     title: "Restrain high-frequency motion",
     description:
       "Reserve enter animations for first load. Tab switches need instant feedback, not a replayed entrance.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "fixing-motion-performance",
       "emil-design-eng",
       "improve-animations",
-      "apple-design",
-      "interaction-design",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "use-ease-not-spring-for-feedback",
-    skillSlug: "to-spring-or-not-to-spring",
-    demo: "spring-vs-ease",
+    skill: "to-spring-or-not-to-spring",
     title: "Use ease-out for system feedback",
     description:
       "System state changes should ease out. Springs wobble on toggles and toasts.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "emil-design-eng",
       "improve-animations",
-      "fixing-motion-performance",
-      "interaction-design",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "fade-menus-out",
-    skillSlug: "mastering-animate-presence",
-    demo: "menu-exit",
+    skill: "mastering-animate-presence",
     title: "Fade menus out",
     description:
       "Let menus exit with a short fade. Don't yank them off screen.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "improve-animations",
       "emil-design-eng",
-      "interaction-design",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "reserve-brand-color-for-links",
-    skillSlug: "better-colors",
-    demo: "color-means-link",
+    skill: "better-colors",
     title: "Reserve brand color for links",
     description: "Keep headings neutral. Reserve link color for actions.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "baseline-ui",
       "better-ui",
       "make-interfaces-feel-better",
-      "web-design-guidelines",
     ],
-    topics: ["color", "visual", "craft"],
   },
   {
     slug: "use-solid-modal-scrims",
-    skillSlug: "fixing-motion-performance",
-    demo: "modal-scrim",
+    skill: "fixing-motion-performance",
     title: "Use solid modal scrims",
     description: "Backdrop blur repaints the whole screen.",
-    relatedSkills: [
-      "60fps-animation",
-      "better-ui",
-      "apple-design",
-      "make-interfaces-feel-better",
-      "interaction-design",
-    ],
-    topics: ["motion", "performance", "visual"],
+    related: ["improve-ui", "60fps-animation", "better-ui", "apple-design"],
   },
   {
     slug: "fade-truncated-text",
-    skillSlug: "better-typography",
-    demo: "soft-truncate",
+    skill: "better-typography",
     title: "Fade truncated text",
     description: "Soft-fade overflowing labels. A hard ellipsis feels abrupt.",
-    relatedSkills: [
-      "baseline-ui",
-      "better-ui",
-      "apple-design",
-      "better-layout",
-      "make-interfaces-feel-better",
-    ],
-    topics: ["typography", "visual", "craft"],
+    related: ["improve-ui", "baseline-ui", "better-ui", "apple-design"],
   },
   {
     slug: "enter-and-exit-on-the-same-path",
-    skillSlug: "apple-design",
-    demo: "same-path-motion",
+    skill: "apple-design",
     title: "Enter and exit on the same path",
     description: "Dismiss along the same path the surface arrived on.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "emil-design-eng",
       "improve-animations",
-      "interaction-design",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
   {
     slug: "blur-imperfect-label-morphs",
-    skillSlug: "emil-design-eng",
-    demo: "label-morph",
+    skill: "emil-design-eng",
     title: "Blur imperfect label morphs",
     description:
       "Soften label swaps with a short blur so two states don't flash mid-fade.",
-    relatedSkills: [
+    related: [
+      "improve-ui",
       "better-ui",
       "improve-animations",
       "interaction-design",
-      "apple-design",
-      "fixing-motion-performance",
     ],
-    topics: ["motion", "interaction", "craft"],
   },
 ];
 
 const skillBySlug = new Map(skills.map((skill) => [skill.slug, skill]));
 
+const relatedSkillPool = [
+  "impeccable",
+  "layout",
+  "harden",
+  "web-quality-audit",
+  "frontend-ui-engineering",
+  "react-best-practices",
+  "web-design-guidelines",
+  "ui-ux-pro-max",
+  "interaction-design",
+  "frontend-design",
+  "design-first-ui-prompting",
+  "high-end-visual-design",
+  "minimalist-ui",
+  "design-lab",
+  "prototype",
+  "better-interface",
+  "better-layout",
+  "better-accessibility",
+  "better-typography",
+  "better-colors",
+  "better-writing",
+  "fixing-accessibility",
+  "fixing-motion-performance",
+  "beautiful-shadows",
+  "12-principles-of-animation",
+  "apple-design",
+  "improve-animations",
+  "review-animations",
+  "accessible-animation",
+  "better-ui",
+];
+
+const playbook = rawPlaybook.map((entry) => {
+  const sourceKeys = new Set<string>();
+  const related: string[] = [];
+
+  for (const skillSlug of [
+    "improve-ui",
+    ...entry.related,
+    ...relatedSkillPool,
+  ]) {
+    const skill = skillBySlug.get(skillSlug);
+    if (
+      !skill ||
+      related.includes(skillSlug) ||
+      sourceKeys.has(skill.sourceKey ?? "")
+    ) {
+      continue;
+    }
+
+    related.push(skillSlug);
+    sourceKeys.add(skill.sourceKey ?? "");
+    if (related.length === 4) break;
+  }
+
+  return { ...entry, related };
+});
+
 const seenSlugs = new Set<string>();
-for (const entry of playbook) {
+for (const entry of rawPlaybook) {
   if (seenSlugs.has(entry.slug)) {
     throw new Error(`Duplicate playbook slug: ${entry.slug}`);
   }
 
   seenSlugs.add(entry.slug);
 
-  if (!skillBySlug.has(entry.skillSlug)) {
-    throw new Error(
-      `Unknown skill slug for playbook entry: ${entry.skillSlug}`,
-    );
+  if (!skillBySlug.has(entry.skill)) {
+    throw new Error(`Unknown skill slug for playbook entry: ${entry.skill}`);
   }
 
-  for (const relatedSkillSlug of entry.relatedSkills) {
+  for (const relatedSkillSlug of entry.related) {
     if (!skillBySlug.has(relatedSkillSlug)) {
       throw new Error(
         `Unknown related skill slug for playbook entry ${entry.slug}: ${relatedSkillSlug}`,
       );
     }
+  }
+}
+
+for (const entry of playbook) {
+  const normalized = playbook.find((item) => item.slug === entry.slug);
+  if (
+    !normalized ||
+    normalized.related.length < 4 ||
+    normalized.related[0] !== "improve-ui"
+  ) {
+    throw new Error(
+      `Playbook entry ${entry.slug} must have at least 4 related skills with improve-ui first`,
+    );
   }
 }
 
@@ -818,10 +641,6 @@ export const playbookBySlug = new Map(
 export const playbookBySkillSlug = new Map(
   skills.map((skill) => [
     skill.slug,
-    playbook.filter((entry) => entry.skillSlug === skill.slug),
+    playbook.filter((entry) => entry.skill === skill.slug),
   ]),
 );
-
-export const playbookTopicSlugs = Array.from(
-  new Set(playbook.flatMap((entry) => entry.topics ?? [])),
-).sort();

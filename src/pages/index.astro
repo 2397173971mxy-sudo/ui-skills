@@ -55,7 +55,7 @@ const displayedSkills = FEATURED_PATH_SLUGS.map((pathSlug) =>
 const featuredPlaybook = playbook
   .slice(0, 4)
   .map((entry) => {
-    const sourceSkill = skills.find((skill) => skill.slug === entry.skillSlug);
+    const sourceSkill = skills.find((skill) => skill.slug === entry.skill);
 
     return sourceSkill ? entry : null;
   })

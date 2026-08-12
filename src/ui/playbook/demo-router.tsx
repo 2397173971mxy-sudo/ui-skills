@@ -1,4 +1,3 @@
-import type { PlaybookDemoId } from "../../data/playbook.ts";
 import AspectRatioDemo from "./aspect-ratio-demo";
 import BreathingRoomDemo from "./breathing-room-demo";
 import ColorMeansLinkDemo from "./color-means-link-demo";
@@ -48,60 +47,60 @@ import TouchTargetDemo from "./touch-target-demo";
 import TrackingBySizeDemo from "./tracking-by-size-demo";
 
 const demos = {
-  "aspect-ratio": AspectRatioDemo,
-  "text-balance": TextBalanceDemo,
-  "tabular-nums": TabularNumsDemo,
-  "touch-target": TouchTargetDemo,
-  "concentric-radius": ConcentricRadiusDemo,
-  "scale-on-press": ScaleOnPressDemo,
-  "popover-origin": PopoverOriginDemo,
-  "space-not-lines": SpaceNotLinesDemo,
-  "scroll-peek": ScrollPeekDemo,
-  "image-outline": ImageOutlineDemo,
-  "line-clamp": LineClampDemo,
-  "text-contrast": TextContrastDemo,
-  "scale-enter": ScaleEnterDemo,
-  "skeleton-loading": SkeletonLoadingDemo,
-  "one-accent": OneAccentDemo,
-  "line-measure": LineMeasureDemo,
-  "shadow-elevation": ShadowElevationDemo,
-  "focus-ring": FocusRingDemo,
-  "inline-error": InlineErrorDemo,
-  "label-form-fields": LabelFormFieldsDemo,
-  "empty-state-cta": EmptyStateCtaDemo,
-  "sentence-case-labels": SentenceCaseLabelsDemo,
-  "status-not-color-alone": StatusNotColorAloneDemo,
-  "ease-out-enter": EaseOutEnterDemo,
-  "optical-alignment": OpticalAlignmentDemo,
-  "icon-stroke-weight": IconStrokeWeightDemo,
-  "outline-icons-default": OutlineIconsDefaultDemo,
-  "no-glow-cta": NoGlowCtaDemo,
-  "icon-state-crossfade": IconStateCrossfadeDemo,
-  "breathing-room": BreathingRoomDemo,
-  "inset-cta": InsetCtaDemo,
-  "heading-line-height": HeadingLineHeightDemo,
-  "tracking-by-size": TrackingBySizeDemo,
-  "destructive-dialog": DestructiveDialogDemo,
-  "scroll-edge-fade": ScrollEdgeFadeDemo,
-  "stagger-enter": StaggerEnterDemo,
-  "subtle-exit": SubtleExitDemo,
-  "tooltip-warm": TooltipWarmDemo,
-  "interruptible-transition": InterruptibleTransitionDemo,
-  "motion-restraint": MotionRestraintDemo,
-  "spring-vs-ease": SpringVsEaseDemo,
-  "menu-exit": MenuExitDemo,
-  "color-means-link": ColorMeansLinkDemo,
-  "modal-scrim": ModalScrimDemo,
-  "soft-truncate": SoftTruncateDemo,
-  "same-path-motion": SamePathMotionDemo,
-  "label-morph": LabelMorphDemo,
+  "reserve-space-with-aspect-ratio": AspectRatioDemo,
+  "use-text-balance": TextBalanceDemo,
+  "use-tabular-nums-for-data": TabularNumsDemo,
+  "use-large-touch-targets": TouchTargetDemo,
+  "use-concentric-border-radius": ConcentricRadiusDemo,
+  "add-scale-on-press": ScaleOnPressDemo,
+  "anchor-popovers-to-triggers": PopoverOriginDemo,
+  "group-with-space-not-lines": SpaceNotLinesDemo,
+  "peek-the-next-scroll-item": ScrollPeekDemo,
+  "outline-images-neutrally": ImageOutlineDemo,
+  "clamp-overflowing-titles": LineClampDemo,
+  "keep-secondary-text-readable": TextContrastDemo,
+  "avoid-entering-from-scale-zero": ScaleEnterDemo,
+  "use-structural-skeletons": SkeletonLoadingDemo,
+  "limit-accent-color-usage": OneAccentDemo,
+  "cap-line-length": LineMeasureDemo,
+  "use-shadow-for-elevation": ShadowElevationDemo,
+  "show-visible-focus-rings": FocusRingDemo,
+  "show-errors-beside-fields": InlineErrorDemo,
+  "label-every-form-field": LabelFormFieldsDemo,
+  "give-empty-states-one-action": EmptyStateCtaDemo,
+  "use-sentence-case-labels": SentenceCaseLabelsDemo,
+  "pair-status-with-labels": StatusNotColorAloneDemo,
+  "use-ease-out-on-enter": EaseOutEnterDemo,
+  "align-icons-optically": OpticalAlignmentDemo,
+  "match-icon-stroke-weight": IconStrokeWeightDemo,
+  "use-outline-icons-by-default": OutlineIconsDefaultDemo,
+  "avoid-glow-primary-actions": NoGlowCtaDemo,
+  "animate-icon-state-changes": IconStateCrossfadeDemo,
+  "give-targets-breathing-room": BreathingRoomDemo,
+  "inset-primary-actions": InsetCtaDemo,
+  "tighten-heading-line-height": HeadingLineHeightDemo,
+  "tune-tracking-by-size": TrackingBySizeDemo,
+  "confirm-destructive-actions": DestructiveDialogDemo,
+  "fade-scroll-edges": ScrollEdgeFadeDemo,
+  "stagger-infrequent-entrances": StaggerEnterDemo,
+  "keep-exits-subtle": SubtleExitDemo,
+  "warm-toolbar-tooltips": TooltipWarmDemo,
+  "use-interruptible-transitions": InterruptibleTransitionDemo,
+  "restrain-high-frequency-motion": MotionRestraintDemo,
+  "use-ease-not-spring-for-feedback": SpringVsEaseDemo,
+  "fade-menus-out": MenuExitDemo,
+  "reserve-brand-color-for-links": ColorMeansLinkDemo,
+  "use-solid-modal-scrims": ModalScrimDemo,
+  "fade-truncated-text": SoftTruncateDemo,
+  "enter-and-exit-on-the-same-path": SamePathMotionDemo,
+  "blur-imperfect-label-morphs": LabelMorphDemo,
 } as const;
 
 type PlaybookDemoRouterProps = {
-  demoId: PlaybookDemoId;
+  slug: string;
 };
 
-export function PlaybookDemoRouter({ demoId }: PlaybookDemoRouterProps) {
-  const Demo = demos[demoId];
-  return <Demo />;
+export function PlaybookDemoRouter({ slug }: PlaybookDemoRouterProps) {
+  const Demo = demos[slug as keyof typeof demos];
+  return Demo ? <Demo /> : null;
 }
