@@ -30,14 +30,25 @@ function DeleteProject({ confirm = false }: { confirm?: boolean }) {
 
       {confirm && open ? (
         <div className="absolute top-full left-1/2 z-10 mt-3 w-56 -translate-x-1/2 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black/10">
-          <p className="text-parchment-900 text-sm font-medium">Delete this project?</p>
-          <p className="text-parchment-600 mt-1 text-sm">This action cannot be undone.</p>
+          <p className="text-parchment-900 text-sm font-medium">
+            Delete this project?
+          </p>
+          <p className="text-parchment-600 mt-1 text-sm">
+            This action cannot be undone.
+          </p>
           <div className="mt-3 flex justify-end gap-2">
-            <Button type="button" variant="ghost" size="sm" onClick={() => setOpen(false)}>
+            <Button
+              type="button"
+              variant="ghost"
+              shape="round"
+              size="sm"
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </Button>
             <Button
               type="button"
+              shape="round"
               size="sm"
               className="bg-red-600 text-white hover:bg-red-700"
               onClick={() => {

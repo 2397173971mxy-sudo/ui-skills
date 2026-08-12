@@ -1,12 +1,11 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Button } from "../button";
 import { PlaybookDemoCard } from "./demo-card";
 
 const enterTransition = { duration: 0.2, ease: [0.16, 1, 0.3, 1] as const };
 const subtleExitTransition = { duration: 0.15, ease: "easeOut" as const };
 const dramaticExitTransition = { duration: 0.4, ease: "easeOut" as const };
-const TOAST_VISIBLE_MS = 2000;
 
 function CheckIcon() {
   return (
@@ -26,55 +25,55 @@ function CheckIcon() {
 }
 
 function SaveToastDemo({ subtleExit = false }: { subtleExit?: boolean }) {
-  const [toastKey, setToastKey] = useState<number | null>(null);
-  const dismissTimerRef = useRef<number | null>(null);
+  const toastId = useId();
+  const [toastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
-    return () => {
-      if (dismissTimerRef.current) window.clearTimeout(dismissTimerRef.current);
-    };
-  }, []);
+    if (!toastVisible) return;
 
-  const showToast = () => {
-    if (toastKey !== null) return;
-
-    const key = Date.now();
-    setToastKey(key);
-    dismissTimerRef.current = window.setTimeout(() => {
-      setToastKey(null);
-      dismissTimerRef.current = null;
-    }, TOAST_VISIBLE_MS);
-  };
+    const timer = window.setTimeout(() => setToastVisible(false), 2000);
+    return () => window.clearTimeout(timer);
+  }, [toastVisible]);
 
   return (
     <div className="flex h-full flex-col items-center justify-center">
-      <Button shape="round" onClick={showToast} disabled={toastKey !== null}>
+      <Button
+        shape="round"
+        onClick={() => setToastVisible(true)}
+        disabled={toastVisible}
+        aria-describedby={toastVisible ? toastId : undefined}
+      >
         Save
       </Button>
 
       <div className="relative mt-3 h-9 w-full">
         <AnimatePresence>
-          {toastKey !== null ? (
+          {toastVisible ? (
             <motion.div
-              key={toastKey}
+              key="save-toast"
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)", transition: enterTransition }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                transition: enterTransition,
+              }}
               exit={
                 subtleExit
                   ? {
                       opacity: 0,
-                      y: -12,
-                      filter: "blur(4px)",
+                      y: -6,
                       transition: subtleExitTransition,
                     }
                   : {
                       opacity: 0,
-                      y: "-100%",
-                      scale: 0.5,
+                      y: -24,
+                      scale: 0.96,
                       transition: dramaticExitTransition,
                     }
               }
               style={{ transformOrigin: "top center" }}
+              id={toastId}
               className="bg-parchment-900 absolute top-0 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-lg px-3.5 py-2 text-sm whitespace-nowrap text-white shadow-lg"
             >
               <CheckIcon />

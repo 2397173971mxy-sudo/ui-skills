@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Button } from "../button";
 import { PlaybookDemoCard } from "./demo-card";
 
@@ -24,34 +24,45 @@ function CheckIcon() {
 }
 
 function SaveToastDemo({ natural = false }: { natural?: boolean }) {
-  const [toastKey, setToastKey] = useState<number | null>(null);
+  const toastId = useId();
+  const [toastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setToastKey(Date.now()), 400);
-    return () => window.clearTimeout(timer);
-  }, []);
+    if (!toastVisible) return;
 
-  useEffect(() => {
-    if (toastKey === null) return;
-
-    const timer = window.setTimeout(() => setToastKey(null), 2000);
+    const timer = window.setTimeout(() => setToastVisible(false), 2000);
     return () => window.clearTimeout(timer);
-  }, [toastKey]);
+  }, [toastVisible]);
 
   return (
     <div className="flex h-full flex-col items-center justify-center">
-      <Button shape="round" onClick={() => setToastKey(Date.now())}>
+      <Button
+        shape="round"
+        onClick={() => setToastVisible(true)}
+        aria-describedby={toastVisible ? toastId : undefined}
+      >
         Save
       </Button>
 
       <div className="relative mt-3 h-9 w-full">
         <AnimatePresence>
-          {toastKey !== null ? (
+          {toastVisible ? (
             <motion.div
-              key={toastKey}
+              key="save-toast"
+              id={toastId}
               initial={{ opacity: 0, scale: natural ? 0.95 : 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0, transition: enterTransition }}
-              exit={{ opacity: 0, scale: 0.96, y: -6, transition: exitTransition }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                transition: enterTransition,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.96,
+                y: -6,
+                transition: exitTransition,
+              }}
               style={{ transformOrigin: "top center" }}
               className="bg-parchment-900 absolute top-0 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-lg px-3.5 py-2 text-sm whitespace-nowrap text-white shadow-lg"
             >

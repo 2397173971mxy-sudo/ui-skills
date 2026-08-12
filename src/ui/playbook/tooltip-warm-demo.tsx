@@ -5,7 +5,14 @@ const TOOLTIP_DELAY_MS = 500;
 
 function ToolbarIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden="true"
+    >
       <path strokeLinecap="round" d="M12 5v14M5 12h14" />
     </svg>
   );
@@ -58,21 +65,28 @@ function TooltipToolbar({ warm = false }: { warm?: boolean }) {
             key={label}
             type="button"
             aria-label={label}
+            aria-describedby={
+              activeTip === label ? `tooltip-${label.toLowerCase()}` : undefined
+            }
             onMouseEnter={() => showTip(label)}
             onMouseLeave={warm ? undefined : hideTip}
             onFocus={() => showTip(label)}
             onBlur={warm ? undefined : hideTip}
-            className="text-parchment-700 hover:bg-parchment-50 inline-flex size-8 items-center justify-center rounded-md"
+            className="text-parchment-700 hover:bg-parchment-50 relative inline-flex size-8 items-center justify-center rounded-md"
           >
             <ToolbarIcon />
+            {activeTip === label ? (
+              <span
+                id={`tooltip-${label.toLowerCase()}`}
+                role="tooltip"
+                className="bg-parchment-900 pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 rounded-md px-2 py-1 text-xs whitespace-nowrap text-white"
+              >
+                {label}
+              </span>
+            ) : null}
           </button>
         ))}
       </div>
-      {activeTip ? (
-        <div className="bg-parchment-900 absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-md px-2 py-1 text-xs whitespace-nowrap text-white">
-          {activeTip}
-        </div>
-      ) : null}
     </div>
   );
 }

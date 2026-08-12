@@ -6,7 +6,10 @@ import { PlaybookDemoCard, PlaybookSwitchRow } from "./demo-card";
 const HOLD_MS = 1400;
 const NORMAL_DURATION = 0.22;
 const SLOWMO_DURATION = 0.8;
-const EASE = [0.16, 1, 0.3, 1] as const;
+const MORPH_TRANSITION = {
+  duration: 0.22,
+  ease: "easeInOut" as const,
+};
 
 function CopyLabelButton({
   withBlur = false,
@@ -19,7 +22,7 @@ function CopyLabelButton({
   const [busy, setBusy] = useState(false);
   const holdTimerRef = useRef<number | null>(null);
   const unlockTimerRef = useRef<number | null>(null);
-  const morph = { duration, ease: EASE };
+  const morph = { ...MORPH_TRANSITION, duration };
   const morphMs = duration * 1000;
 
   useEffect(() => {
@@ -52,7 +55,7 @@ function CopyLabelButton({
       className="min-w-24"
     >
       <span className="relative flex h-5 w-14 items-center justify-center overflow-hidden">
-        <AnimatePresence mode="popLayout" initial={false}>
+        <AnimatePresence mode="sync" initial={false}>
           <motion.span
             key={copied ? "copied" : "copy"}
             initial={{
