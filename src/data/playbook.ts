@@ -1,4 +1,5 @@
 import { skills } from "./skills.ts";
+import { playbookDemoSlugs } from "./playbook-demos";
 
 export type PlaybookEntry = {
   slug: string;
@@ -572,6 +573,12 @@ const relatedSkillPool = [
   "better-ui",
 ];
 
+for (const skillSlug of relatedSkillPool) {
+  if (!skillBySlug.has(skillSlug)) {
+    throw new Error(`Unknown related skill pool slug: ${skillSlug}`);
+  }
+}
+
 const playbook = rawPlaybook.map((entry) => {
   const sourceKeys = new Set<string>();
   const related: string[] = [];
@@ -606,6 +613,10 @@ for (const entry of rawPlaybook) {
 
   seenSlugs.add(entry.slug);
 
+  if (!playbookDemoSlugs.includes(entry.slug)) {
+    throw new Error(`Missing playbook demo for entry: ${entry.slug}`);
+  }
+
   if (!skillBySlug.has(entry.skill)) {
     throw new Error(`Unknown skill slug for playbook entry: ${entry.skill}`);
   }
@@ -620,14 +631,15 @@ for (const entry of rawPlaybook) {
 }
 
 for (const entry of playbook) {
-  const normalized = playbook.find((item) => item.slug === entry.slug);
+  const authors = entry.related.map((slug) => skillBySlug.get(slug)?.sourceKey);
   if (
-    !normalized ||
-    normalized.related.length < 4 ||
-    normalized.related[0] !== "improve-ui"
+    entry.related.length !== 4 ||
+    entry.related[0] !== "improve-ui" ||
+    authors.some((sourceKey) => !sourceKey) ||
+    new Set(authors).size !== 4
   ) {
     throw new Error(
-      `Playbook entry ${entry.slug} must have at least 4 related skills with improve-ui first`,
+      `Playbook entry ${entry.slug} must have 4 related skills from distinct authors with improve-ui first`,
     );
   }
 }

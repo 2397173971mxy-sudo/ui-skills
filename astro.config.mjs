@@ -15,5 +15,8 @@ export default defineConfig({
     resolve: {
       dedupe: ["react", "react-dom"],
     },
+    ssr: {
+      external: ["node:fs", "node:path"],
+    },
   },
 });

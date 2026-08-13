@@ -1,6 +1,11 @@
 import type { APIRoute } from "astro";
 
 import { jsonHeaders, PUBLIC_SCOPES } from "../../lib/oauth-discovery";
+import {
+  MAX_OAUTH_BODY_BYTES,
+  parseJsonObject,
+  parseRequestedScopes,
+} from "../../lib/oauth-validation";
 
 const corsHeaders = {
   ...jsonHeaders,
@@ -26,14 +31,24 @@ export const POST: APIRoute = async ({ request }) => {
   let scope = PUBLIC_SCOPES.join(" ");
 
   if (contentType.includes("application/x-www-form-urlencoded")) {
-    const form = parseFormBody(await request.text());
+    const raw = await request.text();
+    if (new TextEncoder().encode(raw).byteLength > MAX_OAUTH_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "invalid_request" }), {
+        status: 400,
+        headers: corsHeaders,
+      });
+    }
+    const form = parseFormBody(raw);
     grantType = form.grant_type || grantType;
     scope = form.scope || scope;
   } else if (contentType.includes("application/json")) {
-    const body = (await request.json().catch(() => ({}))) as Record<
-      string,
-      unknown
-    >;
+    const body = parseJsonObject(await request.text());
+    if (!body) {
+      return new Response(JSON.stringify({ error: "invalid_request" }), {
+        status: 400,
+        headers: corsHeaders,
+      });
+    }
     if (typeof body.grant_type === "string") grantType = body.grant_type;
     if (typeof body.scope === "string") scope = body.scope;
   }
@@ -49,6 +64,17 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
+  const requestedScopes = parseRequestedScopes(scope);
+  if (!requestedScopes) {
+    return new Response(
+      JSON.stringify({
+        error: "invalid_scope",
+        error_description: `Supported scopes: ${PUBLIC_SCOPES.join(" ")}`,
+      }),
+      { status: 400, headers: corsHeaders },
+    );
+  }
+
   const accessToken = `uis_${crypto.randomUUID().replaceAll("-", "")}`;
 
   return new Response(
@@ -56,7 +82,7 @@ export const POST: APIRoute = async ({ request }) => {
       access_token: accessToken,
       token_type: "Bearer",
       expires_in: 3600,
-      scope,
+      scope: requestedScopes.join(" "),
     }),
     { headers: corsHeaders },
   );

@@ -1,14 +1,6 @@
 import type { APIRoute } from "astro";
-import {
-  getCanonicalSkillPaths,
-  getRegistryByPath,
-  getSkillByPath,
-} from "../../../lib/skill-catalog";
+import { getRegistryByPath, getSkillByPath } from "../../../lib/skill-catalog";
 import { getRemoteSkill, RemoteSkillError } from "../../../lib/remote-skill";
-
-export function getStaticPaths() {
-  return getCanonicalSkillPaths();
-}
 
 export const GET: APIRoute = async ({ params }) => {
   const routeSlug = params.slug ?? "";

@@ -1,6 +1,19 @@
 import { spawn } from "node:child_process";
+import net from "node:net";
 
-const port = 4399;
+const requestedPort = Number(process.env.SMOKE_PORT ?? 0);
+const port =
+  requestedPort ||
+  (await new Promise((resolve, reject) => {
+    const probe = net.createServer();
+    probe.once("error", reject);
+    probe.listen(0, "127.0.0.1", () => {
+      const address = probe.address();
+      const selectedPort =
+        typeof address === "object" && address ? address.port : 0;
+      probe.close((error) => (error ? reject(error) : resolve(selectedPort)));
+    });
+  }));
 const server = spawn(
   "npx",
   ["wrangler", "dev", "--local", "--ip", "127.0.0.1", "--port", `${port}`],
@@ -58,7 +71,10 @@ try {
     throw new Error("Homepage is missing discovery Link headers");
   }
   const homepageBody = await homepage.text();
-  if (!/^<!doctype html>/i.test(homepageBody)) {
+  if (
+    !/^<!doctype html>/i.test(homepageBody) &&
+    !homepageBody.includes("<html")
+  ) {
     throw new Error(
       `Homepage did not return HTML: ${homepageBody.slice(0, 200)}`,
     );
@@ -76,7 +92,9 @@ try {
     throw new Error("MCP docs are missing the endpoint code block");
   }
   if (
-    !mcpDocsBody.includes("https://www.ui-skills.com/.well-known/mcp/server-card.json")
+    !mcpDocsBody.includes(
+      "https://www.ui-skills.com/.well-known/mcp/server-card.json",
+    )
   ) {
     throw new Error("MCP docs are missing the server card code block");
   }
@@ -114,6 +132,58 @@ try {
   const registry = await fetchLocal("/skills/registry.json");
   if (registry.status !== 200) {
     throw new Error(`Registry returned ${registry.status}`);
+  }
+
+  const registryText = await fetchLocal("/skills/registry.txt");
+  if (registryText.status !== 200) {
+    throw new Error(`Text registry returned ${registryText.status}`);
+  }
+
+  const knownArtifact = await fetchLocal(
+    "/skills/ibelick/baseline-ui/llms.txt",
+  );
+  if (knownArtifact.status !== 200) {
+    throw new Error(`Known skill artifact returned ${knownArtifact.status}`);
+  }
+
+  const mcp = await fetchLocal("/mcp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
+  });
+  if (mcp.status !== 200 || !(await mcp.text()).includes('"list_skills"')) {
+    throw new Error(`MCP tools/list failed with ${mcp.status}`);
+  }
+
+  const invalidMcp = await fetchLocal("/mcp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: "not-json",
+  });
+  if (invalidMcp.status !== 400) {
+    throw new Error(`Invalid MCP request returned ${invalidMcp.status}`);
+  }
+
+  const oauthMetadata = await fetchLocal(
+    "/.well-known/oauth-authorization-server",
+  );
+  if (
+    oauthMetadata.status !== 200 ||
+    !(await oauthMetadata.text()).includes('"token_endpoint"')
+  ) {
+    throw new Error(`OAuth metadata failed with ${oauthMetadata.status}`);
+  }
+
+  const playbook = await fetchLocal("/playbook/use-large-touch-targets");
+  if (playbook.status !== 200) {
+    throw new Error(`Playbook returned ${playbook.status}`);
+  }
+  const playbookBody = await playbook.text();
+  if (!playbookBody.includes("Make touch targets easy to hit")) {
+    throw new Error("Playbook page is missing its title");
+  }
+  if (!playbookBody.includes("44px target")) {
+    throw new Error("Playbook page is missing its interactive demo content");
   }
 
   const designDocument = await fetchLocal("/design.md");

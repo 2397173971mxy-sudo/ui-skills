@@ -7,10 +7,12 @@ const paintingUrl =
 
 function PaintingCard({ stable, replay }: { stable: boolean; replay: number }) {
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     setLoaded(false);
-    const timer = window.setTimeout(() => setLoaded(true), 650);
+    setFailed(false);
+    const timer = window.setTimeout(() => setLoaded(true), 1600);
     return () => window.clearTimeout(timer);
   }, [replay]);
 
@@ -23,18 +25,28 @@ function PaintingCard({ stable, replay }: { stable: boolean; replay: number }) {
             : "bg-parchment-100 overflow-hidden rounded-lg"
         }
       >
-        {loaded ? (
+        {loaded && !failed ? (
           <img
-            src={paintingUrl}
+            key={replay}
+            src={`${paintingUrl}?replay=${replay}`}
             alt="Impression, Sunrise by Claude Monet, a harbor scene with boats beneath an orange sun."
             className={
               stable
                 ? "block size-full object-cover"
                 : "block aspect-3/4 w-full object-cover"
             }
+            width={stable ? 960 : undefined}
+            height={stable ? 1245 : undefined}
             loading="eager"
+            onError={() => setFailed(true)}
           />
-        ) : stable ? null : (
+        ) : stable || failed ? (
+          <div
+            className="bg-parchment-100 size-full min-h-24"
+            role="img"
+            aria-label="Image unavailable"
+          />
+        ) : (
           <div className="h-16" aria-hidden="true" />
         )}
       </div>
@@ -61,6 +73,9 @@ export default function AspectRatioDemo() {
         >
           Replay load
         </Button>
+      }
+      headerExtra={
+        <span className="text-parchment-500 text-xs">Simulated load</span>
       }
       contentClassName="flex w-full justify-center"
       without={<PaintingCard stable={false} replay={replay} />}

@@ -24,7 +24,10 @@ describe("remote skill content", () => {
   test("serves cached content without fetching upstream", async () => {
     let fetchCalls = 0;
     const cache = {
-      match: async () => new Response("cached skill"),
+      match: async () =>
+        new Response("cached skill", {
+          headers: { "x-ui-skills-cached-at": String(Date.now()) },
+        }),
       put: async () => undefined,
     };
     setCache(cache);
@@ -37,6 +40,31 @@ describe("remote skill content", () => {
 
     assert.deepEqual(result, { content: "cached skill", stale: false });
     assert.equal(fetchCalls, 0);
+  });
+
+  test("refreshes stale cached content and falls back when upstream fails", async () => {
+    let fetchCalls = 0;
+    const cache = {
+      match: async () =>
+        new Response("stale skill", {
+          headers: {
+            "x-ui-skills-cached-at": String(
+              Date.now() - 2 * 24 * 60 * 60 * 1000,
+            ),
+          },
+        }),
+      put: async () => undefined,
+    };
+    setCache(cache);
+    globalThis.fetch = async () => {
+      fetchCalls += 1;
+      throw new Error("upstream unavailable");
+    };
+
+    const result = await getRemoteSkill("https://example.com/stale.md");
+
+    assert.deepEqual(result, { content: "stale skill", stale: true });
+    assert.equal(fetchCalls, 1);
   });
 
   test("preserves upstream 404 semantics on a cache miss", async () => {
