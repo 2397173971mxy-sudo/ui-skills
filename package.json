@@ -11,6 +11,7 @@
     "prebuild": "node --import tsx ./scripts/precompute-agent-skills-digests.mjs",
     "build": "astro build",
     "postbuild": "node ./scripts/write-assetsignore.mjs",
+    "check:skills": "node --import tsx ./scripts/check-registry-skills.mjs",
     "digests": "node --import tsx ./scripts/precompute-agent-skills-digests.mjs",
     "preview": "astro preview",
     "astro": "astro",
@@ -18,7 +19,7 @@
     "typecheck": "astro check",
     "test": "node --import tsx --test tests/*.test.ts",
     "smoke": "node tests/smoke.mjs",
-    "check": "npm run typecheck && npm test && npm run build && npm run smoke"
+    "check": "npm run typecheck && npm run check:skills && npm test && npm run build && npm run smoke"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",

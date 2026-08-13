@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-13T18:21:35.996Z",
-  "skillCount": 199,
+  "generatedAt": "2026-08-13T18:27:30.835Z",
+  "skillCount": 209,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
@@ -200,6 +200,16 @@
     "redongreen/create-voice": "sha256:c1a1a48717bb28ca06f9f00ee0aa1803e10a448d37b80c72526fe3adca200c09",
     "nvillapiano/cc-figma-tokens": "sha256:2044e6207414700ca4d33c7b8651bdff8dae2ab170a877c2c29e16691eeb673d",
     "oso95/scroll-world": "sha256:e56fe396c1fa258278289cfa9cbf17253519f11f4856535f7709dd2368e3e65e",
-    "iannuttall/seo": "sha256:371405668b939697d58f83baf070488292690a81bb966129acd138a53d613462"
+    "iannuttall/seo": "sha256:371405668b939697d58f83baf070488292690a81bb966129acd138a53d613462",
+    "remotion-dev/remotion-best-practices": "sha256:db7d6b0e052d2ed4327957c6d6181347c89bb99bc4d788ff2b3e47f21d30de65",
+    "vercel/next-cache-components": "sha256:e0571079c1c8af832df28849a6087a71aa415af2f561a4d83ea4a2a477744baa",
+    "vercel/next-cache-components-optimizer": "sha256:9b538b7f58241f8d6d808a35967bd8b0624f3ae97f7904ab51b294b05e533210",
+    "accesslint/audit-and-fix": "sha256:fa1f1af1f043a075a93e989b35d00e74c1539cfe840dd69b70c4a00625eb9e44",
+    "accesslint/contrast-checker": "sha256:3a3ac56289191371509130a83f3b86152174c8464ad2464e0d9b49c7d2e86b94",
+    "accesslint/refactor": "sha256:93a6cb8508bd555629ad1d23ff7aa8ccf1154da750a61503c3940716ce7f4b64",
+    "accesslint/link-purpose": "sha256:3a3ac56289191371509130a83f3b86152174c8464ad2464e0d9b49c7d2e86b94",
+    "accesslint/use-of-color": "sha256:3a3ac56289191371509130a83f3b86152174c8464ad2464e0d9b49c7d2e86b94",
+    "mattpocock/to-issues": "sha256:5ecdf1d4df8a360ed39df21a2347f97ba177afd449a577da4f6b6ea8e1ebb808",
+    "mattpocock/to-prd": "sha256:5d26479544b08048d3a8f79d937b39bc613a617f026b3fd083bafc1e99a7b811"
   }
 }

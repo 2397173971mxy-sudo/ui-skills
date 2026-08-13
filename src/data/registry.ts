@@ -115,149 +115,6 @@ const registrySource: RegistrySourceSkill[] = [
       "Use when you want to turn a product goal into a design-first UI prompt with clear layout, type, color, and constraint choices.",
   },
   {
-    slug: "design-taste-frontend",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/design-taste-frontend/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/design-taste-frontend/SKILL.md",
-    name: "design-taste-frontend",
-    topics: ["visual", "taste", "systems"],
-    description:
-      "Use when the UI needs stronger taste, restraint, hierarchy, and visual coherence without changing the product shape.",
-  },
-  {
-    slug: "full-output-enforcement",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/full-output-enforcement/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/full-output-enforcement/SKILL.md",
-    name: "full-output-enforcement",
-    topics: ["systems", "tooling", "frontend"],
-    description:
-      "Use when you need the agent to deliver the complete requested output instead of a partial or truncated result.",
-  },
-  {
-    slug: "gpt-taste",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/gpt-taste/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/gpt-taste/SKILL.md",
-    name: "gpt-taste",
-    topics: ["taste", "visual", "frontend"],
-    description:
-      "Use when you want stronger aesthetic judgment, visual refinement, and better-looking interface decisions from the model.",
-  },
-  {
-    slug: "high-end-visual-design",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/high-end-visual-design/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/high-end-visual-design/SKILL.md",
-    name: "high-end-visual-design",
-    topics: ["visual", "systems", "craft"],
-    description:
-      "Use when the interface needs a premium, high-polish visual treatment with disciplined spacing and hierarchy.",
-  },
-  {
-    slug: "image-to-code",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/image-to-code/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/image-to-code/SKILL.md",
-    name: "image-to-code",
-    topics: ["frontend", "visual", "tooling"],
-    description:
-      "Use when you have a visual reference and want a practical workflow to translate it into implementation details.",
-  },
-  {
-    slug: "industrial-brutalist-ui",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/industrial-brutalist-ui/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/industrial-brutalist-ui/SKILL.md",
-    name: "industrial-brutalist-ui",
-    topics: ["visual", "systems", "craft"],
-    description:
-      "Use when you want a harder-edged, brutalist UI direction with strong structure and visual tension.",
-  },
-  {
-    slug: "minimalist-ui",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/minimalist-ui/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/minimalist-ui/SKILL.md",
-    name: "minimalist-ui",
-    topics: ["visual", "systems", "craft"],
-    description:
-      "Use when you want a restrained UI direction with fewer elements, cleaner hierarchy, and more negative space.",
-  },
-  {
-    slug: "redesign-existing-projects",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/redesign-existing-projects/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/redesign-existing-projects/SKILL.md",
-    name: "redesign-existing-projects",
-    topics: ["visual", "frontend", "systems"],
-    description:
-      "Use when you need to improve an existing product interface without throwing away the underlying product structure.",
-  },
-  {
-    slug: "seo-audit",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/seo-audit/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/seo-audit/SKILL.md",
-    name: "seo-audit",
-    topics: ["frontend", "architecture", "tooling"],
-    description:
-      "Use when you need to review a page for metadata, headings, structured data, and search visibility basics.",
-  },
-  {
-    slug: "stitch-design-taste",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/stitch-design-taste/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/stitch-design-taste/SKILL.md",
-    name: "stitch-design-taste",
-    topics: ["visual", "taste", "systems"],
-    description:
-      "Use when you want to combine multiple references into one coherent visual direction without losing consistency.",
-  },
-  {
-    slug: "swiftui-pro",
-    user: "MengTo",
-    repo: "Skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/MengTo/Skills/main/agent-skills/ui/swiftui-pro/SKILL.md",
-    githubUrl:
-      "https://github.com/MengTo/Skills/blob/main/agent-skills/ui/swiftui-pro/SKILL.md",
-    name: "swiftui-pro",
-    topics: ["swiftui", "frontend", "systems"],
-    description:
-      "Use when building or polishing SwiftUI interfaces with production-minded composition and layout discipline.",
-  },
-  {
     slug: "landing-page",
     user: "MengTo",
     repo: "Skills",
@@ -535,9 +392,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "remotion-dev",
     repo: "skills",
     rawUrl:
-      "https://raw.githubusercontent.com/remotion-dev/skills/main/skills/remotion/SKILL.md",
+      "https://raw.githubusercontent.com/remotion-dev/skills/main/skills/remotion-best-practices/SKILL.md",
     githubUrl:
-      "https://github.com/remotion-dev/skills/blob/main/skills/remotion/SKILL.md",
+      "https://github.com/remotion-dev/skills/blob/main/skills/remotion-best-practices/SKILL.md",
     name: "remotion-best-practices",
     topics: ["video", "motion", "remotion"],
     description:
@@ -661,43 +518,30 @@ const registrySource: RegistrySourceSkill[] = [
       "Review UI code for Web Interface Guidelines compliance. Audit design, accessibility, and UX against Vercel's best practices.",
   },
   {
-    slug: "next-best-practices",
-    user: "vercel-labs",
-    repo: "next-skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/vercel-labs/next-skills/main/skills/next-best-practices/SKILL.md",
-    githubUrl:
-      "https://github.com/vercel-labs/next-skills/blob/main/skills/next-best-practices/SKILL.md",
-    name: "next-best-practices",
-    topics: ["nextjs", "frontend", "performance"],
-    description:
-      "Next.js best practices: file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, and optimization.",
-  },
-  {
     slug: "next-cache-components",
-    user: "vercel-labs",
-    repo: "next-skills",
+    user: "vercel",
+    repo: "next.js",
     rawUrl:
-      "https://raw.githubusercontent.com/vercel-labs/next-skills/main/skills/next-cache-components/SKILL.md",
+      "https://raw.githubusercontent.com/vercel/next.js/canary/skills/next-cache-components-adoption/SKILL.md",
     githubUrl:
-      "https://github.com/vercel-labs/next-skills/blob/main/skills/next-cache-components/SKILL.md",
+      "https://github.com/vercel/next.js/blob/canary/skills/next-cache-components-adoption/SKILL.md",
     name: "next-cache-components",
     topics: ["nextjs", "performance", "frontend"],
     description:
-      "Next.js 16 Cache Components guidance covering PPR, use cache directive, cacheLife, cacheTag, and updateTag.",
+      "Enable Cache Components in a Next.js app and resolve blocking routes surfaced during adoption.",
   },
   {
-    slug: "next-upgrade",
-    user: "vercel-labs",
-    repo: "next-skills",
+    slug: "next-cache-components-optimizer",
+    user: "vercel",
+    repo: "next.js",
     rawUrl:
-      "https://raw.githubusercontent.com/vercel-labs/next-skills/main/skills/next-upgrade/SKILL.md",
+      "https://raw.githubusercontent.com/vercel/next.js/canary/skills/next-cache-components-optimizer/SKILL.md",
     githubUrl:
-      "https://github.com/vercel-labs/next-skills/blob/main/skills/next-upgrade/SKILL.md",
-    name: "next-upgrade",
-    topics: ["nextjs", "tooling", "frontend"],
+      "https://github.com/vercel/next.js/blob/canary/skills/next-cache-components-optimizer/SKILL.md",
+    name: "next-cache-components-optimizer",
+    topics: ["nextjs", "performance", "testing"],
     description:
-      "Upgrade Next.js to the latest version using official migration guides and codemods.",
+      "Drive a Next.js route to instant navigation under Cache Components using a failing Playwright test and an agentic fix loop.",
   },
   {
     slug: "agent-browser",
@@ -1413,9 +1257,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "AccessLint",
     repo: "claude-marketplace",
     rawUrl:
-      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-audit/SKILL.md",
     githubUrl:
-      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-audit/SKILL.md",
     name: "audit-and-fix",
     topics: ["accessibility", "testing", "frontend"],
     description:
@@ -1426,9 +1270,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "AccessLint",
     repo: "claude-marketplace",
     rawUrl:
-      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     githubUrl:
-      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     name: "contrast-checker",
     topics: ["accessibility", "testing", "color"],
     description:
@@ -1439,9 +1283,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "AccessLint",
     repo: "claude-marketplace",
     rawUrl:
-      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     githubUrl:
-      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     name: "link-purpose",
     topics: ["accessibility", "testing", "interaction"],
     description:
@@ -1452,9 +1296,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "AccessLint",
     repo: "claude-marketplace",
     rawUrl:
-      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-fix/SKILL.md",
     githubUrl:
-      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-fix/SKILL.md",
     name: "refactor",
     topics: ["accessibility", "testing", "frontend"],
     description:
@@ -1465,9 +1309,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "AccessLint",
     repo: "claude-marketplace",
     rawUrl:
-      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     githubUrl:
-      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/audit-and-fix/SKILL.md",
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-inspect/SKILL.md",
     name: "use-of-color",
     topics: ["accessibility", "color", "testing"],
     description:
@@ -2178,9 +2022,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "mattpocock",
     repo: "skills",
     rawUrl:
-      "https://raw.githubusercontent.com/mattpocock/skills/main/skills/engineering/to-issues/SKILL.md",
+      "https://raw.githubusercontent.com/mattpocock/skills/main/skills/engineering/to-tickets/SKILL.md",
     githubUrl:
-      "https://github.com/mattpocock/skills/blob/main/skills/engineering/to-issues/SKILL.md",
+      "https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md",
     name: "to-issues",
     topics: ["architecture", "tooling", "testing"],
     description: "Breaks a plan or PRD into independently actionable issues.",
@@ -2190,9 +2034,9 @@ const registrySource: RegistrySourceSkill[] = [
     user: "mattpocock",
     repo: "skills",
     rawUrl:
-      "https://raw.githubusercontent.com/mattpocock/skills/main/skills/engineering/to-prd/SKILL.md",
+      "https://raw.githubusercontent.com/mattpocock/skills/main/skills/engineering/to-spec/SKILL.md",
     githubUrl:
-      "https://github.com/mattpocock/skills/blob/main/skills/engineering/to-prd/SKILL.md",
+      "https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md",
     name: "to-prd",
     topics: ["architecture", "tooling", "frontend"],
     description:
@@ -2494,32 +2338,6 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["motion", "frontend", "tooling"],
     description:
       "Lottie and dotLottie integration guidance for playback control, interactivity, runtime theming, and cross-platform export workflows.",
-  },
-  {
-    slug: "conductor-rewrite-performance",
-    user: "brotzky",
-    repo: "performance-skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/brotzky/performance-skills/main/performance/skills/conductor-rewrite-performance/SKILL.md",
-    githubUrl:
-      "https://github.com/brotzky/performance-skills/blob/main/performance/skills/conductor-rewrite-performance/SKILL.md",
-    name: "conductor-rewrite-performance",
-    topics: ["performance", "frontend", "debugging"],
-    description:
-      "Performance guidance for local-first desktop apps, including React render optimization, streaming list virtualization, profiling, and background work.",
-  },
-  {
-    slug: "linear-local-first-architecture",
-    user: "brotzky",
-    repo: "performance-skills",
-    rawUrl:
-      "https://raw.githubusercontent.com/brotzky/performance-skills/main/performance/skills/linear-local-first-architecture/SKILL.md",
-    githubUrl:
-      "https://github.com/brotzky/performance-skills/blob/main/performance/skills/linear-local-first-architecture/SKILL.md",
-    name: "linear-local-first-architecture",
-    topics: ["performance", "architecture", "frontend"],
-    description:
-      "Local-first architecture guidance for instant-feeling web apps, optimistic updates, bundle loading, offline behavior, and responsive UI motion.",
   },
   {
     slug: "gc-minimal-zine-poster-v0-1",
