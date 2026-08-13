@@ -2756,6 +2756,136 @@ const registrySource: RegistrySourceSkill[] = [
       "Write or rewrite technical text with ASD-STE100 Simplified Technical English for clear, unambiguous, translation-friendly documentation and interface copy.",
   },
   {
+    slug: "figma-use",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-use/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-use/SKILL.md",
+    name: "figma-use",
+    topics: ["systems", "tooling", "frontend"],
+    description:
+      "Mandatory prerequisite before every use_figma call — plugin API rules for creating, editing, and inspecting Figma files through MCP.",
+  },
+  {
+    slug: "figma-generate-design",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-generate-design/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-generate-design/SKILL.md",
+    name: "figma-generate-design",
+    topics: ["systems", "visual", "frontend"],
+    description:
+      "Translate pages and multi-section layouts into Figma by discovering design system components, variables, and assembling screens section by section.",
+  },
+  {
+    slug: "figma-generate-library",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-generate-library/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-generate-library/SKILL.md",
+    name: "figma-generate-library",
+    topics: ["systems", "craft", "frontend"],
+    description:
+      "Build or update a professional design system in Figma from a codebase, including tokens, variant sets, theming, and component libraries.",
+  },
+  {
+    slug: "audit-design-system",
+    user: "edenspiekermann",
+    repo: "Skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/edenspiekermann/Skills/main/skills/audit-design-system/SKILL.md",
+    githubUrl:
+      "https://github.com/edenspiekermann/Skills/blob/main/skills/audit-design-system/SKILL.md",
+    name: "audit-design-system",
+    topics: ["systems", "craft", "frontend"],
+    description:
+      "Audit a Figma screen or component for design-system drift, including missing shared components, local overrides, and unbound tokens.",
+  },
+  {
+    slug: "apply-design-system",
+    user: "edenspiekermann",
+    repo: "Skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/edenspiekermann/Skills/main/skills/apply-design-system/SKILL.md",
+    githubUrl:
+      "https://github.com/edenspiekermann/Skills/blob/main/skills/apply-design-system/SKILL.md",
+    name: "apply-design-system",
+    topics: ["systems", "craft", "frontend"],
+    description:
+      "Reconnect an existing Figma design to published design system components instead of detached layers, local wrappers, or one-off assets.",
+  },
+  {
+    slug: "create-voice",
+    user: "redongreen",
+    repo: "uSpec",
+    rawUrl:
+      "https://raw.githubusercontent.com/redongreen/uSpec/main/skills/create-voice/SKILL.md",
+    githubUrl:
+      "https://github.com/redongreen/uSpec/blob/main/skills/create-voice/SKILL.md",
+    name: "create-voice",
+    topics: ["accessibility", "systems", "frontend"],
+    description:
+      "Generate VoiceOver, TalkBack, and ARIA screen reader specs in Figma with focus order, property tables, and announcements by component state.",
+  },
+  {
+    slug: "rad-spacing",
+    user: "nolanperk",
+    repo: "rad-spacing",
+    rawUrl:
+      "https://raw.githubusercontent.com/nolanperk/rad-spacing/main/rad-spacing.md",
+    githubUrl:
+      "https://github.com/nolanperk/rad-spacing/blob/main/rad-spacing.md",
+    name: "rad-spacing",
+    topics: ["systems", "craft", "visual"],
+    description:
+      "Apply hierarchical spacing variables across Figma layouts using proximity-based 4px and 8px increments from the file's library.",
+  },
+  {
+    slug: "sync-figma-token",
+    user: "firebenders",
+    repo: "sync-figma-token-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/firebenders/sync-figma-token-skill/main/skills/sync-figma-token/SKILL.md",
+    githubUrl:
+      "https://github.com/firebenders/sync-figma-token-skill/blob/main/skills/sync-figma-token/SKILL.md",
+    name: "sync-figma-token",
+    topics: ["systems", "color", "frontend"],
+    description:
+      "Sync design tokens between code and Figma variables with drift reporting, approval gates, safe delta apply, and persisted reports.",
+  },
+  {
+    slug: "cc-figma-component",
+    user: "nvillapiano",
+    repo: "component-contracts-figma",
+    rawUrl:
+      "https://raw.githubusercontent.com/nvillapiano/component-contracts-figma/main/skills/cc-figma-component/SKILL.md",
+    githubUrl:
+      "https://github.com/nvillapiano/component-contracts-figma/blob/main/skills/cc-figma-component/SKILL.md",
+    name: "cc-figma-component",
+    topics: ["systems", "frontend", "architecture"],
+    description:
+      "Generate variable-bound Figma component sets from component-contract definitions after the token collections exist.",
+  },
+  {
+    slug: "cc-figma-tokens",
+    user: "nvillapiano",
+    repo: "component-contracts-figma",
+    rawUrl:
+      "https://raw.githubusercontent.com/nvillapiano/component-contracts-figma/main/skills/cc-figma-tokens/SKILL.md",
+    githubUrl:
+      "https://github.com/nvillapiano/component-contracts-figma/blob/main/skills/cc-figma-tokens/SKILL.md",
+    name: "cc-figma-tokens",
+    topics: ["systems", "color", "frontend"],
+    description:
+      "Build or update Figma Primitive and Semantic variable collections from component-contracts token files.",
+  },
+  {
     slug: "human-review",
     user: "petergyang",
     repo: "human-review",
