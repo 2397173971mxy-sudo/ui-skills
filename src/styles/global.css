@@ -54,8 +54,30 @@
   box-shadow: 0 0 0 1px oklch(0.3 0 0);
 }
 
+.dark #newsletter-email::selection {
+  background-color: oklch(0.42 0 0);
+  color: var(--color-parchment-900);
+}
+
+.dark .newsletter-subscribe-button {
+  background-color: oklch(0.86 0 0);
+  color: oklch(0.08 0 0);
+}
+
+.dark .newsletter-subscribe-button:hover {
+  background-color: oklch(0.78 0 0);
+}
+
 .dark .dark-theme-github-stars {
   border-color: transparent;
+}
+
+.dark .theme-toggle__sun {
+  display: block;
+}
+
+.dark .theme-toggle__moon {
+  display: none;
 }
 
 .dark .prose {
@@ -79,6 +101,12 @@
 /* Shiki emits both palettes on each token; select Rosé Pine Moon in dark mode. */
 html.dark code [style*="--shiki-dark"] {
   color: var(--shiki-dark) !important;
+}
+
+html.theme-switching,
+html.theme-switching * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
 }
 
 ::selection {
