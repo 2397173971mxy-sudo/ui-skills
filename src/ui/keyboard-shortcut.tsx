@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { Command } from "lucide-react";
 
 const shortcutClass =
-  "inline-flex h-[18px] select-none items-center gap-0.5 bg-transparent font-mono text-[10px] text-white/60";
+  "inline-flex h-[18px] select-none items-center gap-0.5 bg-transparent font-mono text-[10px]";
 
 function CommandIcon() {
   return (
@@ -21,7 +22,7 @@ function CommandIcon() {
   );
 }
 
-export function CommandKShortcut() {
+export function CommandKShortcut({ className = "" }: { className?: string }) {
   const [isMac, setIsMac] = useState(true);
 
   useEffect(() => {
@@ -29,10 +30,10 @@ export function CommandKShortcut() {
   }, []);
 
   return (
-    <kbd className={shortcutClass}>
+    <kbd className={`${shortcutClass} ${className}`}>
       {isMac ? (
         <>
-          <CommandIcon />K
+          <Command aria-hidden="true" size={10} strokeWidth={2.5} />K
         </>
       ) : (
         <>Ctrl K</>

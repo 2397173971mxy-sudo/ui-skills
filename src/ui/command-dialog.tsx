@@ -1,4 +1,5 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { Search } from "lucide-react";
 import {
   useEffect,
   useMemo,
@@ -289,28 +290,17 @@ export function CommandDialog({ items }: CommandDialogProps) {
           content={
             <span className="inline-flex items-center gap-2">
               Search
-              <CommandKShortcut />
+              <CommandKShortcut className="text-white/60" />
             </span>
           }
         >
           <DialogPrimitive.Trigger
-            aria-label="Search skills"
-            className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-8 w-8 items-center justify-center rounded-[6px] border bg-transparent text-[14px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+            aria-label="Search skills (Command K on Mac, Control K on Windows and Linux)"
+            className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-7 items-center justify-center gap-1 rounded-[6px] border bg-transparent px-1.5 text-[13px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
           >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-4 shrink-0"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
+            <Search aria-hidden="true" className="size-3.5 shrink-0" />
+            <span>Search</span>
+            <CommandKShortcut className="bg-parchment-200 text-parchment-700 rounded-[4px] px-1.5" />
           </DialogPrimitive.Trigger>
         </Tooltip>
 
@@ -321,22 +311,11 @@ export function CommandDialog({ items }: CommandDialogProps) {
               Search skills
             </DialogPrimitive.Title>
             <div className="border-parchment-200 flex items-center gap-2 border-b px-4 py-3">
-              <svg
+              <Search
                 aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                size={16}
                 className="text-parchment-500"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
+              />
               <input
                 autoFocus
                 value={query}

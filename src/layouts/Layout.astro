@@ -7,6 +7,7 @@ import Footer from "../ui/footer.astro";
 import { CommandDialog } from "../ui/command-dialog";
 import GitHubStarButton from "../ui/github-star-button.astro";
 import { WebMcpTools } from "../ui/webmcp-tools";
+import { ThemeToggle } from "../ui/theme-toggle";
 import { serializeJsonLd } from "../lib/serialize-json-ld";
 
 type Props = {
@@ -89,6 +90,18 @@ const githubStars = await getGithubStars();
     <meta name="twitter:image" content={twitterImageUrl} />
     <meta name="twitter:image:alt" content={twitterImageAltText} />
     <meta name="twitter:site" content={twitterSiteHandle} />
+    <script is:inline>
+      const applyStoredTheme = () => {
+        document.documentElement.classList.toggle(
+          "dark",
+          localStorage.getItem("ui-skills-theme") === "dark",
+        );
+      };
+
+      applyStoredTheme();
+      document.addEventListener("astro:page-load", applyStoredTheme);
+      document.addEventListener("astro:after-swap", applyStoredTheme);
+    </script>
     <script
       is:inline
       defer
@@ -118,6 +131,7 @@ const githubStars = await getGithubStars();
       >
         <div class="flex items-center gap-3">
           <CommandDialog items={commandItems} client:idle />
+          <ThemeToggle client:load />
           <GitHubStarButton
             href="https://github.com/ibelick/ui-skills"
             label={githubStars?.label}
