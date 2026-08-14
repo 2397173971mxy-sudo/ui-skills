@@ -26,10 +26,12 @@ const playbookIndex = entry
   ? playbook.findIndex((item) => item.slug === entry.slug)
   : -1;
 const previousPlaybook =
-  playbookIndex > 0 ? playbook[playbookIndex - 1] : undefined;
+  playbookIndex >= 0
+    ? playbook[(playbookIndex - 1 + playbook.length) % playbook.length]
+    : undefined;
 const nextPlaybook =
-  playbookIndex >= 0 && playbookIndex < playbook.length - 1
-    ? playbook[playbookIndex + 1]
+  playbookIndex >= 0
+    ? playbook[(playbookIndex + 1) % playbook.length]
     : undefined;
 
 const breadcrumbItems = [

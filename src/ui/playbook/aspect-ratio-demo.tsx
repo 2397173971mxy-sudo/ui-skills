@@ -12,7 +12,7 @@ function PaintingCard({ stable, replay }: { stable: boolean; replay: number }) {
   useEffect(() => {
     setLoaded(false);
     setFailed(false);
-    const timer = window.setTimeout(() => setLoaded(true), 1600);
+    const timer = window.setTimeout(() => setLoaded(true), 650);
     return () => window.clearTimeout(timer);
   }, [replay]);
 
@@ -73,9 +73,6 @@ export default function AspectRatioDemo() {
         >
           Replay load
         </Button>
-      }
-      headerExtra={
-        <span className="text-parchment-500 text-xs">Simulated load</span>
       }
       contentClassName="flex w-full justify-center"
       without={<PaintingCard stable={false} replay={replay} />}
