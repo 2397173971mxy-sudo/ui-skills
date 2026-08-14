@@ -26,6 +26,89 @@
   --color-tertiary: var(--color-parchment-400);
 }
 
+/* Keep the existing neutral palette and layout while remapping it for dark mode. */
+.dark {
+  --color-parchment-50: oklch(0 0 0);
+  --color-parchment-100: oklch(0.12 0 0);
+  --color-parchment-200: oklch(0.24 0 0);
+  --color-parchment-300: oklch(0.36 0 0);
+  --color-parchment-400: oklch(0.52 0 0);
+  --color-parchment-500: oklch(0.68 0 0);
+  --color-parchment-600: oklch(0.82 0 0);
+  --color-parchment-700: oklch(0.9 0 0);
+  --color-parchment-800: oklch(0.96 0 0);
+  --color-parchment-900: oklch(1 0 0);
+}
+
+.dark .bg-white {
+  background-color: oklch(0.16 0 0);
+}
+
+.dark :where(code):not(:where(pre code)) {
+  background-color: oklch(0.18 0 0) !important;
+  outline-color: oklch(0.3 0 0) !important;
+}
+
+.dark #newsletter-email {
+  background-color: oklch(0.16 0 0);
+  box-shadow: 0 0 0 1px oklch(0.3 0 0);
+}
+
+.dark #newsletter-email::selection {
+  background-color: oklch(0.42 0 0);
+  color: var(--color-parchment-900);
+}
+
+.dark .newsletter-subscribe-button {
+  background-color: oklch(0.86 0 0);
+  color: oklch(0.08 0 0);
+}
+
+.dark .newsletter-subscribe-button:hover {
+  background-color: oklch(0.78 0 0);
+}
+
+.dark .dark-theme-github-stars {
+  border-color: transparent;
+}
+
+.dark .theme-toggle__sun {
+  display: block;
+}
+
+.dark .theme-toggle__moon {
+  display: none;
+}
+
+.dark .prose {
+  --tw-prose-body: var(--color-parchment-600);
+  --tw-prose-headings: var(--color-parchment-900);
+  --tw-prose-links: var(--color-parchment-900);
+  --tw-prose-bold: var(--color-parchment-900);
+  --tw-prose-counters: var(--color-parchment-500);
+  --tw-prose-bullets: var(--color-parchment-400);
+  --tw-prose-hr: var(--color-parchment-200);
+  --tw-prose-quotes: var(--color-parchment-900);
+  --tw-prose-quote-borders: var(--color-parchment-300);
+  --tw-prose-captions: var(--color-parchment-500);
+  --tw-prose-code: var(--color-parchment-900);
+  --tw-prose-pre-code: var(--color-parchment-900);
+  --tw-prose-pre-bg: var(--color-parchment-100);
+  --tw-prose-th-borders: var(--color-parchment-200);
+  --tw-prose-td-borders: var(--color-parchment-200);
+}
+
+/* Shiki emits both palettes on each token; select Rosé Pine Moon in dark mode. */
+html.dark code [style*="--shiki-dark"] {
+  color: var(--shiki-dark) !important;
+}
+
+html.theme-switching,
+html.theme-switching * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
 ::selection {
   background-color: oklch(0.84 0 0 / 0.5);
   color: inherit;

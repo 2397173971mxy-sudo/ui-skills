@@ -1,11 +1,13 @@
 import bash from "@shikijs/langs/bash";
 import githubDarkDefault from "@shikijs/themes/github-dark-default";
 import githubLightHighContrast from "@shikijs/themes/github-light-high-contrast";
+import rosePineMoon from "@shikijs/themes/rose-pine-moon";
 import { createHighlighterCore, type HighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 import type { LanguageRegistration } from "shiki";
 
 export const CODE_HIGHLIGHT_THEME = "github-light-high-contrast";
+export const CODE_HIGHLIGHT_DARK_THEME = "rose-pine-moon";
 export const CODE_HIGHLIGHT_FOREGROUND = "#0e1116";
 export const SKILL_CODE_THEME = "github-dark-default";
 export const SKILL_CODE_BACKGROUND = "#24292e";
@@ -55,7 +57,7 @@ let highlighterPromise: Promise<HighlighterCore> | null = null;
 
 function getHighlighter(): Promise<HighlighterCore> {
   highlighterPromise ??= createHighlighterCore({
-    themes: [githubLightHighContrast, githubDarkDefault],
+    themes: [githubLightHighContrast, githubDarkDefault, rosePineMoon],
     langs: [bash],
     engine: createJavaScriptRegexEngine(),
   });
@@ -104,6 +106,7 @@ const HIGHLIGHT_SURFACES: Record<
   HighlightSurface,
   {
     theme: string;
+    darkTheme?: string;
     foreground: string;
     background: string;
     transparentBackground: boolean;
@@ -111,6 +114,7 @@ const HIGHLIGHT_SURFACES: Record<
 > = {
   ui: {
     theme: CODE_HIGHLIGHT_THEME,
+    darkTheme: CODE_HIGHLIGHT_DARK_THEME,
     foreground: CODE_HIGHLIGHT_FOREGROUND,
     background: "transparent",
     transparentBackground: true,
@@ -130,6 +134,13 @@ function withPlaintextForeground(html: string, foreground: string): string {
   );
 }
 
+function preserveLightThemeColor(html: string): string {
+  return html.replace(
+    /style="--shiki-light:(#[0-9a-f]+);/gi,
+    'style="color:$1;--shiki-light:$1;',
+  );
+}
+
 async function highlightWithLanguage(
   code: string,
   language: string,
@@ -143,7 +154,15 @@ async function highlightWithLanguage(
 
   const html = highlighter.codeToHtml(source, {
     lang: resolvedLanguage,
-    theme: surfaceConfig.theme,
+    ...(surfaceConfig.darkTheme
+      ? {
+          themes: {
+            light: surfaceConfig.theme,
+            dark: surfaceConfig.darkTheme,
+          },
+          defaultColor: false,
+        }
+      : { theme: surfaceConfig.theme }),
     bg: surfaceConfig.background,
     colorReplacements: surfaceConfig.transparentBackground
       ? {
@@ -154,7 +173,7 @@ async function highlightWithLanguage(
       : undefined,
   });
 
-  const innerHtml = extractCodeInnerHtml(html);
+  const innerHtml = preserveLightThemeColor(extractCodeInnerHtml(html));
   return resolvedLanguage === "plaintext"
     ? withPlaintextForeground(innerHtml, surfaceConfig.foreground)
     : innerHtml;

@@ -289,13 +289,13 @@ export function CommandDialog({ items }: CommandDialogProps) {
           content={
             <span className="inline-flex items-center gap-2">
               Search
-              <CommandKShortcut />
+              <CommandKShortcut className="text-white/60" />
             </span>
           }
         >
           <DialogPrimitive.Trigger
-            aria-label="Search skills"
-            className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-8 w-8 items-center justify-center rounded-[6px] border bg-transparent text-[14px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
+            aria-label="Search skills (Command K on Mac, Control K on Windows and Linux)"
+            className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-7 items-center justify-center gap-1 rounded-[6px] border bg-transparent px-1.5 text-[13px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
           >
             <svg
               aria-hidden="true"
@@ -306,11 +306,13 @@ export function CommandDialog({ items }: CommandDialogProps) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="size-4 shrink-0"
+              className="size-3.5 shrink-0"
             >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
             </svg>
+            <span>Search</span>
+            <CommandKShortcut className="bg-parchment-200 text-parchment-700 rounded-[4px] px-1.5" />
           </DialogPrimitive.Trigger>
         </Tooltip>
 

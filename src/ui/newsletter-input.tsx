@@ -145,7 +145,7 @@ export default function NewsletterInput({
               type="button"
               disabled={status !== "idle"}
               onClick={() => void submit()}
-              className={`bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-[10px] px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:hover:bg-parchment-900 ${status === "subscribing" ? "opacity-70" : "opacity-100"
+              className={`newsletter-subscribe-button bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-[10px] px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:hover:bg-parchment-900 ${status === "subscribing" ? "opacity-70" : "opacity-100"
                 }`}
             >
               <AnimatePresence mode="popLayout" initial={false}>
