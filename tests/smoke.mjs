@@ -200,11 +200,21 @@ try {
     throw new Error(`Playbook returned ${playbook.status}`);
   }
   const playbookBody = await playbook.text();
-  if (!playbookBody.includes("Make controls easy to tap")) {
+  if (!playbookBody.includes("Use 44px touch targets for accessibility")) {
     throw new Error("Playbook page is missing its title");
   }
   if (!playbookBody.includes("44px target")) {
     throw new Error("Playbook page is missing its interactive demo content");
+  }
+  for (const marker of [
+    '"@type":"TechArticle"',
+    '"@type":"BreadcrumbList"',
+    '"mainEntityOfPage":"https://www.ui-skills.com/playbook/use-large-touch-targets"',
+    '<link rel="canonical" href="https://www.ui-skills.com/playbook/use-large-touch-targets"',
+  ]) {
+    if (!playbookBody.includes(marker)) {
+      throw new Error(`Playbook page is missing SEO metadata: ${marker}`);
+    }
   }
 
   const designDocument = await fetchLocal("/design.md");

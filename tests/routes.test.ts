@@ -2,9 +2,24 @@ import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { GET as getRegistry } from "../src/pages/skills/registry.json.ts";
 import { GET as getSkillContent } from "../src/pages/skills/[...slug]/llms.txt.ts";
+import { GET as getSitemap } from "../src/pages/sitemap.xml.ts";
 import { renderSkillMarkdown } from "../src/lib/render-skill-markdown.ts";
 
 describe("route boundaries", () => {
+  test("includes Playbook pages in the sitemap", async () => {
+    const response = await getSitemap({
+      site: new URL("https://www.ui-skills.com"),
+    } as never);
+    const body = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.match(body, /https:\/\/www\.ui-skills\.com\/playbook/);
+    assert.match(
+      body,
+      /https:\/\/www\.ui-skills\.com\/playbook\/reserve-space-with-aspect-ratio/,
+    );
+  });
+
   test("returns the registry manifest with machine-readable headers", async () => {
     const response = await getRegistry({} as never);
     const body = (await response.json()) as {

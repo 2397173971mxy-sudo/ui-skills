@@ -47,24 +47,61 @@ const pageUrl = new URL(`/playbook/${slug}`, siteOrigin).toString();
 const structuredData = entry
   ? {
       "@context": "https://schema.org",
-      "@type": "Article",
+      "@type": "TechArticle",
       headline: entry.title,
       description: entry.description,
       url: pageUrl,
+      mainEntityOfPage: pageUrl,
+      inLanguage: "en",
+      author: sourceSkill
+        ? {
+            "@type": "Person",
+            name:
+              sourceSkill.sourceLabel ?? sourceSkill.sourceKey ?? "UI Skills",
+            url: sourceSkill.sourceKey
+              ? `https://github.com/${sourceSkill.sourceKey}`
+              : undefined,
+          }
+        : undefined,
+      publisher: {
+        "@type": "Organization",
+        name: "UI Skills",
+        url: new URL("/", siteOrigin).toString(),
+      },
       about: sourceSkill
         ? {
             "@type": "SoftwareApplication",
             name: sourceSkill.label,
           }
         : undefined,
+      keywords: [
+        entry.slug,
+        entry.title,
+        "UI design",
+        "design engineering",
+        sourceSkill?.label,
+      ].filter((keyword): keyword is string => Boolean(keyword)),
     }
   : undefined;
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    item: new URL(item.href ?? `/playbook/${slug}`, siteOrigin).toString(),
+  })),
+};
 ---
 
 <Layout
-  structuredData={structuredData}
-  title={`${entry?.title ?? "Playbook"} | Playbook`}
+  structuredData={structuredData
+    ? [structuredData, breadcrumbStructuredData]
+    : breadcrumbStructuredData}
+  title={`${entry?.title ?? "Playbook"} | UI Skills`}
   description={entry?.description ?? "Distilled UI lesson."}
+  robots={!entry ? "noindex,follow" : undefined}
 >
   {
     entry && sourceSkill ? (

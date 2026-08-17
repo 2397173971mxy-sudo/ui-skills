@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { skills, type Skill } from "../data/skills";
 import { agents } from "../data/agents";
+import { playbook } from "../data/playbook";
 
 const SITE_URL = "https://www.ui-skills.com";
 
@@ -40,6 +41,7 @@ export const GET: APIRoute = ({ site }) => {
     "/",
     "/skills",
     "/skills/topics",
+    "/playbook",
     "/agents",
     "/mcp/docs",
     "/cli",
@@ -47,6 +49,7 @@ export const GET: APIRoute = ({ site }) => {
   const topicRoutes = buildTopicRoutes(skills);
   const groupRoutes = buildGroupPaths(skills).map((path) => `/skills/${path}`);
   const skillRoutes = skills.map((skill) => `/skills/${skill.pathSlug}`);
+  const playbookRoutes = playbook.map((entry) => `/playbook/${entry.slug}`);
   const agentRoutes = agents.map((agent) => `/agents/${agent.id}`);
   const allRoutes = Array.from(
     new Set([
@@ -54,6 +57,7 @@ export const GET: APIRoute = ({ site }) => {
       ...topicRoutes,
       ...groupRoutes,
       ...skillRoutes,
+      ...playbookRoutes,
       ...agentRoutes,
     ]),
   );
