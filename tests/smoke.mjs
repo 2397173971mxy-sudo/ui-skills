@@ -79,8 +79,20 @@ try {
       `Homepage did not return HTML: ${homepageBody.slice(0, 200)}`,
     );
   }
-  if (!homepageBody.includes("npx ui-skills start")) {
-    throw new Error("Homepage is missing highlighted agent command block");
+  if (!homepageBody.includes("Agent, start here.")) {
+    throw new Error("Homepage is missing the agent access section");
+  }
+  if (!homepageBody.includes(">CLI<")) {
+    throw new Error("Homepage is missing the CLI access card");
+  }
+  if (!homepageBody.includes(">MCP<")) {
+    throw new Error("Homepage is missing the MCP access card");
+  }
+  if (!homepageBody.includes('href="/cli"')) {
+    throw new Error("Homepage is missing the CLI guide link");
+  }
+  if (!homepageBody.includes('href="/mcp/docs"')) {
+    throw new Error("Homepage is missing the MCP guide link");
   }
 
   const mcpDocs = await fetchLocal("/mcp/docs");
