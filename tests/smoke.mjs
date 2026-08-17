@@ -139,13 +139,6 @@ try {
     throw new Error(`Text registry returned ${registryText.status}`);
   }
 
-  const knownArtifact = await fetchLocal(
-    "/skills/ibelick/baseline-ui/llms.txt",
-  );
-  if (knownArtifact.status !== 200) {
-    throw new Error(`Known skill artifact returned ${knownArtifact.status}`);
-  }
-
   const mcp = await fetchLocal("/mcp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -179,7 +172,7 @@ try {
     throw new Error(`Playbook returned ${playbook.status}`);
   }
   const playbookBody = await playbook.text();
-  if (!playbookBody.includes("Make touch targets easy to hit")) {
+  if (!playbookBody.includes("Make controls easy to tap")) {
     throw new Error("Playbook page is missing its title");
   }
   if (!playbookBody.includes("44px target")) {

@@ -162,14 +162,14 @@ export default function NewsletterInput({
                   void submit();
                 }
               }}
-              className="text-parchment-900 placeholder:text-parchment-400 focus:border-parchment-300 relative z-0 h-12 w-full rounded-[12px] bg-white px-4 pr-36 text-sm shadow-2xs ring-1 ring-black/10 transition-colors outline-none"
+              className="text-parchment-900 placeholder:text-parchment-400 focus:border-parchment-300 relative z-0 h-12 w-full rounded-full bg-white px-4 pr-36 text-sm shadow-2xs ring-1 ring-black/10 transition-colors outline-none"
             />
 
             <button
               type="button"
               disabled={status !== "idle"}
               onClick={() => void submit()}
-              className={`bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary disabled:hover:bg-parchment-900 absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-[10px] px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
+              className={`bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary disabled:hover:bg-parchment-900 absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
                 status === "subscribing" ? "opacity-70" : "opacity-100"
               }`}
             >

@@ -13,17 +13,17 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "reserve-space-with-aspect-ratio",
     skill: "better-layout",
-    title: "Reserve space for media",
+    title: "Keep image space stable",
     description:
-      "Use `aspect-ratio` to prevent images from shifting nearby content while they load.",
+      "Set `aspect-ratio` so nearby content does not jump while an image loads.",
     related: ["improve-ui", "better-interface", "better-ui", "better-layout"],
   },
   {
     slug: "use-text-balance",
     skill: "baseline-ui",
-    title: "Balance headings, prettify body copy",
+    title: "Make text easier to scan",
     description:
-      "Use `text-balance` on headings and `text-pretty` on body copy.",
+      "Use `text-balance` for headings and `text-pretty` for body copy.",
     related: [
       "improve-ui",
       "better-typography",
@@ -34,8 +34,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-tabular-nums-for-data",
     skill: "baseline-ui",
-    title: "Align numeric UI",
-    description: "Use `tabular-nums` when numbers need to line up.",
+    title: "Line up numbers",
+    description: "Use `tabular-nums` when numbers should line up.",
     related: [
       "improve-ui",
       "better-typography",
@@ -46,8 +46,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-large-touch-targets",
     skill: "better-accessibility",
-    title: "Make touch targets easy to hit",
-    description: "Give interactive controls at least a 44×44px touch target.",
+    title: "Make controls easy to tap",
+    description:
+      "Give every interactive control a target of at least 44 x 44px.",
     related: [
       "improve-ui",
       "fixing-accessibility",
@@ -58,8 +59,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-concentric-border-radius",
     skill: "better-ui",
-    title: "Nest corners concentrically",
-    description: "Nested corners: outer radius = inner radius + padding.",
+    title: "Make nested corners match",
+    description: "Set the outer radius to the inner radius plus the padding.",
     related: [
       "improve-ui",
       "make-interfaces-feel-better",
@@ -70,8 +71,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "add-scale-on-press",
     skill: "emil-design-eng",
-    title: "Give buttons press feedback",
-    description: "Scale pressable controls to ~0.96 on `:active`.",
+    title: "Shrink buttons when pressed",
+    description: "Scale pressed controls to about 0.96 with `:active`.",
     related: [
       "improve-ui",
       "better-ui",
@@ -82,8 +83,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "anchor-popovers-to-triggers",
     skill: "emil-design-eng",
-    title: "Grow popovers from their trigger",
-    description: "Animate popovers from the trigger edge, not the center.",
+    title: "Open popovers from their control",
+    description:
+      "Animate a popover from the edge of the control that opened it.",
     related: [
       "improve-ui",
       "better-ui",
@@ -94,15 +96,15 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "group-with-space-not-lines",
     skill: "better-layout",
-    title: "Group with space, not lines",
-    description: "Separate groups with spacing before adding divider lines.",
+    title: "Use space to group content",
+    description: "Add spacing between groups before adding divider lines.",
     related: ["improve-ui", "better-interface", "baseline-ui", "better-ui"],
   },
   {
     slug: "peek-the-next-scroll-item",
     skill: "better-layout",
-    title: "Peek the next scroll item",
-    description: "Let 16–32px of the next item peek past the scroll edge.",
+    title: "Show the next scroll item",
+    description: "Let 16 to 32px of the next item show at the scroll edge.",
     related: [
       "improve-ui",
       "better-interface",
@@ -113,8 +115,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "outline-images-neutrally",
     skill: "better-ui",
-    title: "Outline images with neutral hairlines",
-    description: "Use a neutral hairline outline on images, not a tinted ring.",
+    title: "Keep image outlines neutral",
+    description: "Use a thin neutral outline instead of a tinted ring.",
     related: [
       "improve-ui",
       "make-interfaces-feel-better",
@@ -125,15 +127,16 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "clamp-overflowing-titles",
     skill: "better-typography",
-    title: "Clamp overflowing titles",
-    description: "Use `line-clamp` or `truncate` in dense UI.",
+    title: "Keep long titles tidy",
+    description: "Use `line-clamp` or `truncate` when space is tight.",
     related: ["improve-ui", "baseline-ui", "better-interface", "better-ui"],
   },
   {
     slug: "keep-secondary-text-readable",
     skill: "better-accessibility",
-    title: "Keep secondary text readable",
-    description: "Keep secondary text readable on its background.",
+    title: "Keep muted text readable",
+    description:
+      "Check that muted text has enough contrast with its background.",
     related: [
       "improve-ui",
       "fixing-accessibility",
@@ -144,8 +147,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "avoid-entering-from-scale-zero",
     skill: "emil-design-eng",
-    title: "Avoid entering from scale zero",
-    description: "Start entrances at ~`scale(0.95)`, not `scale(0)`.",
+    title: "Start motion near full size",
+    description: "Start entrances around `scale(0.95)`, not `scale(0)`.",
     related: [
       "improve-ui",
       "improve-animations",
@@ -156,15 +159,16 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-structural-skeletons",
     skill: "baseline-ui",
-    title: "Use structural skeletons",
-    description: "Match loading placeholders to content shape, not spinners.",
+    title: "Match loading placeholders",
+    description:
+      "Make loading shapes match the content they replace. Skip spinners when possible.",
     related: ["improve-ui", "better-ui", "better-interface", "baseline-ui"],
   },
   {
     slug: "limit-accent-color-usage",
     skill: "baseline-ui",
-    title: "Limit accent color usage",
-    description: "One accent per view; keep secondary actions neutral.",
+    title: "Use one accent color",
+    description: "Use one accent per view. Keep secondary actions neutral.",
     related: [
       "improve-ui",
       "better-colors",
@@ -175,8 +179,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "cap-line-length",
     skill: "better-typography",
-    title: "Cap line length",
-    description: "Cap long-form copy around 60–75 characters per line.",
+    title: "Keep text lines short",
+    description: "Keep long-form text around 60 to 75 characters per line.",
     related: [
       "improve-ui",
       "baseline-ui",
@@ -187,8 +191,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-shadow-for-elevation",
     skill: "better-ui",
-    title: "Use shadow for elevation",
-    description: "Use shadow for depth; reserve borders for structure.",
+    title: "Use shadow for depth",
+    description: "Use shadows to show depth. Use borders to show structure.",
     related: [
       "improve-ui",
       "make-interfaces-feel-better",
@@ -199,9 +203,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "show-visible-focus-rings",
     skill: "better-accessibility",
-    title: "Show visible focus rings",
+    title: "Keep focus visible",
     description:
-      "Style `:focus-visible`. Never remove outlines without a replacement.",
+      "Style `:focus-visible`. Never remove the focus outline without a replacement.",
     related: [
       "improve-ui",
       "fixing-accessibility",
@@ -212,8 +216,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "show-errors-beside-fields",
     skill: "baseline-ui",
-    title: "Show errors beside fields",
-    description: "Put validation errors directly under the field.",
+    title: "Show errors next to fields",
+    description: "Put each validation error directly below its field.",
     related: [
       "improve-ui",
       "better-accessibility",
@@ -224,8 +228,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "label-every-form-field",
     skill: "fixing-accessibility",
-    title: "Label every form field",
-    description: "Use a visible label; never rely on placeholder text alone.",
+    title: "Label every field",
+    description:
+      "Use a visible label. Do not use placeholder text as the only label.",
     related: [
       "improve-ui",
       "better-accessibility",
@@ -236,15 +241,16 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "give-empty-states-one-action",
     skill: "baseline-ui",
-    title: "Give empty states one action",
-    description: "Empty states need one clear next step, not just explanation.",
+    title: "Give empty states one next step",
+    description:
+      "Give an empty state one clear action, not just an explanation.",
     related: ["improve-ui", "better-ui", "better-interface", "better-layout"],
   },
   {
     slug: "use-sentence-case-labels",
     skill: "better-typography",
-    title: "Use sentence case labels",
-    description: "Write labels in sentence case, not ALL CAPS.",
+    title: "Use sentence case",
+    description: "Write labels in sentence case, not all caps.",
     related: [
       "improve-ui",
       "baseline-ui",
@@ -255,9 +261,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "pair-status-with-labels",
     skill: "better-accessibility",
-    title: "Pair status with labels",
-    description:
-      "Never rely on color alone. Add text or an icon beside status.",
+    title: "Do not use color alone",
+    description: "Add text or an icon next to every color-based status.",
     related: [
       "improve-ui",
       "fixing-accessibility",
@@ -268,17 +273,17 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-ease-out-on-enter",
     skill: "emil-design-eng",
-    title: "Use ease-out on enter",
+    title: "Use ease-out when things open",
     description:
-      "Entrances should use `ease-out`. `ease-in` feels sluggish on open.",
+      "Use `ease-out` for entrances. `ease-in` feels slow when something opens.",
     related: ["improve-ui", "apple-design", "improve-animations", "better-ui"],
   },
   {
     slug: "align-icons-optically",
     skill: "better-ui",
-    title: "Align icons optically",
+    title: "Align icons by eye",
     description:
-      "When geometric centering looks off, nudge icons so they align with the eye.",
+      "If geometric centering looks wrong, nudge the icon until it looks aligned.",
     related: [
       "improve-ui",
       "emil-design-eng",
@@ -289,9 +294,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "match-icon-stroke-weight",
     skill: "better-ui",
-    title: "Match icon stroke to text",
+    title: "Match icon weight to text",
     description:
-      "Use 2px icon stroke beside semibold text; 1.5px beside regular.",
+      "Use a 2px stroke beside semibold text and a 1.5px stroke beside regular text.",
     related: [
       "improve-ui",
       "better-typography",
@@ -302,9 +307,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-outline-icons-by-default",
     skill: "better-ui",
-    title: "Use outline icons by default",
+    title: "Use outline icons first",
     description:
-      "Outline icons are default. Reserve fill for the active state.",
+      "Use outline icons by default. Use a fill for the active state.",
     related: [
       "improve-ui",
       "make-interfaces-feel-better",
@@ -315,8 +320,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "avoid-glow-primary-actions",
     skill: "baseline-ui",
-    title: "Avoid glow on primary actions",
-    description: "Do not use glow effects as the main call to action.",
+    title: "Skip glow on primary actions",
+    description: "Do not use a glow to make the main action stand out.",
     related: [
       "improve-ui",
       "better-ui",
@@ -327,8 +332,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "animate-icon-state-changes",
     skill: "better-ui",
-    title: "Animate icon state changes",
-    description: "Cross-fade contextual icons with opacity, scale, and blur.",
+    title: "Animate icon changes",
+    description: "Cross-fade changing icons with opacity, scale, and blur.",
     related: [
       "improve-ui",
       "improve-animations",
@@ -339,8 +344,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "give-targets-breathing-room",
     skill: "better-layout",
-    title: "Give targets breathing room",
-    description: "Leave ~12px between adjacent bordered controls.",
+    title: "Leave controls room",
+    description: "Leave about 12px between nearby bordered controls.",
     related: [
       "improve-ui",
       "better-accessibility",
@@ -351,31 +356,31 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "inset-primary-actions",
     skill: "better-layout",
-    title: "Inset primary actions",
+    title: "Keep main buttons inside the margins",
     description:
-      "Keep full-width buttons inside layout margins, not edge to edge.",
+      "Keep full-width buttons inside the page margins, not edge to edge.",
     related: ["improve-ui", "better-interface", "better-ui", "ui-ux-pro-max"],
   },
   {
     slug: "tighten-heading-line-height",
     skill: "better-typography",
-    title: "Tighten heading line-height",
-    description: "Use tighter line-height on short headings (~1.1).",
+    title: "Tighten heading line height",
+    description: "Use a line height near 1.1 for short headings.",
     related: ["improve-ui", "baseline-ui", "apple-design", "better-interface"],
   },
   {
     slug: "tune-tracking-by-size",
     skill: "better-typography",
-    title: "Tune tracking by size",
+    title: "Adjust letter spacing by size",
     description:
-      "Large display text often needs slightly negative letter-spacing.",
+      "Large display text often needs slightly tighter letter spacing.",
     related: ["improve-ui", "apple-design", "baseline-ui", "better-interface"],
   },
   {
     slug: "confirm-destructive-actions",
     skill: "baseline-ui",
     title: "Confirm destructive actions",
-    description: "Use a dialog before irreversible or destructive actions.",
+    description: "Ask for confirmation before an irreversible action.",
     related: [
       "improve-ui",
       "fixing-accessibility",
@@ -386,9 +391,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "fade-scroll-edges",
     skill: "apple-design",
-    title: "Fade scroll edges",
+    title: "Fade the scroll edges",
     description:
-      "Use a `mask-image` scroll fade on the list so edges dissolve as you scroll.",
+      "Use a `mask-image` fade so the list edges soften while you scroll.",
     related: [
       "improve-ui",
       "better-layout",
@@ -399,8 +404,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "stagger-infrequent-entrances",
     skill: "better-ui",
-    title: "Stagger infrequent entrances",
-    description: "Stagger hero chunks by ~100ms on first load, not routine UI.",
+    title: "Stagger rare entrances",
+    description:
+      "Stagger hero sections by about 100ms on first load. Do not use it for routine UI.",
     related: [
       "improve-ui",
       "improve-animations",
@@ -411,9 +417,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "keep-exits-subtle",
     skill: "better-ui",
-    title: "Keep exits subtle",
+    title: "Keep exits short",
     description:
-      "Use a small fixed translateY on exit. Softer than the enter, not full-height travel.",
+      "Use a small fixed `translateY` on exit. Keep it softer than the entrance.",
     related: [
       "improve-ui",
       "improve-animations",
@@ -424,8 +430,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "warm-toolbar-tooltips",
     skill: "emil-design-eng",
-    title: "Warm toolbar tooltips",
-    description: "Skip tooltip delay after the first one in a toolbar opens.",
+    title: "Open the next tooltip faster",
+    description:
+      "After one tooltip opens, open the next one without the full delay.",
     related: [
       "improve-ui",
       "better-ui",
@@ -436,9 +443,8 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-interruptible-transitions",
     skill: "better-ui",
-    title: "Use interruptible transitions",
-    description:
-      "Prefer CSS transitions over keyframes for interactive open/close.",
+    title: "Keep transitions interruptible",
+    description: "Use CSS transitions for interactive open and close states.",
     related: [
       "improve-ui",
       "emil-design-eng",
@@ -449,9 +455,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "restrain-high-frequency-motion",
     skill: "better-ui",
-    title: "Restrain high-frequency motion",
+    title: "Keep repeated motion instant",
     description:
-      "Reserve enter animations for first load. Tab switches need instant feedback, not a replayed entrance.",
+      "Use entrance animations on first load only. Keep tab switches instant.",
     related: [
       "improve-ui",
       "fixing-motion-performance",
@@ -462,9 +468,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-ease-not-spring-for-feedback",
     skill: "to-spring-or-not-to-spring",
-    title: "Use ease-out for system feedback",
+    title: "Use ease-out for feedback",
     description:
-      "System state changes should ease out. Springs wobble on toggles and toasts.",
+      "Use `ease-out` for state changes. Springs can wobble on toggles and toasts.",
     related: [
       "improve-ui",
       "better-ui",
@@ -477,7 +483,7 @@ const rawPlaybook: PlaybookEntry[] = [
     skill: "mastering-animate-presence",
     title: "Fade menus out",
     description:
-      "Let menus exit with a short fade. Don't yank them off screen.",
+      "Close menus with a short fade. Do not move them far off screen.",
     related: [
       "improve-ui",
       "better-ui",
@@ -488,8 +494,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "reserve-brand-color-for-links",
     skill: "better-colors",
-    title: "Reserve brand color for links",
-    description: "Keep headings neutral. Reserve link color for actions.",
+    title: "Save brand color for links",
+    description:
+      "Keep headings neutral. Use the brand color for links and actions.",
     related: [
       "improve-ui",
       "baseline-ui",
@@ -500,22 +507,23 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "use-solid-modal-scrims",
     skill: "fixing-motion-performance",
-    title: "Use solid modal scrims",
-    description: "Backdrop blur repaints the whole screen.",
+    title: "Use a solid modal backdrop",
+    description: "Use a solid backdrop. Blur can repaint the whole screen.",
     related: ["improve-ui", "60fps-animation", "better-ui", "apple-design"],
   },
   {
     slug: "fade-truncated-text",
     skill: "better-typography",
-    title: "Fade truncated text",
-    description: "Soft-fade overflowing labels. A hard ellipsis feels abrupt.",
+    title: "Fade clipped text",
+    description:
+      "Soft-fade overflowing labels instead of ending them with a hard ellipsis.",
     related: ["improve-ui", "baseline-ui", "better-ui", "apple-design"],
   },
   {
     slug: "enter-and-exit-on-the-same-path",
     skill: "apple-design",
-    title: "Enter and exit on the same path",
-    description: "Dismiss along the same path the surface arrived on.",
+    title: "Use the same path in and out",
+    description: "Close a surface along the same path it used to open.",
     related: [
       "improve-ui",
       "better-ui",
@@ -526,9 +534,9 @@ const rawPlaybook: PlaybookEntry[] = [
   {
     slug: "blur-imperfect-label-morphs",
     skill: "emil-design-eng",
-    title: "Blur imperfect label morphs",
+    title: "Soften label changes",
     description:
-      "Soften label swaps with a short blur so two states don't flash mid-fade.",
+      "Add a short blur when labels change so the two states do not flash together.",
     related: [
       "improve-ui",
       "better-ui",

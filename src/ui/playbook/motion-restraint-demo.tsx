@@ -16,7 +16,11 @@ function WorkbenchTabs({ restrained = false }: { restrained?: boolean }) {
 
   return (
     <div className="w-56">
-      <div className="border-parchment-200 flex border-b" role="tablist" aria-label="Workbench">
+      <div
+        className="border-parchment-200 flex border-b"
+        role="tablist"
+        aria-label="Workbench"
+      >
         {TABS.map((tab) => {
           const selected = active === tab.id;
 
@@ -60,8 +64,8 @@ function WorkbenchTabs({ restrained = false }: { restrained?: boolean }) {
 export default function MotionRestraintDemo() {
   return (
     <PlaybookDemoCard
-      withoutLabel="Enter every switch"
-      withLabel="Instant switch"
+      withoutLabel="Animated tabs"
+      withLabel="Instant tabs"
       contentClassName="flex w-full justify-center"
       without={<WorkbenchTabs />}
       with={<WorkbenchTabs restrained />}

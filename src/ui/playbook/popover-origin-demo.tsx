@@ -34,7 +34,9 @@ function PopoverOrigin({ fromTrigger = false }: { fromTrigger?: boolean }) {
             className={`absolute bottom-full left-0 mb-2 w-44 rounded-lg bg-white p-3 shadow-lg ring-1 ring-black/10 ${fromTrigger ? "origin-bottom-left" : "origin-center"}`}
           >
             <p className="text-parchment-900 text-sm font-medium">Sort by</p>
-            <p className="text-parchment-500 mt-1 text-xs">Name, date, or size</p>
+            <p className="text-parchment-500 mt-1 text-xs">
+              Name, date, or size
+            </p>
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -58,7 +60,7 @@ export default function PopoverOriginDemo() {
   return (
     <PlaybookDemoCard
       withoutLabel="Center"
-      withLabel="From trigger"
+      withLabel="From control"
       contentClassName="flex w-full justify-center"
       without={<PopoverOrigin />}
       with={<PopoverOrigin fromTrigger />}

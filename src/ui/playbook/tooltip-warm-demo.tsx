@@ -95,7 +95,7 @@ export default function TooltipWarmDemo() {
   return (
     <PlaybookDemoCard
       withoutLabel="Always delayed"
-      withLabel="Warm toolbar"
+      withLabel="Faster nearby tooltips"
       contentClassName="flex w-full justify-center"
       without={<TooltipToolbar />}
       with={<TooltipToolbar warm />}

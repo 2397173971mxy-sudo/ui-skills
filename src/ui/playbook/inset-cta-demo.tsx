@@ -27,7 +27,7 @@ export default function InsetCtaDemo() {
   return (
     <PlaybookDemoCard
       withoutLabel="Edge to edge"
-      withLabel="Inset"
+      withLabel="Inside margins"
       contentClassName="flex w-full justify-center"
       without={<MobileSheet />}
       with={<MobileSheet inset />}
