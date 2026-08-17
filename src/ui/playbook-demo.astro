@@ -9,4 +9,6 @@ type Props = {
 const { entry } = Astro.props as Props;
 ---
 
-<PlaybookDemoRouter client:load slug={entry.slug} />
+<div class="min-h-84 sm:min-h-88">
+  <PlaybookDemoRouter client:load slug={entry.slug} />
+</div>

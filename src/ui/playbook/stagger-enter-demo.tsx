@@ -3,30 +3,12 @@ import { useState } from "react";
 import { Button } from "../button";
 import { PlaybookDemoCard } from "./demo-card";
 
+import { ReplayButton } from "./replay-button";
+
 const item = {
   hidden: { opacity: 0, y: 12, filter: "blur(4px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
-
-function ReplayIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-      <path d="M3 21v-5h5" />
-    </svg>
-  );
-}
 
 function HeroEnter({
   staggered = false,
@@ -47,7 +29,10 @@ function HeroEnter({
       }
       className="max-w-xs space-y-2 text-center"
     >
-      <motion.h3 variants={item} className="text-parchment-900 text-xl font-medium tracking-tight">
+      <motion.h3
+        variants={item}
+        className="text-parchment-900 text-xl font-medium tracking-tight"
+      >
         Welcome back
       </motion.h3>
       <motion.p variants={item} className="text-parchment-600 text-sm">
@@ -71,16 +56,10 @@ export default function StaggerEnterDemo() {
       withLabel="Staggered"
       contentClassName="flex w-full justify-center"
       belowControls={
-        <Button
-          type="button"
-          variant="outline"
-          shape="round"
-          icon
-          aria-label="Replay animation"
+        <ReplayButton
+          label="Replay animation"
           onClick={() => setAnimationKey((key) => key + 1)}
-        >
-          <ReplayIcon />
-        </Button>
+        />
       }
       without={<HeroEnter animationKey={animationKey} />}
       with={<HeroEnter staggered animationKey={animationKey} />}

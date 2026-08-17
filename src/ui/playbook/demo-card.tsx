@@ -91,7 +91,8 @@ export function PlaybookDemoCard({
   with: withContent,
 }: PlaybookDemoCardProps) {
   const [showTip, setShowTip] = useState(false);
-  const resolvedContentClassName = contentClassName ?? (flush ? "h-full w-full" : "w-full max-w-2xl");
+  const resolvedContentClassName =
+    contentClassName ?? (flush ? "h-full w-full" : "w-full max-w-2xl");
 
   const compareControls = (
     <PlaybookSwitchRow
@@ -124,15 +125,15 @@ export function PlaybookDemoCard({
   return (
     <div
       className={cn(
-        "relative rounded-2xl bg-white shadow-2xs ring-1 ring-black/10",
-        flush ? "overflow-hidden" : "p-6 sm:p-8",
+        "border-parchment-200 relative h-84 w-full max-w-3xl rounded-none border-t border-b bg-white py-3.5 pt-6 pr-4 pl-6 shadow-2xs sm:h-88 sm:rounded-[8px] sm:border-none sm:shadow-2xs sm:ring-1 sm:ring-black/10",
+        flush ? "overflow-hidden p-0" : "",
       )}
     >
       <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2 sm:top-5 sm:right-5">
         {controls}
         {belowControls}
       </div>
-      <div className="relative z-0 h-72">
+      <div className="relative z-0 h-full">
         <div
           className={cn(
             "absolute inset-0",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button } from "../button";
 import { PlaybookDemoCard } from "./demo-card";
+import { ReplayButton } from "./replay-button";
 
 const paintingUrl =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Claude_Monet%2C_Impression%2C_soleil_levant.jpg/960px-Claude_Monet%2C_Impression%2C_soleil_levant.jpg";
@@ -65,14 +65,10 @@ export default function AspectRatioDemo() {
       withoutLabel="No ratio"
       withLabel="Aspect ratio"
       belowControls={
-        <Button
-          shape="round"
-          size="sm"
-          variant="outline"
+        <ReplayButton
+          label="Replay image load"
           onClick={() => setReplay((value) => value + 1)}
-        >
-          Replay load
-        </Button>
+        />
       }
       contentClassName="flex w-full justify-center"
       without={<PaintingCard stable={false} replay={replay} />}
