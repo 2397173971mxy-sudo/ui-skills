@@ -46,23 +46,28 @@ const structuredData = {
         <Breadcrumbs items={breadcrumbItems} />
 
         <div class="px-4 sm:px-0">
-          <h1 class="text-parchment-900 text-3xl font-medium tracking-tight text-balance">
+          <h1
+            class="text-parchment-900 text-3xl font-medium tracking-tight text-balance"
+          >
             Playbook
           </h1>
-          <p class="text-parchment-600 mt-3 max-w-2xl text-base text-pretty leading-snug">
-            Distilled UI lessons from the registry. Each card is one rule the
-            agent should apply.
+          <p
+            class="text-parchment-600 mt-3 max-w-2xl text-base leading-snug text-pretty"
+          >
+            Distilled UI lessons from the registry.
           </p>
         </div>
 
         <div class="grid gap-4 px-4 sm:grid-cols-2 sm:px-0">
-          {playbookCards.map((entry) => (
-            <PlaybookCard
-              href={`/playbook/${entry.slug}`}
-              title={entry.title}
-              description={entry.description}
-            />
-          ))}
+          {
+            playbookCards.map((entry) => (
+              <PlaybookCard
+                href={`/playbook/${entry.slug}`}
+                title={entry.title}
+                description={entry.description}
+              />
+            ))
+          }
         </div>
       </div>
     </div>

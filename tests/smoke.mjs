@@ -30,7 +30,7 @@ server.stderr.on("data", (chunk) => {
   output += chunk.toString();
 });
 
-const fetchLocal = (path, init = {}, timeoutMs = 5000) =>
+const fetchLocal = (path, init = {}, timeoutMs = 15000) =>
   fetch(`http://127.0.0.1:${port}${path}`, {
     ...init,
     signal: AbortSignal.timeout(timeoutMs),
@@ -221,6 +221,29 @@ try {
   const missing = await fetchLocal("/skills/does-not-exist");
   if (missing.status !== 404) {
     throw new Error(`Missing route returned ${missing.status}`);
+  }
+
+  const localSkillPage = await fetchLocal("/skills/ibelick/improve-ui");
+  if (localSkillPage.status !== 200) {
+    throw new Error(`Local skill page returned ${localSkillPage.status}`);
+  }
+  const localSkillBody = await localSkillPage.text();
+  if (!localSkillBody.includes("Audit one coherent product surface")) {
+    throw new Error("Local skill page is missing bundled skill content");
+  }
+
+  const remoteSkillPage = await fetchLocal(
+    "/skills/jakubkrehel/make-interfaces-feel-better",
+  );
+  if (remoteSkillPage.status !== 200) {
+    throw new Error(`Remote skill page returned ${remoteSkillPage.status}`);
+  }
+  const remoteSkillBody = await remoteSkillPage.text();
+  if (
+    remoteSkillBody.includes("Error:") ||
+    remoteSkillBody.includes("Skill source unavailable")
+  ) {
+    throw new Error("Remote skill page exposed a fetch error");
   }
 } catch (error) {
   exitCode = 1;

@@ -31,14 +31,14 @@ describe("route boundaries", () => {
     assert.equal(await response.text(), "Skill not found");
   });
 
-  test("returns upstream skill content for a known path", async () => {
+  test("returns upstream skill content for a remote known path", async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = async () =>
       new Response("# Test skill", { status: 200 });
 
     try {
       const response = await getSkillContent({
-        params: { slug: "ibelick/ui-skills-root" },
+        params: { slug: "jakubkrehel/make-interfaces-feel-better" },
       } as never);
 
       assert.equal(response.status, 200);
@@ -51,6 +51,15 @@ describe("route boundaries", () => {
     } finally {
       globalThis.fetch = originalFetch;
     }
+  });
+
+  test("returns bundled content for a local known path", async () => {
+    const response = await getSkillContent({
+      params: { slug: "ibelick/ui-skills-root" },
+    } as never);
+
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), /# UI Skills Root/);
   });
 
   test("removes unsafe Markdown content and resolves safe relative links", async () => {

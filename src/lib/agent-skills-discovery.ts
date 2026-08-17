@@ -5,8 +5,7 @@ import { registry, type RegistrySkill } from "../data/registry";
 import digestsManifest from "../data/agent-skills-digests.json";
 import { getRemoteSkill } from "./remote-skill";
 
-const SCHEMA =
-  "https://schemas.agentskills.io/discovery/0.2.0/schema.json";
+const SCHEMA = "https://schemas.agentskills.io/discovery/0.2.0/schema.json";
 const PACKAGE_VERSION = "0.2.4";
 
 export type DiscoveredSkill = {
@@ -20,17 +19,6 @@ export type DiscoveredSkill = {
 };
 
 export type SkillContentLoader = (entry: RegistrySkill) => Promise<string>;
-
-type ViteImportMeta = ImportMeta & {
-  glob?: (
-    pattern: string,
-    options: {
-      query: string;
-      import: string;
-      eager: boolean;
-    },
-  ) => Record<string, string>;
-};
 
 function loadSkillsFromFs(): Record<string, string> {
   const root = join(process.cwd(), "skills");
@@ -47,22 +35,26 @@ function loadSkillsFromFs(): Record<string, string> {
 }
 
 function loadSkillModules(): Record<string, string> {
-  const glob = (import.meta as ViteImportMeta).glob;
-  if (typeof glob === "function") {
-    return glob("../../skills/*/SKILL.md", {
+  try {
+    return import.meta.glob("../../skills/*/SKILL.md", {
       query: "?raw",
       import: "default",
       eager: true,
     });
+  } catch {
+    // Node-based tests do not provide Vite's import.meta.glob helper.
+    return loadSkillsFromFs();
   }
-  return loadSkillsFromFs();
 }
 
 const localSkillModules = loadSkillModules();
 
 function slugFromModulePath(path: string): string | null {
-  const match = /\/skills\/([^/]+)\/SKILL\.md$/.exec(path.replaceAll("\\", "/"));
-  return match?.[1] ?? null;
+  const segments = path.replaceAll("\\", "/").split("/");
+  const skillsIndex = segments.lastIndexOf("skills");
+  return skillsIndex >= 0 && segments[skillsIndex + 2] === "SKILL.md"
+    ? (segments[skillsIndex + 1] ?? null)
+    : null;
 }
 
 const localSkillMarkdownBySlug = new Map(

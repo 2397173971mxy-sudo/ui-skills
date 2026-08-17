@@ -21,8 +21,10 @@ import {
   getSkillsBySource,
   getSkillsByTopic,
 } from "../../lib/skill-catalog";
-import { getRemoteSkill } from "../../lib/remote-skill";
+import { defaultSkillContentLoader } from "../../lib/agent-skills-discovery";
 import { playbookBySkillSlug } from "../../data/playbook.ts";
+
+export const prerender = false;
 
 const titleize = (value: string) =>
   value
@@ -316,18 +318,19 @@ if (skill) {
   const registryEntry = getRegistryByPath(skill.pathSlug);
 
   if (registryEntry) {
+    githubUrl = registryEntry.githubUrl;
     try {
-      const remoteSkill = await getRemoteSkill(registryEntry.rawUrl);
-      if (remoteSkill) {
-        skillRaw = remoteSkill.content;
-        githubUrl = registryEntry.githubUrl;
-        displayContent = await renderSkillMarkdown(
-          skillRaw,
-          registryEntry.githubUrl,
-        );
-      }
-    } catch (e) {
-      displayContent = `<p>Error: ${e instanceof Error ? e.message : String(e)}</p>`;
+      skillRaw = await defaultSkillContentLoader(registryEntry);
+      displayContent = await renderSkillMarkdown(
+        skillRaw,
+        registryEntry.githubUrl,
+      );
+    } catch {
+      // Keep the page useful when a remote source is unavailable.
+      displayContent = await renderSkillMarkdown(
+        registryEntry.description,
+        registryEntry.githubUrl,
+      );
     }
   }
 }

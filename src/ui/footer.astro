@@ -1,6 +1,7 @@
 ---
 import { topics } from "../data/topics";
 import { agents } from "../data/agents";
+import { playbook } from "../data/playbook";
 
 const currentYear = new Date().getFullYear();
 const coreTopics = topics.filter((topic) => topic.isDesignCore);
@@ -15,6 +16,7 @@ const featuredAgentIds = [
 const featuredAgents = featuredAgentIds
   .map((id) => agents.find((agent) => agent.id === id))
   .filter((agent): agent is NonNullable<typeof agent> => Boolean(agent));
+const featuredPlaybook = playbook.slice(0, 6);
 type FooterLink = {
   label: string;
   href: string;
@@ -90,6 +92,16 @@ const footerSections: FooterSection[] = [
     ],
   },
   {
+    title: "Playbook",
+    links: [
+      ...featuredPlaybook.map((entry) => ({
+        label: entry.title,
+        href: `/playbook/${entry.slug}`,
+      })),
+      { label: "More playbook", href: "/playbook" },
+    ],
+  },
+  {
     title: "More",
     links: [
       { label: "@ibelick", href: "https://x.com/Ibelick", external: true },
@@ -109,9 +121,9 @@ const footerSections: FooterSection[] = [
 ---
 
 <footer class="border-parchment-200 mt-32 border-t">
-  <div class="px-4 py-12 sm:px-8 sm:py-16">
-    <div class="mx-auto w-full max-w-3xl">
-      <div class="grid gap-12 text-base md:grid-cols-2 lg:grid-cols-5">
+  <div class="px-4 py-16 sm:px-8 sm:py-24">
+    <div class="mx-auto w-full max-w-6xl">
+      <div class="grid gap-10 text-base md:grid-cols-2 lg:grid-cols-6">
         {
           footerSections.map((section) => (
             <div>
@@ -140,10 +152,11 @@ const footerSections: FooterSection[] = [
       </div>
 
       <div
-        class="border-parchment-200 text-parchment-400 mt-12 flex w-full justify-between border-t pt-12 text-base leading-snug"
+        class="border-parchment-200 text-parchment-400 mt-16 flex w-full justify-between border-t pt-16 text-base leading-snug"
       >
         <p>
           ©{currentYear}
+          {" "}
           <a
             href="https://interfaceoffice.com/"
             target="_blank"
