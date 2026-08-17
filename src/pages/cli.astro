@@ -1,0 +1,116 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../ui/breadcrumbs.astro";
+import CodeBlock from "../ui/code-block.astro";
+
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "CLI" }];
+
+const siteOrigin = Astro.site ?? new URL("https://www.ui-skills.com");
+const pageUrl = new URL("/cli", siteOrigin).toString();
+
+const commands = [
+  {
+    command: "npx ui-skills start",
+    title: "Start here",
+    description:
+      "Print the routing skill. It helps an agent choose the smallest useful skill for a task.",
+  },
+  {
+    command: "npx ui-skills categories",
+    title: "List categories",
+    description: "Print every category in the registry.",
+  },
+  {
+    command: "npx ui-skills list",
+    title: "List skills",
+    description: "Print every skill with its category and description.",
+  },
+  {
+    command: "npx ui-skills list --category motion",
+    title: "Filter by category",
+    description: "Show only skills in one category, such as motion.",
+  },
+  {
+    command: "npx ui-skills get baseline-ui",
+    title: "Get a skill",
+    description: "Print the full markdown for one skill.",
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "CLI",
+  description:
+    "Use the UI Skills command-line interface to browse and fetch skills.",
+  url: pageUrl,
+};
+---
+
+<Layout
+  structuredData={structuredData}
+  title="CLI | UI Skills"
+  description="Use the UI Skills command-line interface to browse and fetch skills."
+>
+  <div
+    class="relative flex min-h-dvh flex-col items-center justify-start px-0 sm:px-4"
+  >
+    <div class="relative mt-20 w-full max-w-3xl sm:px-0">
+      <div class="mx-auto flex w-full flex-col gap-10">
+        <Breadcrumbs items={breadcrumbItems} />
+
+        <div class="px-4 sm:px-0">
+          <h1 class="text-parchment-900 text-3xl font-medium tracking-tight">
+            CLI
+          </h1>
+          <p class="text-parchment-500 mt-3 max-w-2xl text-base leading-snug">
+            Browse and fetch UI Skills from your terminal. The CLI reads from
+            the same registry as the website and the MCP server.
+          </p>
+        </div>
+
+        <section>
+          <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
+            Install
+          </h2>
+          <CodeBlock
+            code="npx ui-skills"
+            language="bash"
+            variant="inline"
+            truncate={false}
+            wrapOnMobile={true}
+            copyContent="npx ui-skills"
+          />
+        </section>
+
+        <section>
+          <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
+            Commands
+          </h2>
+          <div class="flex flex-col gap-10">
+            {
+              commands.map((entry) => (
+                <article class="flex w-full flex-col gap-4">
+                  <h3 class="text-parchment-900 text-base font-medium">
+                    {entry.title}
+                  </h3>
+                  <p class="text-parchment-500 max-w-2xl text-base leading-snug">
+                    {entry.description}
+                  </p>
+                  <CodeBlock
+                    code={entry.command}
+                    language="bash"
+                    variant="inline"
+                    truncate={false}
+                    wrapOnMobile={true}
+                    copyContent={entry.command}
+                  />
+                </article>
+              ))
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

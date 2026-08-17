@@ -72,6 +72,11 @@ export function buildApiCatalogDocument(
             title: "MCP documentation",
           },
           {
+            href: `${origin}/cli`,
+            type: "text/html",
+            title: "CLI documentation",
+          },
+          {
             href: `${origin}/.well-known/oauth-protected-resource`,
             type: "application/json",
             title: "OAuth protected resource metadata",

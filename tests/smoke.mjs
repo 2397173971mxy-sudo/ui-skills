@@ -102,6 +102,22 @@ try {
     throw new Error("MCP docs code blocks are missing Shiki theme colors");
   }
 
+  const cliDocs = await fetchLocal("/cli");
+  if (cliDocs.status !== 200) {
+    throw new Error(`CLI docs returned ${cliDocs.status}`);
+  }
+  const cliDocsBody = await cliDocs.text();
+  for (const command of [
+    "npx ui-skills start",
+    "npx ui-skills categories",
+    "npx ui-skills list --category motion",
+    "npx ui-skills get baseline-ui",
+  ]) {
+    if (!cliDocsBody.includes(command)) {
+      throw new Error(`CLI docs are missing ${command}`);
+    }
+  }
+
   const apiCatalog = await fetchLocal("/.well-known/api-catalog");
   if (apiCatalog.status !== 200) {
     throw new Error(`API catalog returned ${apiCatalog.status}`);

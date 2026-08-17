@@ -36,7 +36,14 @@ const buildGroupPaths = (allSkills: Skill[]) =>
 export const GET: APIRoute = ({ site }) => {
   const origin = site?.origin ?? SITE_URL;
 
-  const staticRoutes = ["/", "/skills", "/skills/topics", "/agents", "/mcp/docs"];
+  const staticRoutes = [
+    "/",
+    "/skills",
+    "/skills/topics",
+    "/agents",
+    "/mcp/docs",
+    "/cli",
+  ];
   const topicRoutes = buildTopicRoutes(skills);
   const groupRoutes = buildGroupPaths(skills).map((path) => `/skills/${path}`);
   const skillRoutes = skills.map((skill) => `/skills/${skill.pathSlug}`);
@@ -53,8 +60,7 @@ export const GET: APIRoute = ({ site }) => {
 
   const urlset = allRoutes
     .map((route) => {
-      const normalizedRoute =
-        route === "/" ? "/" : route.replace(/\/+$/, "");
+      const normalizedRoute = route === "/" ? "/" : route.replace(/\/+$/, "");
       const loc = new URL(normalizedRoute, origin).toString();
       return `<url><loc>${escapeXml(loc)}</loc></url>`;
     })
