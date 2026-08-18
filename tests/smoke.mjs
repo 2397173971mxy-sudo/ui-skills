@@ -94,6 +94,21 @@ try {
   if (!homepageBody.includes('href="/mcp/docs"')) {
     throw new Error("Homepage is missing the MCP guide link");
   }
+  if (!homepageBody.includes('dataset.url = "/analytics/events"')) {
+    throw new Error("Homepage is missing the One Dollar Stats proxy loader");
+  }
+
+  const analyticsProxy = await fetchLocal("/analytics/events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      u: "https://www.ui-skills.com/",
+      e: [{ t: "PageView" }],
+    }),
+  });
+  if (analyticsProxy.status === 404) {
+    throw new Error("Analytics proxy route is missing");
+  }
 
   const mcpDocs = await fetchLocal("/mcp/docs");
   if (mcpDocs.status !== 200) {

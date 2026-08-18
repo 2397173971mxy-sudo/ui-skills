@@ -89,11 +89,26 @@ const githubStars = await getGithubStars();
     <meta name="twitter:image" content={twitterImageUrl} />
     <meta name="twitter:image:alt" content={twitterImageAltText} />
     <meta name="twitter:site" content={twitterSiteHandle} />
-    <script
-      is:inline
-      defer
-      src="https://assets.onedollarstats.com/stonks.js"
-      data-hostname="ui-skills.com"></script>
+    <script is:inline>
+      (function () {
+        if (navigator.webdriver) return;
+        var load = function () {
+          if (window.__stonksLoading) return;
+          window.__stonksLoading = true;
+          var script = document.createElement("script");
+          script.src = "https://assets.onedollarstats.com/stonks.js";
+          script.defer = true;
+          script.dataset.hostname = "ui-skills.com";
+          script.dataset.url = "/analytics/events";
+          document.head.appendChild(script);
+        };
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(load, { timeout: 2000 });
+        } else {
+          addEventListener("load", load, { once: true });
+        }
+      })();
+    </script>
     {
       structuredData ? (
         <script
