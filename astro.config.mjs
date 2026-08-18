@@ -8,6 +8,7 @@ export default defineConfig({
   site: "https://www.ui-skills.com",
   trailingSlash: "ignore",
   output: "server",
+  session: false,
   adapter: cloudflare({ imageService: "compile" }),
   integrations: [react()],
   vite: {
