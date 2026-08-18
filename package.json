@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "true",
+    "prebuild": "node ./scripts/sync-stonks.mjs",
     "build": "astro build",
     "postbuild": "node ./scripts/write-assetsignore.mjs",
     "check:skills": "node --import tsx ./scripts/check-registry-skills.mjs",

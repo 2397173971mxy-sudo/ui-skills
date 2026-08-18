@@ -97,6 +97,17 @@ try {
   if (!homepageBody.includes('dataset.url = "/analytics/events"')) {
     throw new Error("Homepage is missing the One Dollar Stats proxy loader");
   }
+  if (!homepageBody.includes('script.src = "/analytics/stonks.js"')) {
+    throw new Error("Homepage is missing the first-party One Dollar Stats loader");
+  }
+  if (homepageBody.includes("assets.onedollarstats.com/stonks.js")) {
+    throw new Error("Homepage still loads One Dollar Stats from a third-party origin");
+  }
+
+  const stonksScript = await fetchLocal("/analytics/stonks.js");
+  if (stonksScript.status !== 200) {
+    throw new Error("First-party One Dollar Stats script is missing");
+  }
 
   const analyticsProxy = await fetchLocal("/analytics/events", {
     method: "POST",

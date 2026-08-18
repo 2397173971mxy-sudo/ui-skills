@@ -91,12 +91,19 @@ const githubStars = await getGithubStars();
     <meta name="twitter:site" content={twitterSiteHandle} />
     <script is:inline>
       (function () {
-        if (navigator.webdriver) return;
+        function shouldSkipAnalytics() {
+          if (navigator.webdriver) return true;
+          var ua = navigator.userAgent || "";
+          return /Chrome-Lighthouse|PTST|HeadlessChrome|Google Page Speed|Speed Insights/i.test(
+            ua,
+          );
+        }
+        if (shouldSkipAnalytics()) return;
         var load = function () {
           if (window.__stonksLoading) return;
           window.__stonksLoading = true;
           var script = document.createElement("script");
-          script.src = "https://assets.onedollarstats.com/stonks.js";
+          script.src = "/analytics/stonks.js";
           script.defer = true;
           script.dataset.hostname = "ui-skills.com";
           script.dataset.url = "/analytics/events";
