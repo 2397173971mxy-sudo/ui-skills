@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 type Props = {
   title?: string;
@@ -8,7 +8,13 @@ type Props = {
   buttonLabel?: string;
 };
 
-function LoaderIcon({ className = "", size = 14 }: { className?: string; size?: number }) {
+function LoaderIcon({
+  className = "",
+  size = 14,
+}: {
+  className?: string;
+  size?: number;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -26,7 +32,11 @@ function LoaderIcon({ className = "", size = 14 }: { className?: string; size?: 
       <motion.g
         animate={{ rotate: 360 }}
         style={{ transformOrigin: "12px 12px" }}
-        transition={{ repeat: Number.POSITIVE_INFINITY, duration: 0.8, ease: "linear" }}
+        transition={{
+          repeat: Number.POSITIVE_INFINITY,
+          duration: 0.8,
+          ease: "linear",
+        }}
       >
         <path d="M12 2v4" />
         <path d="m16.2 7.8 2.9-2.9" />
@@ -48,10 +58,21 @@ export default function NewsletterInput({
   buttonLabel = "Subscribe",
 }: Props) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "subscribing" | "subscribed">("idle");
+  const [status, setStatus] = useState<"idle" | "subscribing" | "subscribed">(
+    "idle",
+  );
   const [botField, setBotField] = useState("");
   const [error, setError] = useState("");
   const startedAtRef = useRef(Date.now());
+  const resetTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current !== null) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
 
   const submit = async () => {
     if (!email.trim() || status !== "idle") return;
@@ -60,18 +81,21 @@ export default function NewsletterInput({
     setStatus("subscribing");
 
     try {
-      const response = await fetch("https://api.interfaceoffice.com/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://api.interfaceoffice.com/subscribe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            source: "ui-skills",
+            honeypot: botField,
+            startedAt: startedAtRef.current,
+          }),
         },
-        body: JSON.stringify({
-          email,
-          source: "ui-skills",
-          honeypot: botField,
-          startedAt: startedAtRef.current,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to subscribe");
@@ -80,7 +104,7 @@ export default function NewsletterInput({
       setStatus("subscribed");
       setEmail("");
 
-      window.setTimeout(() => {
+      resetTimerRef.current = window.setTimeout(() => {
         setError("");
         setStatus("idle");
       }, 1600);
@@ -92,7 +116,7 @@ export default function NewsletterInput({
 
   return (
     <div className="px-4 pt-16 sm:px-8 sm:pt-20" data-newsletter-widget>
-      <hr className="border-parchment-200 mx-auto pb-16 sm:pb-20 w-1/4 border-px" />
+      <hr className="border-parchment-200 border-px mx-auto w-1/4 pb-16 sm:pb-20" />
       <div className="mx-auto w-full max-w-3xl">
         <div className="max-w-xl">
           <h2 className="text-parchment-900 text-lg font-medium text-balance">
@@ -138,15 +162,16 @@ export default function NewsletterInput({
                   void submit();
                 }
               }}
-              className="text-parchment-900 placeholder:text-parchment-400 focus:border-parchment-300 relative z-0 h-12 w-full rounded-[12px] bg-white px-4 pr-36 text-sm shadow-2xs ring-1 ring-black/10 transition-colors outline-none"
+              className="text-parchment-900 placeholder:text-parchment-400 focus:border-parchment-300 relative z-0 h-12 w-full rounded-full bg-white px-4 pr-36 text-sm shadow-2xs ring-1 ring-black/10 transition-colors outline-none"
             />
 
             <button
               type="button"
               disabled={status !== "idle"}
               onClick={() => void submit()}
-              className={`bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-[10px] px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:hover:bg-parchment-900 ${status === "subscribing" ? "opacity-70" : "opacity-100"
-                }`}
+              className={`bg-parchment-900 text-parchment-50 hover:bg-parchment-800 focus-visible:outline-primary disabled:hover:bg-parchment-900 absolute top-1/2 right-1 z-10 inline-flex h-10 min-w-[112px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full px-3.5 text-sm font-medium transition-[opacity,background-color] duration-150 ease-out focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
+                status === "subscribing" ? "opacity-70" : "opacity-100"
+              }`}
             >
               <AnimatePresence mode="popLayout" initial={false}>
                 {status === "idle" ? (
@@ -205,13 +230,12 @@ export default function NewsletterInput({
           </div>
 
           {error ? (
-            <p className="text-red-700 mt-2 text-sm" role="alert">
+            <p className="mt-2 text-sm text-red-700" role="alert">
               {error}
             </p>
           ) : null}
         </div>
       </div>
-      {/* <hr className="border-parchment-100 mx-auto my-8 w-1/4 border" /> */}
     </div>
   );
 }

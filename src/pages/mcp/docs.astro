@@ -2,12 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
 import CodeBlock from "../../ui/code-block.astro";
-import { CopyButton } from "../../ui/copy-button";
 
-const breadcrumbItems = [
-  { label: "Home", href: "/" },
-  { label: "MCP" },
-];
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "MCP" }];
 
 const siteOrigin = Astro.site ?? new URL("https://www.ui-skills.com");
 const mcpEndpoint = new URL("/mcp", siteOrigin).toString();
@@ -25,8 +21,7 @@ const tools = [
   },
   {
     name: "get_skill",
-    description:
-      "Fetch skill markdown by discovery name, slug, or pathSlug.",
+    description: "Fetch skill markdown by discovery name, slug, or pathSlug.",
   },
 ];
 
@@ -95,22 +90,19 @@ const structuredData = {
           <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium sm:px-0">
             Tools
           </h2>
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-10">
             {
               tools.map((tool) => (
-                <article class="border-parchment-200 relative w-full rounded-none border-t border-b bg-white py-3.5 pr-4 pl-6 shadow-2xs sm:rounded-[8px] sm:border-none sm:ring-1 sm:ring-black/10">
-                  <div class="flex items-center justify-between gap-3">
-                    <code class="text-parchment-900 font-mono text-sm leading-none">
-                      {tool.name}
-                    </code>
-                    <CopyButton
-                      content={tool.name}
-                      showText={false}
-                      className="size-8 shrink-0"
-                      client:load
-                    />
-                  </div>
-                  <p class="text-parchment-500 mt-2 max-w-2xl text-base leading-snug">
+                <article class="flex w-full flex-col gap-4">
+                  <CodeBlock
+                    code={tool.name}
+                    language="bash"
+                    variant="inline"
+                    truncate={false}
+                    wrapOnMobile={true}
+                    copyContent={tool.name}
+                  />
+                  <p class="text-parchment-500 max-w-2xl text-base leading-snug">
                     {tool.description}
                   </p>
                 </article>

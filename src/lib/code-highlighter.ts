@@ -14,13 +14,9 @@ export const SKILL_CODE_FOREGROUND = "#f0f6fc";
 export type CodeHighlightLanguage = "bash" | "plaintext";
 
 type BundledLang =
-  | "bash"
-  | "css"
-  | "html"
-  | "javascript"
-  | "json"
-  | "markdown"
-  | "typescript";
+  "bash" | "css" | "html" | "javascript" | "json" | "markdown" | "typescript";
+
+type LanguageLoaderResult = LanguageRegistration | LanguageRegistration[];
 
 const LANG_ALIASES: Record<string, BundledLang | "plaintext"> = {
   sh: "bash",
@@ -35,10 +31,7 @@ const LANG_ALIASES: Record<string, BundledLang | "plaintext"> = {
   plain: "plaintext",
 };
 
-const LANG_LOADERS: Record<
-  BundledLang,
-  () => Promise<LanguageRegistration>
-> = {
+const LANG_LOADERS: Record<BundledLang, () => Promise<LanguageLoaderResult>> = {
   bash: async () => bash,
   css: () => import("@shikijs/langs/css").then((module) => module.default),
   html: () => import("@shikijs/langs/html").then((module) => module.default),
@@ -144,7 +137,6 @@ async function highlightWithLanguage(
   const html = highlighter.codeToHtml(source, {
     lang: resolvedLanguage,
     theme: surfaceConfig.theme,
-    bg: surfaceConfig.background,
     colorReplacements: surfaceConfig.transparentBackground
       ? {
           [surfaceConfig.theme]: {

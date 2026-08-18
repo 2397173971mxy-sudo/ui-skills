@@ -1,4 +1,5 @@
 const CACHE_TTL_SECONDS = 60 * 60 * 24;
+const CACHE_STALE_AFTER_MS = CACHE_TTL_SECONDS * 1000;
 const MAX_CONTENT_BYTES = 1024 * 1024;
 const FETCH_TIMEOUT_MS = 5000;
 
@@ -83,7 +84,15 @@ const readCachedContent = async (cache: CacheLike, key: Request) => {
   if (!cached) return undefined;
 
   try {
-    return await readBoundedText(cached);
+    const content = await readBoundedText(cached);
+    const cachedAt = Number(cached.headers.get("x-ui-skills-cached-at"));
+    return {
+      content,
+      stale:
+        Number.isFinite(cachedAt) &&
+        cachedAt > 0 &&
+        Date.now() - cachedAt > CACHE_STALE_AFTER_MS,
+    };
   } catch {
     return undefined;
   }
@@ -94,11 +103,9 @@ export const getRemoteSkill = async (
 ): Promise<RemoteSkillResult> => {
   const cache = getCache();
   const cacheKey = new Request(rawUrl);
-  const cachedContent = cache
-    ? await readCachedContent(cache, cacheKey)
-    : undefined;
-  if (cachedContent !== undefined) {
-    return { content: cachedContent, stale: false };
+  const cached = cache ? await readCachedContent(cache, cacheKey) : undefined;
+  if (cached && !cached.stale) {
+    return { content: cached.content, stale: false };
   }
 
   const controller = new AbortController();
@@ -111,8 +118,8 @@ export const getRemoteSkill = async (
     });
 
     if (!response.ok) {
-      if (cachedContent !== undefined && response.status !== 404) {
-        return { content: cachedContent, stale: true };
+      if (cached && response.status !== 404) {
+        return { content: cached.content, stale: true };
       }
       throw new RemoteSkillError(
         "Skill source unavailable",
@@ -129,6 +136,7 @@ export const getRemoteSkill = async (
             headers: {
               "Cache-Control": `public, max-age=${CACHE_TTL_SECONDS}`,
               "Content-Type": "text/plain; charset=utf-8",
+              "x-ui-skills-cached-at": String(Date.now()),
             },
           }),
         );
@@ -142,8 +150,8 @@ export const getRemoteSkill = async (
     if (error instanceof RemoteSkillError && error.status === 404) {
       throw error;
     }
-    if (cachedContent !== undefined) {
-      return { content: cachedContent, stale: true };
+    if (cached) {
+      return { content: cached.content, stale: true };
     }
     if (error instanceof RemoteSkillError) throw error;
     throw new RemoteSkillError("Error fetching registry skill", 504);

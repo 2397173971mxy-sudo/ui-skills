@@ -1,14 +1,6 @@
 import type { APIRoute } from "astro";
-import {
-  getCanonicalSkillPaths,
-  getRegistryByPath,
-  getSkillByPath,
-} from "../../../lib/skill-catalog";
-import { getRemoteSkill, RemoteSkillError } from "../../../lib/remote-skill";
-
-export function getStaticPaths() {
-  return getCanonicalSkillPaths();
-}
+import { getRegistryByPath, getSkillByPath } from "../../../lib/skill-catalog";
+import { defaultSkillContentLoader } from "../../../lib/agent-skills-discovery";
 
 export const GET: APIRoute = async ({ params }) => {
   const routeSlug = params.slug ?? "";
@@ -25,20 +17,14 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   try {
-    const { content } = await getRemoteSkill(registrySkill.rawUrl);
+    const content = await defaultSkillContentLoader(registrySkill);
     return new Response(content, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "X-Robots-Tag": "noindex, nofollow",
       },
     });
-  } catch (error) {
-    const status = error instanceof RemoteSkillError ? error.status : 500;
-    return new Response(
-      status === 404
-        ? "Skill source unavailable"
-        : "Error fetching registry skill",
-      { status },
-    );
+  } catch {
+    return new Response("Skill source unavailable", { status: 502 });
   }
 };

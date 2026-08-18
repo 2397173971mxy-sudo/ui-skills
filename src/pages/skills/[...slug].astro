@@ -7,6 +7,7 @@ import { topicBySlug, relatedTopicSlugs } from "../../data/topics";
 import type { TopicSlug } from "../../data/registry";
 import SkillContentCard from "../../ui/skill-content-card.astro";
 import Breadcrumbs from "../../ui/breadcrumbs.astro";
+import PlaybookCard from "../../ui/playbook-card.astro";
 import SkillCard from "../../ui/skill-card.astro";
 import SkillNav from "../../ui/skill-nav.astro";
 import TopicTag from "../../ui/topic-tag.astro";
@@ -19,19 +20,17 @@ import {
   getSkillsBySlug,
   getSkillsBySource,
   getSkillsByTopic,
-  getSkillRoutePaths,
 } from "../../lib/skill-catalog";
-import { getRemoteSkill } from "../../lib/remote-skill";
+import { defaultSkillContentLoader } from "../../lib/agent-skills-discovery";
+import { playbookBySkillSlug } from "../../data/playbook.ts";
+
+export const prerender = false;
 
 const titleize = (value: string) =>
   value
     .split("-")
     .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
     .join(" ");
-
-export function getStaticPaths() {
-  return getSkillRoutePaths();
-}
 
 const routeSlug = Astro.params.slug ?? "";
 const pathSlug = Array.isArray(routeSlug) ? routeSlug.join("/") : routeSlug;
@@ -185,6 +184,10 @@ const skillTopicSuggestions = skill
       .slice(0, 8)
   : [];
 
+const skillPlaybookEntries = skill
+  ? (playbookBySkillSlug.get(skill.slug) ?? [])
+  : [];
+
 const isInvalidSkillsRoute = !skill && !isGroupPage;
 if (isInvalidSkillsRoute) {
   Astro.response.status = 404;
@@ -315,18 +318,19 @@ if (skill) {
   const registryEntry = getRegistryByPath(skill.pathSlug);
 
   if (registryEntry) {
+    githubUrl = registryEntry.githubUrl;
     try {
-      const remoteSkill = await getRemoteSkill(registryEntry.rawUrl);
-      if (remoteSkill) {
-        skillRaw = remoteSkill.content;
-        githubUrl = registryEntry.githubUrl;
-        displayContent = await renderSkillMarkdown(
-          skillRaw,
-          registryEntry.githubUrl,
-        );
-      }
-    } catch (e) {
-      displayContent = `<p>Error: ${e instanceof Error ? e.message : String(e)}</p>`;
+      skillRaw = await defaultSkillContentLoader(registryEntry);
+      displayContent = await renderSkillMarkdown(
+        skillRaw,
+        registryEntry.githubUrl,
+      );
+    } catch {
+      // Keep the page useful when a remote source is unavailable.
+      displayContent = await renderSkillMarkdown(
+        registryEntry.description,
+        registryEntry.githubUrl,
+      );
     }
   }
 }
@@ -518,6 +522,23 @@ const installCommand = (() => {
               >
                 <div set:html={displayContent} />
               </SkillContentCard>
+
+              {skillPlaybookEntries.length > 0 ? (
+                <div>
+                  <h2 class="text-parchment-900 mb-3 px-4 text-lg font-medium text-balance sm:px-0">
+                    Playbook
+                  </h2>
+                  <div class="grid gap-4 px-4 sm:grid-cols-2 sm:px-0">
+                    {skillPlaybookEntries.map((entry) => (
+                      <PlaybookCard
+                        href={`/playbook/${entry.slug}`}
+                        title={entry.title}
+                        description={entry.description}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
 
               {relatedSkills.length > 0 ? (
                 <div>

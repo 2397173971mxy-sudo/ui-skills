@@ -1,6 +1,19 @@
 import { spawn } from "node:child_process";
+import net from "node:net";
 
-const port = 4399;
+const requestedPort = Number(process.env.SMOKE_PORT ?? 0);
+const port =
+  requestedPort ||
+  (await new Promise((resolve, reject) => {
+    const probe = net.createServer();
+    probe.once("error", reject);
+    probe.listen(0, "127.0.0.1", () => {
+      const address = probe.address();
+      const selectedPort =
+        typeof address === "object" && address ? address.port : 0;
+      probe.close((error) => (error ? reject(error) : resolve(selectedPort)));
+    });
+  }));
 const server = spawn(
   "npx",
   ["wrangler", "dev", "--local", "--ip", "127.0.0.1", "--port", `${port}`],
@@ -17,7 +30,7 @@ server.stderr.on("data", (chunk) => {
   output += chunk.toString();
 });
 
-const fetchLocal = (path, init = {}, timeoutMs = 5000) =>
+const fetchLocal = (path, init = {}, timeoutMs = 15000) =>
   fetch(`http://127.0.0.1:${port}${path}`, {
     ...init,
     signal: AbortSignal.timeout(timeoutMs),
@@ -58,13 +71,28 @@ try {
     throw new Error("Homepage is missing discovery Link headers");
   }
   const homepageBody = await homepage.text();
-  if (!/^<!doctype html>/i.test(homepageBody)) {
+  if (
+    !/^<!doctype html>/i.test(homepageBody) &&
+    !homepageBody.includes("<html")
+  ) {
     throw new Error(
       `Homepage did not return HTML: ${homepageBody.slice(0, 200)}`,
     );
   }
-  if (!homepageBody.includes("npx ui-skills start")) {
-    throw new Error("Homepage is missing highlighted agent command block");
+  if (!homepageBody.includes("Agent, start here.")) {
+    throw new Error("Homepage is missing the agent access section");
+  }
+  if (!homepageBody.includes(">CLI<")) {
+    throw new Error("Homepage is missing the CLI access card");
+  }
+  if (!homepageBody.includes(">MCP<")) {
+    throw new Error("Homepage is missing the MCP access card");
+  }
+  if (!homepageBody.includes('href="/cli"')) {
+    throw new Error("Homepage is missing the CLI guide link");
+  }
+  if (!homepageBody.includes('href="/mcp/docs"')) {
+    throw new Error("Homepage is missing the MCP guide link");
   }
 
   const mcpDocs = await fetchLocal("/mcp/docs");
@@ -76,12 +104,30 @@ try {
     throw new Error("MCP docs are missing the endpoint code block");
   }
   if (
-    !mcpDocsBody.includes("https://www.ui-skills.com/.well-known/mcp/server-card.json")
+    !mcpDocsBody.includes(
+      "https://www.ui-skills.com/.well-known/mcp/server-card.json",
+    )
   ) {
     throw new Error("MCP docs are missing the server card code block");
   }
   if (!/style="color:#/i.test(mcpDocsBody)) {
     throw new Error("MCP docs code blocks are missing Shiki theme colors");
+  }
+
+  const cliDocs = await fetchLocal("/cli");
+  if (cliDocs.status !== 200) {
+    throw new Error(`CLI docs returned ${cliDocs.status}`);
+  }
+  const cliDocsBody = await cliDocs.text();
+  for (const command of [
+    "npx ui-skills start",
+    "npx ui-skills categories",
+    "npx ui-skills list --category motion",
+    "npx ui-skills get baseline-ui",
+  ]) {
+    if (!cliDocsBody.includes(command)) {
+      throw new Error(`CLI docs are missing ${command}`);
+    }
   }
 
   const apiCatalog = await fetchLocal("/.well-known/api-catalog");
@@ -116,6 +162,61 @@ try {
     throw new Error(`Registry returned ${registry.status}`);
   }
 
+  const registryText = await fetchLocal("/skills/registry.txt");
+  if (registryText.status !== 200) {
+    throw new Error(`Text registry returned ${registryText.status}`);
+  }
+
+  const mcp = await fetchLocal("/mcp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
+  });
+  if (mcp.status !== 200 || !(await mcp.text()).includes('"list_skills"')) {
+    throw new Error(`MCP tools/list failed with ${mcp.status}`);
+  }
+
+  const invalidMcp = await fetchLocal("/mcp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: "not-json",
+  });
+  if (invalidMcp.status !== 400) {
+    throw new Error(`Invalid MCP request returned ${invalidMcp.status}`);
+  }
+
+  const oauthMetadata = await fetchLocal(
+    "/.well-known/oauth-authorization-server",
+  );
+  if (
+    oauthMetadata.status !== 200 ||
+    !(await oauthMetadata.text()).includes('"token_endpoint"')
+  ) {
+    throw new Error(`OAuth metadata failed with ${oauthMetadata.status}`);
+  }
+
+  const playbook = await fetchLocal("/playbook/use-large-touch-targets");
+  if (playbook.status !== 200) {
+    throw new Error(`Playbook returned ${playbook.status}`);
+  }
+  const playbookBody = await playbook.text();
+  if (!playbookBody.includes("Use 44px touch targets for accessibility")) {
+    throw new Error("Playbook page is missing its title");
+  }
+  if (!playbookBody.includes("44px target")) {
+    throw new Error("Playbook page is missing its interactive demo content");
+  }
+  for (const marker of [
+    '"@type":"TechArticle"',
+    '"@type":"BreadcrumbList"',
+    '"mainEntityOfPage":"https://www.ui-skills.com/playbook/use-large-touch-targets"',
+    '<link rel="canonical" href="https://www.ui-skills.com/playbook/use-large-touch-targets"',
+  ]) {
+    if (!playbookBody.includes(marker)) {
+      throw new Error(`Playbook page is missing SEO metadata: ${marker}`);
+    }
+  }
+
   const designDocument = await fetchLocal("/design.md");
   if (designDocument.status !== 200) {
     throw new Error(`Design document returned ${designDocument.status}`);
@@ -130,6 +231,29 @@ try {
   const missing = await fetchLocal("/skills/does-not-exist");
   if (missing.status !== 404) {
     throw new Error(`Missing route returned ${missing.status}`);
+  }
+
+  const localSkillPage = await fetchLocal("/skills/ibelick/improve-ui");
+  if (localSkillPage.status !== 200) {
+    throw new Error(`Local skill page returned ${localSkillPage.status}`);
+  }
+  const localSkillBody = await localSkillPage.text();
+  if (!localSkillBody.includes("Audit one coherent product surface")) {
+    throw new Error("Local skill page is missing bundled skill content");
+  }
+
+  const remoteSkillPage = await fetchLocal(
+    "/skills/jakubkrehel/make-interfaces-feel-better",
+  );
+  if (remoteSkillPage.status !== 200) {
+    throw new Error(`Remote skill page returned ${remoteSkillPage.status}`);
+  }
+  const remoteSkillBody = await remoteSkillPage.text();
+  if (
+    remoteSkillBody.includes("Error:") ||
+    remoteSkillBody.includes("Skill source unavailable")
+  ) {
+    throw new Error("Remote skill page exposed a fetch error");
   }
 } catch (error) {
   exitCode = 1;

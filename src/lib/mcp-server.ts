@@ -23,6 +23,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Accept, MCP-Protocol-Version",
 };
 
+const MAX_REQUEST_BYTES = 64 * 1024;
+
 function jsonRpcResult(id: JsonRpcRequest["id"], result: unknown) {
   return new Response(
     JSON.stringify({ jsonrpc: "2.0", id: id ?? null, result }),
@@ -105,7 +107,19 @@ export const mcpGet: APIRoute = ({ site }) => {
 };
 
 export const mcpPost: APIRoute = async ({ request, site }) => {
-  const body = (await request.json().catch(() => null)) as JsonRpcRequest | null;
+  const raw = await request.text();
+  if (new TextEncoder().encode(raw).byteLength > MAX_REQUEST_BYTES) {
+    return jsonRpcError(null, -32600, "Request body is too large", 413);
+  }
+  let body: JsonRpcRequest | null = null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      body = parsed as JsonRpcRequest;
+    }
+  } catch {
+    body = null;
+  }
   if (!body || body.jsonrpc !== "2.0" || typeof body.method !== "string") {
     return jsonRpcError(null, -32600, "Invalid Request", 400);
   }

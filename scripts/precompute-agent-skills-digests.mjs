@@ -1,6 +1,6 @@
 /**
  * Prefetch skill bodies and write SHA-256 digests for the discovery index.
- * Runs at prebuild so production never fans out to GitHub on cold requests.
+ * Run explicitly before a release so production never fans out to GitHub on cold requests.
  */
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";

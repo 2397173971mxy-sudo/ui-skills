@@ -7,6 +7,7 @@ export const GET: APIRoute = () => {
     { label: "Skills", path: "/skills" },
     { label: "Skills Registry", path: "/skills/registry.txt" },
     { label: "Design System", path: "/design.md" },
+    { label: "CLI", path: "/cli" },
   ];
 
   const skillCatalog = skills

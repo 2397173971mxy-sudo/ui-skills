@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 
 import { jsonHeaders, PUBLIC_SCOPES } from "../../lib/oauth-discovery";
+import { parseJsonObject } from "../../lib/oauth-validation";
 
 const corsHeaders = {
   ...jsonHeaders,
@@ -16,7 +17,14 @@ export const POST: APIRoute = async ({ request }) => {
   const contentType = request.headers.get("content-type") ?? "";
 
   if (contentType.includes("application/json")) {
-    body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
+    const parsed = parseJsonObject(await request.text());
+    if (!parsed) {
+      return new Response(JSON.stringify({ error: "invalid_request" }), {
+        status: 400,
+        headers: corsHeaders,
+      });
+    }
+    body = parsed;
   }
 
   const clientName =
