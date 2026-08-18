@@ -28,7 +28,7 @@ export default function ModalScrimDemo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white shadow-2xs ring-1 ring-black/10">
+    <div className="border-parchment-200 relative h-84 w-full max-w-3xl overflow-hidden rounded-none border-t border-b bg-white shadow-2xs sm:h-88 sm:rounded-[8px] sm:border-none sm:shadow-2xs sm:ring-1 sm:ring-black/10">
       <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2 sm:top-5 sm:right-5">
         <PlaybookSwitchRow
           offLabel="Blur scrim"
@@ -39,7 +39,7 @@ export default function ModalScrimDemo() {
         />
       </div>
 
-      <div className="relative h-72">
+      <div className="relative h-full">
         <SettingsPanel onOpen={() => setOpen(true)} />
       </div>
 
@@ -57,7 +57,7 @@ export default function ModalScrimDemo() {
             <p className="text-parchment-900 text-sm font-medium">
               Delete workspace?
             </p>
-            <p className="text-parchment-600 mt-1 text-xs">
+            <p className="text-parchment-600 mt-1 text-sm">
               This cannot be undone.
             </p>
             <div className="mt-3 flex justify-end gap-2">
