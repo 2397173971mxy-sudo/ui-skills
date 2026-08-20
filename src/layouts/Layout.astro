@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { getGithubStars } from "../lib/github-stars.ts";
 import NewsletterInput from "../ui/newsletter-input";
 import { skills } from "../data/skills";
+import { playbook } from "../data/playbook";
 import Footer from "../ui/footer.astro";
 import { CommandDialog } from "../ui/command-dialog";
 import GitHubStarButton from "../ui/github-star-button.astro";
@@ -54,13 +55,26 @@ const twitterImageAltText = twitterImageAlt ?? "UI Skills social preview image";
 const ogTypeValue = ogType ?? "website";
 const siteNameValue = siteName ?? "UI Skills";
 const twitterSiteHandle = twitterSite ?? "@ibelick";
-const commandItems = skills.map((skill) => ({
-  slug: skill.slug,
-  pathSlug: skill.pathSlug,
-  label: skill.label,
-  sourceLabel: skill.sourceLabel,
-  description: skill.description,
-}));
+const commandItems = [
+  ...skills.map((skill) => ({
+    kind: "skill" as const,
+    slug: skill.slug,
+    pathSlug: skill.pathSlug,
+    href: `/skills/${skill.pathSlug}`,
+    label: skill.label,
+    sourceLabel: skill.sourceLabel,
+    description: skill.description,
+  })),
+  ...playbook.map((entry) => ({
+    kind: "playbook" as const,
+    slug: entry.slug,
+    pathSlug: entry.slug,
+    href: `/playbook/${entry.slug}`,
+    label: entry.title,
+    sourceLabel: "Playbook",
+    description: entry.description,
+  })),
+];
 
 const githubStars = await getGithubStars();
 ---

@@ -11,8 +11,10 @@ import { CommandKShortcut } from "./keyboard-shortcut";
 import { Tooltip, TooltipProvider } from "./tooltip";
 
 type CommandItem = {
+  kind: "skill" | "playbook";
   slug: string;
   pathSlug: string;
+  href: string;
   label: string;
   sourceLabel?: string;
   description?: string;
@@ -40,8 +42,10 @@ const toSearchResult = (
   score: number,
   snippet: string,
 ): SearchResult => ({
+  kind: item.kind,
   slug: item.slug,
   pathSlug: item.pathSlug,
+  href: item.href,
   label: item.label,
   sourceLabel: item.sourceLabel,
   description: item.description,
@@ -49,13 +53,14 @@ const toSearchResult = (
   snippet,
 });
 
-const MAX_DEFAULT_ITEMS = 14;
+const MAX_DEFAULT_ITEMS = 8;
+const MAX_DEFAULT_ITEMS_PER_KIND = MAX_DEFAULT_ITEMS / 2;
 const MAX_FILTERED_ITEMS = 24;
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const idForPath = (pathSlug: string) =>
-  `skills-search-item-${pathSlug.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
+  `command-search-item-${pathSlug.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
 const keycapClass =
   "bg-parchment-200/70 text-parchment-700 rounded-[4px] px-1.5 py-0.5 text-[10px] font-medium leading-none font-mono";
 const plainText = (value?: string) =>
@@ -164,9 +169,18 @@ export function CommandDialog({ items }: CommandDialogProps) {
     const value = query.trim().toLowerCase();
 
     if (!value) {
-      return indexedItems
-        .slice(0, MAX_DEFAULT_ITEMS)
-        .map((item) => toSearchResult(item, 0, item.description ?? ""));
+      const defaultItems = [
+        ...indexedItems
+          .filter((item) => item.kind === "skill")
+          .slice(0, MAX_DEFAULT_ITEMS_PER_KIND),
+        ...indexedItems
+          .filter((item) => item.kind === "playbook")
+          .slice(0, MAX_DEFAULT_ITEMS_PER_KIND),
+      ];
+
+      return defaultItems.map((item) =>
+        toSearchResult(item, 0, item.description ?? ""),
+      );
     }
 
     return indexedItems
@@ -233,9 +247,15 @@ export function CommandDialog({ items }: CommandDialogProps) {
   };
 
   const onSelect = (pathSlug: string) => {
+    const selected = filteredItems.find((item) => item.pathSlug === pathSlug);
+
+    if (!selected) {
+      return;
+    }
+
     setOpen(false);
     setQuery("");
-    window.location.href = `/skills/${pathSlug}`;
+    window.location.href = selected.href;
   };
 
   const onInputKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -294,7 +314,7 @@ export function CommandDialog({ items }: CommandDialogProps) {
           }
         >
           <DialogPrimitive.Trigger
-            aria-label="Search skills"
+            aria-label="Search skills and playbook"
             className="border-parchment-200 text-parchment-900 hover:border-parchment-300 hover:bg-parchment-100 focus-visible:outline-primary inline-flex h-8 w-8 items-center justify-center rounded-[6px] border bg-transparent text-[14px] font-[450] transition-colors focus-visible:outline-1 focus-visible:outline-offset-2"
           >
             <svg
@@ -318,7 +338,7 @@ export function CommandDialog({ items }: CommandDialogProps) {
           <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm" />
           <DialogPrimitive.Popup className="border-parchment-200 fixed top-24 left-1/2 z-50 w-[min(92vw,680px)] -translate-x-1/2 rounded-[12px] border bg-white shadow-xl outline-none">
             <DialogPrimitive.Title className="sr-only">
-              Search skills
+              Search skills and playbook
             </DialogPrimitive.Title>
             <div className="border-parchment-200 flex items-center gap-2 border-b px-4 py-3">
               <svg
@@ -342,11 +362,11 @@ export function CommandDialog({ items }: CommandDialogProps) {
                 value={query}
                 onChange={onInputChange}
                 onKeyDown={onInputKeyDown}
-                placeholder="Search skills..."
+                placeholder="Search skills and playbook..."
                 className="text-parchment-900 placeholder:text-parchment-400 w-full bg-transparent text-base outline-none sm:text-base"
                 role="combobox"
                 aria-expanded={open}
-                aria-controls="skills-search-results"
+                aria-controls="command-search-results"
                 aria-activedescendant={
                   filteredItems[activeIndex]
                     ? idForPath(filteredItems[activeIndex].pathSlug)
@@ -356,43 +376,72 @@ export function CommandDialog({ items }: CommandDialogProps) {
             </div>
 
             <div
-              className="max-h-[55vh] overflow-y-auto p-2"
+              className="max-h-[55vh] overflow-y-auto px-2 pb-2 space-y-1"
               role="listbox"
-              id="skills-search-results"
+              id="command-search-results"
             >
               {filteredItems.length === 0 ? (
                 <div className="text-parchment-500 px-2 py-8 text-center text-sm">
-                  No skills found.
+                  No skills or playbook entries found.
                 </div>
               ) : (
-                filteredItems.map((item, index) => (
-                  <button
-                    key={item.pathSlug}
-                    id={idForPath(item.pathSlug)}
-                    role="option"
-                    aria-selected={index === activeIndex}
-                    type="button"
-                    onClick={() => onSelect(item.pathSlug)}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${
-                      index === activeIndex
-                        ? "bg-parchment-100"
-                        : "hover:bg-parchment-100"
-                    }`}
-                  >
-                    <div className="text-parchment-900 text-sm font-medium">
-                      {highlightText(item.slug, query)}
-                    </div>
-                    <div className="text-parchment-500 mt-0.5 text-xs">
-                      {highlightText(item.sourceLabel ?? "Ibelick", query)}
-                    </div>
-                    {item.snippet ? (
-                      <div className="text-parchment-500 mt-1 line-clamp-2 text-[12px] leading-snug">
-                        {highlightText(item.snippet, query)}
+                (["skill", "playbook"] as const).map((kind) => {
+                  const sectionItems = filteredItems
+                    .map((item, index) => ({ item, index }))
+                    .filter(({ item }) => item.kind === kind);
+
+                  if (sectionItems.length === 0) {
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      key={kind}
+                      role="group"
+                      aria-label={kind === "skill" ? "Skills" : "Playbook"}
+                    >
+                      <div className="text-parchment-500 px-3 pt-3 pb-1 text-xs font-medium tracking-wide">
+                        {kind === "skill" ? "Skills" : "Playbook"}
                       </div>
-                    ) : null}
-                  </button>
-                ))
+                      {sectionItems.map(({ item, index }) => (
+                        <button
+                          key={item.pathSlug}
+                          id={idForPath(item.pathSlug)}
+                          role="option"
+                          aria-selected={index === activeIndex}
+                          type="button"
+                          onClick={() => onSelect(item.pathSlug)}
+                          onMouseEnter={() => setActiveIndex(index)}
+                          className={`w-full rounded-[8px] px-3 py-2 text-left transition-colors ${index === activeIndex
+                            ? "bg-parchment-100"
+                            : "hover:bg-parchment-100"
+                            }`}
+                        >
+                          <div className="text-parchment-900 text-sm font-medium">
+                            {highlightText(
+                              item.kind === "playbook" ? item.label : item.slug,
+                              query,
+                            )}
+                            {item.kind === "skill" ? (
+                              <span className="text-parchment-500 ml-px text-xs font-normal">
+                                {" "}
+                                {highlightText(
+                                  item.sourceLabel ?? "Ibelick",
+                                  query,
+                                )}
+                              </span>
+                            ) : null}
+                          </div>
+                          {item.snippet ? (
+                            <div className="text-parchment-500 mt-0.5 line-clamp-2 text-xs leading-snug">
+                              {highlightText(item.snippet, query)}
+                            </div>
+                          ) : null}
+                        </button>
+                      ))}
+                    </div>
+                  );
+                })
               )}
             </div>
 
