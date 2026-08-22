@@ -2755,6 +2755,32 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Build an immersive scroll-scrubbed 3D world landing page for any brand with Higgsfield-generated scenes, seamless camera clips, and a portable scroll-scrub engine.",
   },
+  {
+    slug: "responsive-ui",
+    user: "Hotragn",
+    repo: "UI-UX-Skills-Contribution",
+    rawUrl:
+      "https://raw.githubusercontent.com/Hotragn/UI-UX-Skills-Contribution/main/skills/responsive-ui/SKILL.md",
+    githubUrl:
+      "https://github.com/Hotragn/UI-UX-Skills-Contribution/blob/main/skills/responsive-ui/SKILL.md",
+    name: "responsive-ui",
+    topics: ["systems", "frontend", "craft"],
+    description:
+      "Build layouts that adapt to any viewport without breakpoint soup - fluid type and space, container-driven components, and content-first breakpoints. Use when a UI must work across mobile, tablet, and desktop.",
+  },
+  {
+    slug: "ui-states",
+    user: "Hotragn",
+    repo: "UI-UX-Skills-Contribution",
+    rawUrl:
+      "https://raw.githubusercontent.com/Hotragn/UI-UX-Skills-Contribution/main/skills/ui-states/SKILL.md",
+    githubUrl:
+      "https://github.com/Hotragn/UI-UX-Skills-Contribution/blob/main/skills/ui-states/SKILL.md",
+    name: "ui-states",
+    topics: ["interaction", "craft", "frontend"],
+    description:
+      "Design every state a view can be in - loading, empty, error, partial, and success - not just the happy path. Use when building any screen that fetches or mutates data.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
