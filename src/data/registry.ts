@@ -2755,6 +2755,19 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Build an immersive scroll-scrubbed 3D world landing page for any brand with Higgsfield-generated scenes, seamless camera clips, and a portable scroll-scrub engine.",
   },
+  {
+    slug: "forms-ui",
+    user: "Hotragn",
+    repo: "UI-UX-Skills-Contribution",
+    rawUrl:
+      "https://raw.githubusercontent.com/Hotragn/UI-UX-Skills-Contribution/main/skills/forms-ui/SKILL.md",
+    githubUrl:
+      "https://github.com/Hotragn/UI-UX-Skills-Contribution/blob/main/skills/forms-ui/SKILL.md",
+    name: "forms-ui",
+    topics: ["interaction", "accessibility", "craft"],
+    description:
+      "Build forms that are fast to complete, hard to get wrong, and accessible by default. Use when creating or reviewing any form, input, validation, or submission flow.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
