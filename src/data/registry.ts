@@ -2717,6 +2717,162 @@ const registrySource: RegistrySourceSkill[] = [
       "Open HTML, Markdown, or localhost pages in the browser so the user can edit text directly, leave anchored comments, and send all feedback back in one batch.",
   },
   {
+    slug: "stop-slop",
+    user: "hardikpandya",
+    repo: "stop-slop",
+    rawUrl:
+      "https://raw.githubusercontent.com/hardikpandya/stop-slop/main/SKILL.md",
+    githubUrl:
+      "https://github.com/hardikpandya/stop-slop/blob/main/SKILL.md",
+    name: "stop-slop",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Remove AI writing patterns from prose when drafting, editing, or reviewing text to eliminate predictable AI tells.",
+  },
+  {
+    slug: "no-ai-slop",
+    user: "petergyang",
+    repo: "no-ai-slop",
+    rawUrl:
+      "https://raw.githubusercontent.com/petergyang/no-ai-slop/main/skills/no-ai-slop/SKILL.md",
+    githubUrl:
+      "https://github.com/petergyang/no-ai-slop/blob/main/skills/no-ai-slop/SKILL.md",
+    name: "no-ai-slop",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Edit drafts into sharper, more human writing while preserving personal voice, or detect AI-slop patterns without rewriting.",
+  },
+  {
+    slug: "humanizer",
+    user: "blader",
+    repo: "humanizer",
+    rawUrl:
+      "https://raw.githubusercontent.com/blader/humanizer/main/SKILL.md",
+    githubUrl:
+      "https://github.com/blader/humanizer/blob/main/SKILL.md",
+    name: "humanizer",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Rewrite AI-sounding text so it reads naturally without changing meaning, based on Wikipedia's signs of AI writing.",
+  },
+  {
+    slug: "unslop",
+    user: "cursor",
+    repo: "plugins",
+    rawUrl:
+      "https://raw.githubusercontent.com/cursor/plugins/main/pstack/skills/unslop/SKILL.md",
+    githubUrl:
+      "https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md",
+    name: "unslop",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Cut AI tells from any writing by editing text to remove machine patterns and restore a more human voice.",
+  },
+  {
+    slug: "slopbeth",
+    user: "ehmo",
+    repo: "slopkit",
+    rawUrl:
+      "https://raw.githubusercontent.com/ehmo/slopkit/main/plugins/slopbeth/skills/slopbeth/SKILL.md",
+    githubUrl:
+      "https://github.com/ehmo/slopkit/blob/main/plugins/slopbeth/skills/slopbeth/SKILL.md",
+    name: "slopbeth",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Remove AI-writing tells from prose while preserving meaning, voice, and density during drafting, editing, or review.",
+  },
+  {
+    slug: "humanizer",
+    user: "Aboudjem",
+    repo: "humanizer-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Aboudjem/humanizer-skill/main/skills/humanizer/SKILL.md",
+    githubUrl:
+      "https://github.com/Aboudjem/humanizer-skill/blob/main/skills/humanizer/SKILL.md",
+    name: "humanizer",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Detect 53 AI writing patterns and rewrite text in five voice profiles, with optional scoring and in-place Markdown editing.",
+  },
+  {
+    slug: "deslop",
+    user: "stephenturner",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/stephenturner/skills/main/deslop/SKILL.md",
+    githubUrl:
+      "https://github.com/stephenturner/skills/blob/main/deslop/SKILL.md",
+    name: "deslop",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Remove AI writing patterns from prose so drafts, edits, and reviews sound like a specific human wrote them.",
+  },
+  {
+    slug: "anti-slop",
+    user: "elithrar",
+    repo: "dotfiles",
+    rawUrl:
+      "https://raw.githubusercontent.com/elithrar/dotfiles/main/.agents/skills/anti-slop/SKILL.md",
+    githubUrl:
+      "https://github.com/elithrar/dotfiles/blob/main/.agents/skills/anti-slop/SKILL.md",
+    name: "anti-slop",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Detect and remove AI writing tells from prose while preserving the author's voice in blogs, docs, emails, and reports.",
+  },
+  {
+    slug: "humanize",
+    user: "aashaexo",
+    repo: "soundshuman",
+    rawUrl:
+      "https://raw.githubusercontent.com/aashaexo/soundshuman/main/SKILL.md",
+    githubUrl:
+      "https://github.com/aashaexo/soundshuman/blob/main/SKILL.md",
+    name: "humanize",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Remove signs of AI-generated writing from prose and audit docs folders for slop across content, language, style, and rhetoric.",
+  },
+  {
+    slug: "anti-ai-slop-writing",
+    user: "jalaalrd",
+    repo: "anti-ai-slop-writing",
+    rawUrl:
+      "https://raw.githubusercontent.com/jalaalrd/anti-ai-slop-writing/main/skills/anti-ai-slop-writing/SKILL.md",
+    githubUrl:
+      "https://github.com/jalaalrd/anti-ai-slop-writing/blob/main/skills/anti-ai-slop-writing/SKILL.md",
+    name: "anti-ai-slop-writing",
+    topics: ["craft", "taste", "tooling"],
+    description:
+      "Produce human-sounding text that avoids detectable AI patterns with banned vocabulary, structural variety, and voice calibration.",
+  },
+  {
+    slug: "unlazy",
+    user: "Leonxlnx",
+    repo: "unlazy",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/unlazy/main/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/unlazy/blob/main/SKILL.md",
+    name: "unlazy",
+    topics: ["tooling", "code-quality", "craft"],
+    description:
+      "Anti-laziness execution discipline that finishes substantial tasks through gate files and runnable checks instead of premature done reports.",
+  },
+  {
+    slug: "bro",
+    user: "luchasarie",
+    repo: "bro-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/luchasarie/bro-skill/main/SKILL.md",
+    githubUrl:
+      "https://github.com/luchasarie/bro-skill/blob/main/SKILL.md",
+    name: "bro",
+    topics: ["craft", "interaction", "tooling"],
+    description:
+      "Re-explain the previous assistant message in a much simpler, plain-language version when the last answer was too dense.",
+  },
+  {
     slug: "smooth-shadow-ring",
     user: "flornkm",
     repo: "shadow-plugin",
