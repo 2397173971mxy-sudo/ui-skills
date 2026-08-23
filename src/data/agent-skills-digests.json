@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-23T05:42:01.106Z",
-  "skillCount": 231,
+  "generatedAt": "2026-08-23T05:46:37.740Z",
+  "skillCount": 232,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
@@ -232,6 +232,7 @@
     "jakubkrehel/variant": "sha256:51e4a330360b458d6de6e891054c4e254bb4981b14a2c520645b403f13a17dc8",
     "flornkm/prefer-container-queries": "sha256:aaa09557f532585e06f1c122f18f2e585bf0f55fb8293be20ffed18fc9507bf5",
     "openai/define-goal": "sha256:708df89ff19cbae82a762efae036735d1914b5c7e44df1832e0b723f6cd9ee30",
-    "flornkm/webgl-components": "sha256:76c0ea1b855dd07bab92c8ec5f63e4dd44ea42cff59c5e2d566e28f4dfc74272"
+    "flornkm/webgl-components": "sha256:76c0ea1b855dd07bab92c8ec5f63e4dd44ea42cff59c5e2d566e28f4dfc74272",
+    "ericzakariasson/scandinavian-design": "sha256:4cba315cf70c3df3e622d4164565d8b0f28041e42fc21ae626688c3d1e73674a"
   }
 }

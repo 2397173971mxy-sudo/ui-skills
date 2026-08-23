@@ -3016,6 +3016,19 @@ const registrySource: RegistrySourceSkill[] = [
       "Help the user define a concrete, measurable goal before starting work, especially when they ask to use the goal tool, create a goal, set an objective, clarify success criteria, or turn a fuzzy intention into a quantitative outcome. Use this skill for goal creation and goal refinement only; it does not manage durable snapshots, decision logs, or long-running execution artifacts.",
   },
   {
+    slug: "scandinavian-design",
+    user: "ericzakariasson",
+    repo: "scandinavian-design",
+    rawUrl:
+      "https://raw.githubusercontent.com/ericzakariasson/scandinavian-design/main/skills/scandinavian-design/SKILL.md",
+    githubUrl:
+      "https://github.com/ericzakariasson/scandinavian-design/blob/main/skills/scandinavian-design/SKILL.md",
+    name: "scandinavian-design",
+    topics: ["visual", "taste", "craft", "typography"],
+    description:
+      "Apply a refined Scandinavian visual system with a neutral black-and-white foundation, restrained sans-serif typography, purposeful product imagery, generous spacing, clear page chapters, and minimal decoration. Use when the user invokes /scandinavian-design or requests a Nordic, monochrome, calm, spacious, restrained, or minimalist interface.",
+  },
+  {
     slug: "seo",
     user: "iannuttall",
     repo: "seo",
