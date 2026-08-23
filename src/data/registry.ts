@@ -2743,6 +2743,32 @@ const registrySource: RegistrySourceSkill[] = [
       "Generate VoiceOver, TalkBack, and ARIA screen reader specs in Figma with focus order, property tables, and announcements by component state.",
   },
   {
+    slug: "create-anatomy",
+    user: "redongreen",
+    repo: "uSpec",
+    rawUrl:
+      "https://raw.githubusercontent.com/redongreen/uSpec/main/skills/create-anatomy/SKILL.md",
+    githubUrl:
+      "https://github.com/redongreen/uSpec/blob/main/skills/create-anatomy/SKILL.md",
+    name: "create-anatomy",
+    topics: ["systems", "frontend", "accessibility"],
+    description:
+      "Generate a visual anatomy annotation in Figma showing numbered markers on a component instance with an attribute table. Use when the user mentions anatomy, anatomy annotation, component anatomy, create anatomy, or wants to annotate a component's structural elements.",
+  },
+  {
+    slug: "balise-ux-writing",
+    user: "mrstev3n",
+    repo: "balise-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/mrstev3n/balise-skills/main/skills/balise-ux-writing/SKILL.md",
+    githubUrl:
+      "https://github.com/mrstev3n/balise-skills/blob/main/skills/balise-ux-writing/SKILL.md",
+    name: "balise-ux-writing",
+    topics: ["craft", "frontend", "accessibility"],
+    description:
+      "Reviews, rewrites, creates, harmonizes, and implements user-centered interface copy across design files, screenshots, product specifications, source code, localization catalogs, prototypes, and rendered applications. Use for buttons, navigation, forms, errors, empty states, onboarding, confirmations, settings, consent, notifications, help, and system feedback while preserving product behavior, terminology, voice, accessibility, localization, legal meaning, component structure, and implementation constraints.",
+  },
+  {
     slug: "rad-spacing",
     user: "nolanperk",
     repo: "rad-spacing",
@@ -3027,6 +3053,19 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["visual", "taste", "craft", "typography"],
     description:
       "Apply a refined Scandinavian visual system with a neutral black-and-white foundation, restrained sans-serif typography, purposeful product imagery, generous spacing, clear page chapters, and minimal decoration. Use when the user invokes /scandinavian-design or requests a Nordic, monochrome, calm, spacious, restrained, or minimalist interface.",
+  },
+  {
+    slug: "design-review",
+    user: "Superfuture",
+    repo: "design-review",
+    rawUrl:
+      "https://raw.githubusercontent.com/Superfuture/design-review/main/design-review/skills/design-review/SKILL.md",
+    githubUrl:
+      "https://github.com/Superfuture/design-review/blob/main/design-review/skills/design-review/SKILL.md",
+    name: "design-review",
+    topics: ["visual", "craft", "accessibility", "testing"],
+    description:
+      "Run a sharp, prioritized design critique of a UI — a URL, a screenshot/image, or a component file — covering visual hierarchy, typography, spacing, color & contrast, motion, component states, responsiveness, accessibility, and brand consistency. Returns findings ranked from blocking to polish, each with a specific fix; can optionally apply the fixes to code. Use when the user asks to review/critique a design, page, screen, component, or screenshot, or to check craft/accessibility before shipping.",
   },
   {
     slug: "seo",

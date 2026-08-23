@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-23T05:46:37.740Z",
-  "skillCount": 232,
+  "generatedAt": "2026-08-23T06:03:38.290Z",
+  "skillCount": 235,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
@@ -233,6 +233,9 @@
     "flornkm/prefer-container-queries": "sha256:aaa09557f532585e06f1c122f18f2e585bf0f55fb8293be20ffed18fc9507bf5",
     "openai/define-goal": "sha256:708df89ff19cbae82a762efae036735d1914b5c7e44df1832e0b723f6cd9ee30",
     "flornkm/webgl-components": "sha256:76c0ea1b855dd07bab92c8ec5f63e4dd44ea42cff59c5e2d566e28f4dfc74272",
-    "ericzakariasson/scandinavian-design": "sha256:4cba315cf70c3df3e622d4164565d8b0f28041e42fc21ae626688c3d1e73674a"
+    "ericzakariasson/scandinavian-design": "sha256:4cba315cf70c3df3e622d4164565d8b0f28041e42fc21ae626688c3d1e73674a",
+    "redongreen/create-anatomy": "sha256:c3a8a654142300536a2ba3a757072bb2c2dd90f74083f3c2eaa491be3417b576",
+    "mrstev3n/balise-ux-writing": "sha256:3331b6dd0db544e1524eb36fbc985033935f49ab9a93ddff19b83b2c58bdbc18",
+    "superfuture/design-review": "sha256:88ffb615d6365f8b1cf53b61854028dc7711df217b688a235bca16516fed794d"
   }
 }
