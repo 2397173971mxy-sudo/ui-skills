@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-22T06:49:33.375Z",
-  "skillCount": 221,
+  "generatedAt": "2026-08-23T06:03:38.290Z",
+  "skillCount": 235,
   "digests": {
     "ibelick/ui-skills-root": "sha256:d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
     "ibelick/baseline-ui": "sha256:fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
@@ -221,7 +221,21 @@
     "elithrar/anti-slop": "sha256:7e32184b6021f59821fcc4c1d07b48d31a68a6134673a85017300f2dafc808b5",
     "jalaalrd/anti-ai-slop-writing": "sha256:90d1ad351c51a033a079708a6ef2cfaea104c35806dd0dbfb46abe5836735211",
     "aashaexo/humanize": "sha256:47db572a5ebd4bcd198f84ddea6c1a10ed142e7f44887db52868570644d023b8",
-    "leonxlnx/unlazy": "sha256:4a5a82879785f77a5a1b35558ace1f48c21662914abe94167e20a636f6cf25fc",
-    "luchasarie/bro": "sha256:577525d7959c56786afe19f35d1bd54f6b5e53aacad4910d1fc9669e7ef2a1d0"
+    "leonxlnx/unlazy": "sha256:1c3ebe9ef610d8c4ce56fc948f9e94b811e1d36b3dc243c66d4f59636e182005",
+    "luchasarie/bro": "sha256:577525d7959c56786afe19f35d1bd54f6b5e53aacad4910d1fc9669e7ef2a1d0",
+    "emilkowalski/animate": "sha256:f6317335da2662e92270dc0a6128bea95d7216cd751f86628e3ac6b72804e805",
+    "emilkowalski/animate-expo": "sha256:2121fc72ffa476492c1b91ccf96c7b26aade9d1a332dc5834ba3526e1102b00d",
+    "emilkowalski/ask-sonner": "sha256:be1b04511aadb4d7d81aa8cd2b55c260a626aae534983bc8ae3fbe26bbf48632",
+    "emilkowalski/write-swift": "sha256:2579cb2684245f75a261cbb13aa4a12f7f9441dabdfe3bc2e72dc2f04ec5e9fd",
+    "jakubkrehel/interface-review": "sha256:f995063c2ff623781cfc2a797d29203bbdec0d17e52b2ae14cee7829053897dd",
+    "jakubkrehel/explain-interface": "sha256:98a485704f642b840f31afacbd5fda8332117fd73024fd1e5b76272cdb2cf5d3",
+    "jakubkrehel/variant": "sha256:51e4a330360b458d6de6e891054c4e254bb4981b14a2c520645b403f13a17dc8",
+    "flornkm/prefer-container-queries": "sha256:aaa09557f532585e06f1c122f18f2e585bf0f55fb8293be20ffed18fc9507bf5",
+    "openai/define-goal": "sha256:708df89ff19cbae82a762efae036735d1914b5c7e44df1832e0b723f6cd9ee30",
+    "flornkm/webgl-components": "sha256:76c0ea1b855dd07bab92c8ec5f63e4dd44ea42cff59c5e2d566e28f4dfc74272",
+    "ericzakariasson/scandinavian-design": "sha256:4cba315cf70c3df3e622d4164565d8b0f28041e42fc21ae626688c3d1e73674a",
+    "redongreen/create-anatomy": "sha256:c3a8a654142300536a2ba3a757072bb2c2dd90f74083f3c2eaa491be3417b576",
+    "mrstev3n/balise-ux-writing": "sha256:3331b6dd0db544e1524eb36fbc985033935f49ab9a93ddff19b83b2c58bdbc18",
+    "superfuture/design-review": "sha256:88ffb615d6365f8b1cf53b61854028dc7711df217b688a235bca16516fed794d"
   }
 }

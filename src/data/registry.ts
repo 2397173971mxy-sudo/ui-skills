@@ -1357,6 +1357,58 @@ const registrySource: RegistrySourceSkill[] = [
       "Survey a codebase's animation and motion code as a senior motion advisor, then produce prioritized audit and self-contained implementation plans. Read-only on source code - it plans improvements, it does not apply them. Use when the user asks to improve animations, audit motion, make an app feel better, or wants a roadmap of animation fixes rather than a review of a single diff.",
   },
   {
+    slug: "animate",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/animate/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/animate/SKILL.md",
+    name: "animate",
+    topics: ["motion", "interaction", "craft"],
+    description:
+      "Build an animation from scratch, making the decisions in the order that determines whether it feels right — should it animate at all, what purpose, which tool, which properties, which curve and duration, how it interrupts, how it exits. Writes the implementation. Use when asked to animate something, add motion, make a component feel alive, or build a transition. For critiquing existing motion use review-animations; for auditing a whole codebase use improve-animations.",
+  },
+  {
+    slug: "animate-expo",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/animate-expo/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/animate-expo/SKILL.md",
+    name: "animate-expo",
+    topics: ["motion", "interaction", "frontend"],
+    description:
+      "Build animations in React Native and Expo, making the decisions in the order that determines whether they feel right — should it animate, which thread it runs on, which properties, spring or timing, how the gesture hands off, how it degrades. Writes the implementation with Reanimated, Gesture Handler, Expo Router and expo-haptics. Use when animating anything in an Expo app, adding gestures, sheets, screen transitions, press feedback or haptics, or fixing motion that stutters on device. For web animation use animate.",
+  },
+  {
+    slug: "ask-sonner",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/ask-sonner/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/ask-sonner/SKILL.md",
+    name: "ask-sonner",
+    topics: ["frontend", "interaction", "tooling"],
+    description:
+      "Guide to Sonner, the React toast library — install and wire up the Toaster, pick the right toast() call, promise and loading toasts, updating, dismissing and persisting toasts, styling, theming and icons, positioning and multiple toasters. Use when working with Sonner or troubleshooting it — toasts that don't appear, appear twice, lose their styles, ignore Tailwind classes, sit behind a modal, or don't follow dark mode.",
+  },
+  {
+    slug: "write-swift",
+    user: "emilkowalski",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/write-swift/SKILL.md",
+    githubUrl:
+      "https://github.com/emilkowalski/skills/blob/main/skills/write-swift/SKILL.md",
+    name: "write-swift",
+    topics: ["frontend", "code-quality", "architecture"],
+    description:
+      "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+  },
+  {
     slug: "web-clone",
     user: "Jane-xiaoer",
     repo: "claude-skill-web-clone",
@@ -2548,6 +2600,45 @@ const registrySource: RegistrySourceSkill[] = [
       "Improve UX writing for interface labels, errors, empty states, settings, notifications, and product voice consistency.",
   },
   {
+    slug: "explain-interface",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/explain-interface/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/explain-interface/SKILL.md",
+    name: "explain-interface",
+    topics: ["craft", "frontend", "visual", "architecture"],
+    description:
+      "Answers how was this built about an interface. Give it a URL and name the thing you're curious about, and it reads the layers that produce the effect. Reads the whole frontend instead when you don't name a thing. From a screenshot it reconstructs rather than reads and says so.",
+  },
+  {
+    slug: "interface-review",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/interface-review/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/interface-review/SKILL.md",
+    name: "interface-review",
+    topics: ["craft", "visual", "testing", "code-quality"],
+    description:
+      "Interface review of a change rather than a screen: uncommitted work, the current branch, or a pull request. Covers interface quality, not correctness, tests, or security.",
+  },
+  {
+    slug: "variant",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/variant/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/variant/SKILL.md",
+    name: "variant",
+    topics: ["visual", "interaction", "craft", "frontend"],
+    description:
+      "Answers which of these rather than is this right. Builds several genuinely different versions of one piece of UI behind a picker in the real page, so you can flip between them and promote the one that wins.",
+  },
+  {
     slug: "gh-stack",
     user: "github",
     repo: "gh-stack",
@@ -2650,6 +2741,32 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["accessibility", "systems", "frontend"],
     description:
       "Generate VoiceOver, TalkBack, and ARIA screen reader specs in Figma with focus order, property tables, and announcements by component state.",
+  },
+  {
+    slug: "create-anatomy",
+    user: "redongreen",
+    repo: "uSpec",
+    rawUrl:
+      "https://raw.githubusercontent.com/redongreen/uSpec/main/skills/create-anatomy/SKILL.md",
+    githubUrl:
+      "https://github.com/redongreen/uSpec/blob/main/skills/create-anatomy/SKILL.md",
+    name: "create-anatomy",
+    topics: ["systems", "frontend", "accessibility"],
+    description:
+      "Generate a visual anatomy annotation in Figma showing numbered markers on a component instance with an attribute table. Use when the user mentions anatomy, anatomy annotation, component anatomy, create anatomy, or wants to annotate a component's structural elements.",
+  },
+  {
+    slug: "balise-ux-writing",
+    user: "mrstev3n",
+    repo: "balise-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/mrstev3n/balise-skills/main/skills/balise-ux-writing/SKILL.md",
+    githubUrl:
+      "https://github.com/mrstev3n/balise-skills/blob/main/skills/balise-ux-writing/SKILL.md",
+    name: "balise-ux-writing",
+    topics: ["craft", "frontend", "accessibility"],
+    description:
+      "Reviews, rewrites, creates, harmonizes, and implements user-centered interface copy across design files, screenshots, product specifications, source code, localization catalogs, prototypes, and rendered applications. Use for buttons, navigation, forms, errors, empty states, onboarding, confirmations, settings, consent, notifications, help, and system feedback while preserving product behavior, terminology, voice, accessibility, localization, legal meaning, component structure, and implementation constraints.",
   },
   {
     slug: "rad-spacing",
@@ -2884,6 +3001,71 @@ const registrySource: RegistrySourceSkill[] = [
     topics: ["visual", "craft", "systems", "frontend"],
     description:
       "Style elevated surfaces with smooth shadow ring utilities instead of combining borders or rings with shadows and creating double edges.",
+  },
+  {
+    slug: "prefer-container-queries",
+    user: "flornkm",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/flornkm/skills/main/skills/prefer-container-queries/SKILL.md",
+    githubUrl:
+      "https://github.com/flornkm/skills/blob/main/skills/prefer-container-queries/SKILL.md",
+    name: "prefer-container-queries",
+    topics: ["frontend", "systems", "visual"],
+    description:
+      "Enforce Tailwind container queries over viewport breakpoints for responsive components. Use when writing or reviewing responsive Tailwind code, when a component needs to adapt to its available space (cards, sidebars, lists, panels, anything reused in different layouts), or when migrating sm:/md:/lg: classes to @container variants.",
+  },
+  {
+    slug: "webgl-components",
+    user: "flornkm",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/flornkm/skills/main/skills/webgl-components/SKILL.md",
+    githubUrl:
+      "https://github.com/flornkm/skills/blob/main/skills/webgl-components/SKILL.md",
+    name: "webgl-components",
+    topics: ["3d", "performance", "frontend", "visual"],
+    description:
+      "Build small, always-on WebGL visuals (identity avatars, ambient orbs, glass and iridescent surfaces, animated textures) that ship inside a normal web app UI without wrecking performance, accessibility, SSR, or layout. Use whenever a shader-, GLSL-, or canvas-driven decorative element is added to a product UI, especially one rendered many times per page or per list; when reviewing or optimizing one; or when debugging one that renders blurry, aliased, all-black, or paints over the surrounding UI on machines without hardware acceleration.",
+  },
+  {
+    slug: "define-goal",
+    user: "openai",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/openai/skills/main/skills/.curated/define-goal/SKILL.md",
+    githubUrl:
+      "https://github.com/openai/skills/blob/main/skills/.curated/define-goal/SKILL.md",
+    name: "define-goal",
+    topics: ["tooling", "architecture"],
+    description:
+      "Help the user define a concrete, measurable goal before starting work, especially when they ask to use the goal tool, create a goal, set an objective, clarify success criteria, or turn a fuzzy intention into a quantitative outcome. Use this skill for goal creation and goal refinement only; it does not manage durable snapshots, decision logs, or long-running execution artifacts.",
+  },
+  {
+    slug: "scandinavian-design",
+    user: "ericzakariasson",
+    repo: "scandinavian-design",
+    rawUrl:
+      "https://raw.githubusercontent.com/ericzakariasson/scandinavian-design/main/skills/scandinavian-design/SKILL.md",
+    githubUrl:
+      "https://github.com/ericzakariasson/scandinavian-design/blob/main/skills/scandinavian-design/SKILL.md",
+    name: "scandinavian-design",
+    topics: ["visual", "taste", "craft", "typography"],
+    description:
+      "Apply a refined Scandinavian visual system with a neutral black-and-white foundation, restrained sans-serif typography, purposeful product imagery, generous spacing, clear page chapters, and minimal decoration. Use when the user invokes /scandinavian-design or requests a Nordic, monochrome, calm, spacious, restrained, or minimalist interface.",
+  },
+  {
+    slug: "design-review",
+    user: "Superfuture",
+    repo: "design-review",
+    rawUrl:
+      "https://raw.githubusercontent.com/Superfuture/design-review/main/design-review/skills/design-review/SKILL.md",
+    githubUrl:
+      "https://github.com/Superfuture/design-review/blob/main/design-review/skills/design-review/SKILL.md",
+    name: "design-review",
+    topics: ["visual", "craft", "accessibility", "testing"],
+    description:
+      "Run a sharp, prioritized design critique of a UI — a URL, a screenshot/image, or a component file — covering visual hierarchy, typography, spacing, color & contrast, motion, component states, responsiveness, accessibility, and brand consistency. Returns findings ranked from blocking to polish, each with a specific fix; can optionally apply the fixes to code. Use when the user asks to review/critique a design, page, screen, component, or screenshot, or to check craft/accessibility before shipping.",
   },
   {
     slug: "seo",
