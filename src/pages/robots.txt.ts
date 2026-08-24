@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+import { SEMI_STATIC_CACHE } from "../lib/cache-headers";
+
 const SITE_URL = "https://www.ui-skills.com";
 
 export const GET: APIRoute = ({ site }) => {
@@ -18,6 +20,7 @@ export const GET: APIRoute = ({ site }) => {
   return new Response(body, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": SEMI_STATIC_CACHE,
     },
   });
 };

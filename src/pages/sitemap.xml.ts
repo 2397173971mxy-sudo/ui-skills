@@ -1,4 +1,6 @@
 import type { APIRoute } from "astro";
+
+import { SEMI_STATIC_CACHE } from "../lib/cache-headers";
 import { skills, type Skill } from "../data/skills";
 import { agents } from "../data/agents";
 import { playbook } from "../data/playbook";
@@ -75,6 +77,7 @@ export const GET: APIRoute = ({ site }) => {
   return new Response(body, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": SEMI_STATIC_CACHE,
     },
   });
 };

@@ -1,6 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 
 import { buildDiscoveryLinkHeader, getSiteOrigin } from "./lib/agent-discovery";
+import { getHtmlCacheControl } from "./lib/cache-headers";
 import { maybeNegotiateMarkdown } from "./lib/markdown-negotiation";
 
 const securityHeaders = {
@@ -15,15 +16,25 @@ const securityHeaders = {
 function applyResponseHeaders(
   response: Response,
   origin: string,
+  pathname: string,
 ): Response {
+  const headers = new Headers(response.headers);
   Object.entries(securityHeaders).forEach(([key, value]) =>
-    response.headers.set(key, value),
+    headers.set(key, value),
   );
   // RFC 8288 discovery links for agents (isitagentready.com linkHeaders check).
-  if (!response.headers.has("Link")) {
-    response.headers.set("Link", buildDiscoveryLinkHeader(origin));
+  if (!headers.has("Link")) {
+    headers.set("Link", buildDiscoveryLinkHeader(origin));
   }
-  return response;
+  const cacheControl = getHtmlCacheControl(pathname);
+  if (cacheControl && !headers.has("Cache-Control")) {
+    headers.set("Cache-Control", cacheControl);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -37,9 +48,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
         ? 301
         : 308;
     const response = Response.redirect(url, status);
-    return applyResponseHeaders(response, origin);
+    return applyResponseHeaders(response, origin, url.pathname);
   }
 
-  const response = applyResponseHeaders(await next(), origin);
-  return maybeNegotiateMarkdown(context.request, response);
+  const response = await next();
+
+  if (context.isPrerendered) {
+    return response;
+  }
+
+  const withHeaders = applyResponseHeaders(response, origin, url.pathname);
+  return maybeNegotiateMarkdown(context.request, withHeaders);
 });

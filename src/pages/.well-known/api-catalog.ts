@@ -7,11 +7,12 @@ import {
   buildDiscoveryLinkHeader,
   getSiteOrigin,
 } from "../../lib/agent-discovery";
+import { DISCOVERY_JSON_CACHE } from "../../lib/cache-headers";
 
 const catalogHeaders = (origin: string): HeadersInit => ({
   "Content-Type": apiCatalogContentType(),
   Link: buildDiscoveryLinkHeader(origin),
-  "Cache-Control": "public, max-age=3600",
+  "Cache-Control": DISCOVERY_JSON_CACHE,
 });
 
 export const GET: APIRoute = ({ site }) => {

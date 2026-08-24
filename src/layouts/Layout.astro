@@ -1,12 +1,11 @@
 ---
 import "../styles/global.css";
-import { getGithubStars } from "../lib/github-stars.ts";
 import NewsletterInput from "../ui/newsletter-input";
 import { skills } from "../data/skills";
 import { playbook } from "../data/playbook";
 import Footer from "../ui/footer.astro";
 import { CommandDialog } from "../ui/command-dialog";
-import GitHubStarButton from "../ui/github-star-button.astro";
+import { GitHubStarButton } from "../ui/github-star-button";
 import { WebMcpTools } from "../ui/webmcp-tools";
 import { serializeJsonLd } from "../lib/serialize-json-ld";
 
@@ -76,7 +75,6 @@ const commandItems = [
   })),
 ];
 
-const githubStars = await getGithubStars();
 ---
 
 <!doctype html>
@@ -155,8 +153,8 @@ const githubStars = await getGithubStars();
         <div class="flex items-center gap-3">
           <CommandDialog items={commandItems} client:idle />
           <GitHubStarButton
+            client:idle
             href="https://github.com/ibelick/ui-skills"
-            label={githubStars?.label}
           />
         </div>
       </header>
