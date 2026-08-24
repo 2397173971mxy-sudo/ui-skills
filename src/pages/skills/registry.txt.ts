@@ -3,6 +3,8 @@ import type { APIRoute } from "astro";
 import type { RegistrySkill } from "../../data/registry";
 import { registry } from "../../data/registry";
 
+import { SEMI_STATIC_CACHE } from "../../lib/cache-headers";
+
 export const GET: APIRoute = () => {
   const body = registry
     .map(
@@ -14,6 +16,7 @@ export const GET: APIRoute = () => {
   return new Response(`${body}\n`, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": SEMI_STATIC_CACHE,
       "X-Robots-Tag": "noindex, nofollow",
     },
   });

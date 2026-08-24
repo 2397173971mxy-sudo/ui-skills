@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { skills } from "../data/skills";
 
+import { SEMI_STATIC_CACHE } from "../lib/cache-headers";
+
 export const GET: APIRoute = () => {
   const navigation = [
     { label: "Home", path: "/" },
@@ -33,6 +35,7 @@ export const GET: APIRoute = () => {
   return new Response(body, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": SEMI_STATIC_CACHE,
       "X-Robots-Tag": "noindex, nofollow",
     },
   });

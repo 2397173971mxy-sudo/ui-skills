@@ -1,4 +1,5 @@
 import { getSiteOrigin } from "./agent-discovery";
+import { DISCOVERY_JSON_CACHE } from "./cache-headers";
 
 export { getSiteOrigin };
 
@@ -163,12 +164,12 @@ without a token.
 
 export const jsonHeaders = {
   "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "public, max-age=3600",
+  "Cache-Control": DISCOVERY_JSON_CACHE,
   "Access-Control-Allow-Origin": "*",
 } as const;
 
 export const markdownHeaders = {
   "Content-Type": "text/markdown; charset=utf-8",
-  "Cache-Control": "public, max-age=3600",
+  "Cache-Control": DISCOVERY_JSON_CACHE,
   "Access-Control-Allow-Origin": "*",
 } as const;
