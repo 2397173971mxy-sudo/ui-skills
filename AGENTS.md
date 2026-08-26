@@ -16,3 +16,11 @@
 - Fill `slug`, `user`, `repo`, `rawUrl`, `githubUrl`, `name`, `description`, and `topics`.
 - If a new topic is needed, update `TopicSlug`, `topicsBySlug`, `relatedTopicSlugs`, and `primaryDesignTopicSlugs` only when it is a core topic.
 - Do not add local `skills/*` files unless the repo actually hosts the skill markdown.
+
+## Weekly new skills audit
+
+1. Run `npm run check:new-skills` (set `GITHUB_TOKEN` or `GH_TOKEN` for GitHub API rate limits).
+2. Review the markdown table, or use `--json` for machine-readable output and `--all` to include large monorepo counts.
+3. Curate skills that fit ui-skills: design engineering, UI craft, motion, accessibility, color, typography, and related frontend work. Skip general dev tooling, framework migrations, and native-only skills unless they are core to the registry.
+4. Add approved skills to `registrySource` in `src/data/registry.ts`.
+5. Run `npm run digests` and `npm run check:skills` before opening a PR.

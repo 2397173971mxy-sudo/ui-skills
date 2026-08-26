@@ -6,6 +6,10 @@
  *   npm run check:new-skills -- --json
  *   npm run check:new-skills -- --all
  *
+ * Workflow: run this weekly, review output, curate skills that fit ui-skills
+ * (design, UI, motion, accessibility, craft), add to registry.ts, then run
+ * `npm run digests` and `npm run check:skills`.
+ *
  * Env:
  *   GITHUB_TOKEN or GH_TOKEN — recommended for higher GitHub API limits.
  */
@@ -38,36 +42,15 @@ for (const skill of registry) {
   });
 }
 
-const FOCUS_REPOS = new Set([
-  "jakubkrehel/skills",
-  "emilkowalski/skills",
-  "antfu/skills",
-  "millionco/skills",
-  "kitlangton/skills",
-  "remotion-dev/skills",
-  "iart-ai/web-animation-skills",
-  "Leonxlnx/taste-skill",
-  "PrototyperAI/prototyper-ui",
-  "Jakubantalik/transitions.dev",
-  "addyosmani/web-quality-skills",
-  "nextlevelbuilder/ui-ux-pro-max-skill",
-  "saadeghi/daisyui",
-  "remix-run/agent-skills",
-  "redongreen/uSpec",
-  "mrstev3n/balise-skills",
-  "CaliCastle/skills",
-  "edenspiekermann/Skills",
-  "figma/mcp-server-guide",
-  "greensock/gsap-skills",
-  "ericzakariasson/scandinavian-design",
-  "flornkm/skills",
-  "openai/skills",
-  "Superfuture/design-review",
-  "petergyang/human-review",
-  "pbakaus/impeccable",
-  "dimillian/skills",
-  "callstackincubator/agent-skills",
-  "vercel-labs/agent-skills",
+const MONOREPO_REPOS = new Set([
+  "wshobson/agents",
+  "MengTo/Skills",
+  "cursor/plugins",
+  "anthropics/skills",
+  "bencium/bencium-marketplace",
+  "millionco/react-doctor",
+  "addyosmani/agent-skills",
+  "vercel-labs/agent-browser",
 ]);
 const AGENT_FOLDERS = new Set([
   "skills",
@@ -123,7 +106,7 @@ function isKnownSkill(user, repo, slug, rawUrl) {
 }
 
 function isFocusRepo(user, repo) {
-  return FOCUS_REPOS.has(`${user}/${repo}`);
+  return !MONOREPO_REPOS.has(`${user}/${repo}`);
 }
 
 function dedupeSkills(skills) {
