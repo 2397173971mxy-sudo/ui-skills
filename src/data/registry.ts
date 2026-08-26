@@ -3093,6 +3093,448 @@ const registrySource: RegistrySourceSkill[] = [
     description:
       "Build an immersive scroll-scrubbed 3D world landing page for any brand with Higgsfield-generated scenes, seamless camera clips, and a portable scroll-scrub engine.",
   },
+  {
+    slug: "accessibility-diff",
+    user: "AccessLint",
+    repo: "claude-marketplace",
+    rawUrl:
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-diff/SKILL.md",
+    githubUrl:
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-diff/SKILL.md",
+    name: "accessibility-diff",
+    topics: ["accessibility", "testing", "frontend"],
+    description:
+      "Regression check that diffs a live page's accessibility violations against a baseline from uncommitted changes or a branch.",
+  },
+  {
+    slug: "accessibility-scan",
+    user: "AccessLint",
+    repo: "claude-marketplace",
+    rawUrl:
+      "https://raw.githubusercontent.com/AccessLint/claude-marketplace/main/plugins/accesslint/skills/accessibility-scan/SKILL.md",
+    githubUrl:
+      "https://github.com/AccessLint/claude-marketplace/blob/main/plugins/accesslint/skills/accessibility-scan/SKILL.md",
+    name: "accessibility-scan",
+    topics: ["accessibility", "testing", "frontend"],
+    description:
+      "Run the AccessLint rule engine against a live page and return a worklist of WCAG 2.2 violations grounded to DOM selectors and source locations.",
+  },
+  {
+    slug: "accessibility",
+    user: "addyosmani",
+    repo: "web-quality-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/addyosmani/web-quality-skills/main/skills/accessibility/SKILL.md",
+    githubUrl:
+      "https://github.com/addyosmani/web-quality-skills/blob/main/skills/accessibility/SKILL.md",
+    name: "accessibility",
+    topics: ["accessibility", "frontend", "craft"],
+    description:
+      "Audit and improve web accessibility following WCAG 2.2 guidelines. Use when asked to \"improve accessibility\", \"a11y audit\", \"WCAG compliance\", \"screen reader support\", \"keyboard navigation\", or \"make accessible\".",
+  },
+  {
+    slug: "best-practices",
+    user: "addyosmani",
+    repo: "web-quality-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/addyosmani/web-quality-skills/main/skills/best-practices/SKILL.md",
+    githubUrl:
+      "https://github.com/addyosmani/web-quality-skills/blob/main/skills/best-practices/SKILL.md",
+    name: "best-practices",
+    topics: ["performance", "frontend", "craft"],
+    description:
+      "Apply modern web development best practices for security, compatibility, and code quality. Use when asked to \"apply best practices\", \"security audit\", \"modernize code\", \"code quality review\", or \"check for vulnerabilities\".",
+  },
+  {
+    slug: "core-web-vitals",
+    user: "addyosmani",
+    repo: "web-quality-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/addyosmani/web-quality-skills/main/skills/core-web-vitals/SKILL.md",
+    githubUrl:
+      "https://github.com/addyosmani/web-quality-skills/blob/main/skills/core-web-vitals/SKILL.md",
+    name: "core-web-vitals",
+    topics: ["performance", "frontend", "craft"],
+    description:
+      "Optimize Core Web Vitals (LCP, INP, CLS) for better page experience using field and lab evidence. Use when asked to \"improve Core Web Vitals\", \"fix LCP\", \"reduce CLS\", \"optimize INP\", \"page experience optimization\", or \"fix layout shifts\".",
+  },
+  {
+    slug: "performance",
+    user: "addyosmani",
+    repo: "web-quality-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/addyosmani/web-quality-skills/main/skills/performance/SKILL.md",
+    githubUrl:
+      "https://github.com/addyosmani/web-quality-skills/blob/main/skills/performance/SKILL.md",
+    name: "performance",
+    topics: ["performance", "frontend", "craft"],
+    description:
+      "Optimize web performance for faster loading and better user experience. Use when asked to \"speed up my site\", \"optimize performance\", \"reduce load time\", \"fix slow loading\", \"improve page speed\", or \"performance audit\".",
+  },
+  {
+    slug: "seo",
+    user: "addyosmani",
+    repo: "web-quality-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/addyosmani/web-quality-skills/main/skills/seo/SKILL.md",
+    githubUrl:
+      "https://github.com/addyosmani/web-quality-skills/blob/main/skills/seo/SKILL.md",
+    name: "seo",
+    topics: ["performance", "frontend", "craft"],
+    description:
+      "Optimize for search engine visibility and ranking. Use when asked to \"improve SEO\", \"optimize for search\", \"fix meta tags\", \"add structured data\", \"sitemap optimization\", or \"search engine optimization\".",
+  },
+  {
+    slug: "antfu-design",
+    user: "antfu",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/antfu/skills/main/skills/antfu-design/SKILL.md",
+    githubUrl:
+      "https://github.com/antfu/skills/blob/main/skills/antfu-design/SKILL.md",
+    name: "antfu-design",
+    topics: ["frontend", "craft", "visual"],
+    description:
+      "antfu-style design conventions, broadened. UnoCSS-first, class-based semantic tokens with dual light/dark for tooling and devtools UIs, plus design-read, anti-slop, and micro-interaction polish for landing pages and product surfaces. Use when building or refactoring any interface with UnoCSS.",
+  },
+  {
+    slug: "nitro",
+    user: "antfu",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/antfu/skills/main/skills/nitro/SKILL.md",
+    githubUrl:
+      "https://github.com/antfu/skills/blob/main/skills/nitro/SKILL.md",
+    name: "nitro",
+    topics: ["frontend", "craft", "visual"],
+    description:
+      "Nitro is the framework-agnostic server toolkit (powering Nuxt) for building and deploying web servers anywhere. Use when working with nitro.config, server routes/event handlers, route rules, caching, storage, tasks, websockets, or deploying to Node/Bun/Deno/Cloudflare/Vercel.",
+  },
+  {
+    slug: "figma-code-connect",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-code-connect/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-code-connect/SKILL.md",
+    name: "figma-code-connect",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
+  },
+  {
+    slug: "figma-create-new-file",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-create-new-file/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-create-new-file/SKILL.md",
+    name: "figma-create-new-file",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `create_new_file` tool call. NEVER call `create_new_file` directly without loading this skill first. Trigger whenever the user wants a new blank Figma file — a new design, FigJam, or Slides file — or when you need a fresh file before calling `use_figma`. Usage — /figma-create-new-file [editorType] [fileName] (e.g. /figma-create-new-file figjam My Whiteboard, /figma-create-new-file slides Q3 Review)",
+  },
+  {
+    slug: "figma-design-to-code",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-design-to-code/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-design-to-code/SKILL.md",
+    name: "figma-design-to-code",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
+  },
+  {
+    slug: "figma-generate-diagram",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-generate-diagram/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-generate-diagram/SKILL.md",
+    name: "figma-generate-diagram",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "MANDATORY prerequisite — load this skill BEFORE every `generate_diagram` tool call. NEVER call `generate_diagram` directly without loading this skill first. Trigger whenever the user asks to create, generate, draw, render, sketch, or build a diagram — flowchart, architecture diagram, sequence diagram, ERD or entity-relationship diagram, state diagram or state machine, gantt chart, or timeline. Also trigger when the user mentions Mermaid syntax or wants a system architecture, decision tree, dependency graph, API call flow, auth handshake, schema, or pipeline visualized in FigJam. Routes to type-specific guidance, sets universal Mermaid constraints, and tells you when to use a different diagram type or skip the tool entirely (mindmaps, pie charts, class diagrams, etc.).",
+  },
+  {
+    slug: "figma-implement-motion",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-implement-motion/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-implement-motion/SKILL.md",
+    name: "figma-implement-motion",
+    topics: ["motion", "video", "frontend"],
+    description:
+      "Translates Figma motion and animations into production-ready application code. Use when implementing animation/motion from a Figma design — user mentions \"implement this motion\", \"add animation from Figma\", \"animate this component\", provides a Figma URL whose node is animated, or when `get_design_context` returns motion data or instructs you to call `get_motion_context`.",
+  },
+  {
+    slug: "figma-swiftui",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-swiftui/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-swiftui/SKILL.md",
+    name: "figma-swiftui",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "SwiftUI ↔ Figma translation. Use whenever the user mentions Swift, SwiftUI, iOS, iPhone, or iPad — in EITHER direction — translating a Figma design into SwiftUI (design → code), or pushing SwiftUI views / screens / tokens back into a Figma file (code → design). Triggers on phrases like 'implement this Figma design in SwiftUI', 'build this screen in Swift', 'push this SwiftUI view to Figma', 'mirror my Swift code in a Figma file', or whenever a Figma URL appears alongside `.swift` files / an `.xcodeproj`. Routes to a direction-specific reference doc; loads alongside `figma-use` for the code → design path.",
+  },
+  {
+    slug: "figma-use-figjam",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-use-figjam/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-use-figjam/SKILL.md",
+    name: "figma-use-figjam",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "This skill helps agents use Figma's use_figma MCP tool in the FigJam context. Can be used alongside figma-use which has foundational context for using the use_figma tool.",
+  },
+  {
+    slug: "figma-use-motion",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-use-motion/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-use-motion/SKILL.md",
+    name: "figma-use-motion",
+    topics: ["motion", "video", "frontend"],
+    description:
+      "Motion / animation context for the `use_figma` MCP tool — animating Figma nodes via manual keyframes, animation styles, easing, and timeline duration. Load alongside figma-use whenever a task involves adding, editing, or inspecting animation on a node.",
+  },
+  {
+    slug: "figma-use-slides",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/skills/figma-use-slides/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/skills/figma-use-slides/SKILL.md",
+    name: "figma-use-slides",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "This skill helps agents use Figma's use_figma MCP tool in the Slides context. Can be used alongside figma-use which has foundational context for using the use_figma tool.",
+  },
+  {
+    slug: "generate-project-plan",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/workflow-skills/generate-project-plan/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/workflow-skills/generate-project-plan/SKILL.md",
+    name: "generate-project-plan",
+    topics: ["frontend", "craft", "visual"],
+    description:
+      "Generate a FigJam project plan board from a PRD plus codebase context. Interactive flow: research → propose sections → per-section deep research → per-section content + block-shape proposal → create FigJam → skeleton → fill → diagrams → wrap. Each content block (section, nested section, intro callout, table, multi-column text, sticky column, diagram section, metadata strip) has its own subskill reference file. Use when the user asks for 'project plan in FigJam', 'interactive project plan', '/generate-project-plan', or provides a PRD and wants per-section confirmation on content + rendering.",
+  },
+  {
+    slug: "video-interaction-mapper",
+    user: "figma",
+    repo: "mcp-server-guide",
+    rawUrl:
+      "https://raw.githubusercontent.com/figma/mcp-server-guide/main/workflow-skills/video-interaction-mapper/SKILL.md",
+    githubUrl:
+      "https://github.com/figma/mcp-server-guide/blob/main/workflow-skills/video-interaction-mapper/SKILL.md",
+    name: "video-interaction-mapper",
+    topics: ["motion","video","frontend"],
+    description:
+      "Analyze a UI screen recording and map interaction states into an annotated Figma Design storyboard with extracted before/after frames.",
+  },
+  {
+    slug: "ascii-animation",
+    user: "iart-ai",
+    repo: "web-animation-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/iart-ai/web-animation-skills/main/skills/ascii-animation/SKILL.md",
+    githubUrl:
+      "https://github.com/iart-ai/web-animation-skills/blob/main/skills/ascii-animation/SKILL.md",
+    name: "ascii-animation",
+    topics: ["motion", "video", "frontend"],
+    description:
+      "This skill should be used when the user asks to \"make an ASCII animation\", \"build a terminal/CLI intro or loader\", \"convert an image or video to ASCII art\", \"add an ASCII shader/post-effect to a canvas or Three.js scene\", \"create retro/hacker text-character motion\", or \"animate text characters with a brightness ramp\". Covers generative ASCII fields, image/video/3D-to-ASCII, and animated character art for both web and terminal.",
+  },
+  {
+    slug: "glassmorphism",
+    user: "iart-ai",
+    repo: "web-animation-skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/iart-ai/web-animation-skills/main/skills/glassmorphism/SKILL.md",
+    githubUrl:
+      "https://github.com/iart-ai/web-animation-skills/blob/main/skills/glassmorphism/SKILL.md",
+    name: "glassmorphism",
+    topics: ["motion", "video", "frontend"],
+    description:
+      "This skill should be used when the user asks to \"add a glassmorphism effect\", \"frosted glass UI\", \"Apple liquid glass style\", \"frosted blur card\", \"translucent glass panel animation\", \"make a frosted nav bar\", \"build a glass modal/dialog\", \"animate a glass card on hover\", or \"add a refracting liquid-glass hero\". Covers frosted translucent panels with backdrop-filter blur, edge/specular highlights, SVG liquid-glass refraction, motion on hover/scroll/enter, and accessible reduced-transparency fallbacks.",
+  },
+  {
+    slug: "break",
+    user: "jakubkrehel",
+    repo: "skills",
+    rawUrl:
+      "https://raw.githubusercontent.com/jakubkrehel/skills/main/skills/break/SKILL.md",
+    githubUrl:
+      "https://github.com/jakubkrehel/skills/blob/main/skills/break/SKILL.md",
+    name: "break",
+    topics: ["frontend", "craft", "visual"],
+    description:
+      "Answers \"does this survive?\" for one component. Renders it on a page in every state real use can put it in, and hands that page over as a visual report of what broke.",
+  },
+  {
+    slug: "brandkit",
+    user: "Leonxlnx",
+    repo: "taste-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/brandkit/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/taste-skill/blob/main/skills/brandkit/SKILL.md",
+    name: "brandkit",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.",
+  },
+  {
+    slug: "image-to-code-skill",
+    user: "Leonxlnx",
+    repo: "taste-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/image-to-code-skill/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/taste-skill/blob/main/skills/image-to-code-skill/SKILL.md",
+    name: "image-to-code-skill",
+    topics: ["visual", "craft", "frontend"],
+    description:
+      "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+  },
+  {
+    slug: "imagegen-frontend-mobile",
+    user: "Leonxlnx",
+    repo: "taste-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/imagegen-frontend-mobile/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/taste-skill/blob/main/skills/imagegen-frontend-mobile/SKILL.md",
+    name: "imagegen-frontend-mobile",
+    topics: ["visual", "craft", "frontend"],
+    description:
+      "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+  },
+  {
+    slug: "imagegen-frontend-web",
+    user: "Leonxlnx",
+    repo: "taste-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/imagegen-frontend-web/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/taste-skill/blob/main/skills/imagegen-frontend-web/SKILL.md",
+    name: "imagegen-frontend-web",
+    topics: ["visual", "craft", "frontend"],
+    description:
+      "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+  },
+  {
+    slug: "taste-skill-v1",
+    user: "Leonxlnx",
+    repo: "taste-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/taste-skill-v1/SKILL.md",
+    githubUrl:
+      "https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill-v1/SKILL.md",
+    name: "taste-skill-v1",
+    topics: ["visual", "craft", "frontend"],
+    description:
+      "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
+  },
+  {
+    slug: "banner-design",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/banner-design/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/banner-design/SKILL.md",
+    name: "banner-design",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+  },
+  {
+    slug: "brand",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/brand/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/brand/SKILL.md",
+    name: "brand",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+  },
+  {
+    slug: "design",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design/SKILL.md",
+    name: "design",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+  },
+  {
+    slug: "design-system",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/design-system/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/design-system/SKILL.md",
+    name: "design-system",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
+  },
+  {
+    slug: "slides",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/slides/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/slides/SKILL.md",
+    name: "slides",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+  },
+  {
+    slug: "ui-styling",
+    user: "nextlevelbuilder",
+    repo: "ui-ux-pro-max-skill",
+    rawUrl:
+      "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/.claude/skills/ui-styling/SKILL.md",
+    githubUrl:
+      "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/ui-styling/SKILL.md",
+    name: "ui-styling",
+    topics: ["visual", "systems", "frontend"],
+    description:
+      "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
+  },
 ];
 
 const buildInitialPathSlug = (entry: RegistrySourceSkill) => {
