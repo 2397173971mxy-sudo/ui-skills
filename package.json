@@ -12,6 +12,7 @@
     "build": "astro build",
     "postbuild": "node ./scripts/write-assetsignore.mjs",
     "check:skills": "node --import tsx ./scripts/check-registry-skills.mjs",
+    "check:new-skills": "node --import tsx ./scripts/check-new-skills.mjs",
     "digests": "node --import tsx ./scripts/precompute-agent-skills-digests.mjs",
     "check:digests": "node --import tsx ./scripts/check-agent-skills-digests.mjs",
     "preview": "astro preview",
