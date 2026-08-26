@@ -26,4 +26,4 @@ Check whether curated publishers (`/skills/{user}`) have pushed new skills to re
 3. Decide which new skills fit ui-skills, then add them to `registrySource` in `src/data/registry.ts`.
 4. Run `npm run digests` and `npm run check:skills` before opening a PR.
 
-Cherry-pick monorepos (for example `wshobson/agents`, `cursor/plugins`) are skipped by this command. Add those manually when needed.
+The command scans every publisher and repo already listed in the registry. Curate what to add — do not bulk-import every reported skill.

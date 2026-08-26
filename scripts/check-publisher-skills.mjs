@@ -2,9 +2,8 @@
  * Check whether curated ui-skills publishers have new SKILL.md files
  * in the repos we already track for them.
  *
- * This is a delta check for known publishers (/skills/{user}), not a
- * broad discovery crawl. Repos we only cherry-pick from (large monorepos)
- * are skipped — those are added manually, not via this report.
+ * Publishers and repos are derived from the registry — no hardcoded skip list.
+ * Every user/repo pair in registrySource is scanned.
  *
  * Usage:
  *   npm run check:publisher-skills
@@ -18,20 +17,6 @@ import { registry } from "../src/data/registry.ts";
 const GITHUB_API = "https://api.github.com";
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 const jsonOutput = process.argv.includes("--json");
-
-/** Repos we partially index; new skills here are not auto-reported. */
-const SKIP_REPOS = new Set([
-  "wshobson/agents",
-  "MengTo/Skills",
-  "cursor/plugins",
-  "anthropics/skills",
-  "bencium/bencium-marketplace",
-  "millionco/react-doctor",
-  "addyosmani/agent-skills",
-  "vercel-labs/agent-browser",
-  "mattpocock/skills",
-  "mrstev3n/balise-skills",
-]);
 
 const AGENT_FOLDERS = new Set([
   "skills",
@@ -177,7 +162,6 @@ function toMarkdown(summary, skills) {
     "",
     `Curated publishers: ${summary.publishers}`,
     `Tracked repos scanned: ${summary.reposScanned}`,
-    `Cherry-pick repos skipped: ${summary.reposSkipped}`,
     `New skills found: ${summary.newSkills}`,
     "",
     "| Publisher | Skill | Repo |",
@@ -199,39 +183,12 @@ function toMarkdown(summary, skills) {
   return `${lines.join("\n")}\n`;
 }
 
-function shouldScanRepo(user, repo) {
-  const key = `${user}/${repo}`;
-  if (SKIP_REPOS.has(key)) return false;
-  if (/agent-skills$/i.test(repo)) return false;
-
-  const indexedCount = knownSlugsByRepo.get(key)?.size ?? 0;
-  if (indexedCount === 0) return false;
-
-  // Actively tracked: several skills already indexed from this repo.
-  if (indexedCount >= 3) return true;
-
-  // Dedicated skill repos we publish from, with at least a small foothold.
-  if (repo === "skills" && indexedCount >= 2) return true;
-  if (/-skills$/i.test(repo) && indexedCount >= 1) return true;
-  if (/-skill$/i.test(repo) && indexedCount >= 1) return true;
-
-  return false;
-}
-
-const reposToScan = [];
-const reposSkipped = [];
-
-for (const { user, repo } of trackedRepos.values()) {
-  const key = `${user}/${repo}`;
-  if (shouldScanRepo(user, repo)) {
-    reposToScan.push({ user, repo });
-  } else {
-    reposSkipped.push(key);
-  }
-}
+const reposToScan = [...trackedRepos.values()].sort((a, b) =>
+  `${a.user}/${a.repo}`.localeCompare(`${b.user}/${b.repo}`),
+);
 
 console.error(
-  `[check:publisher-skills] ${publishers.size} publishers, scanning ${reposToScan.length} tracked repos (${reposSkipped.length} skipped)`,
+  `[check:publisher-skills] ${publishers.size} publishers, scanning ${reposToScan.length} tracked repos`,
 );
 
 const allNewSkills = [];
@@ -253,11 +210,9 @@ const newSkills = dedupeSkills(allNewSkills);
 const summary = {
   publishers: publishers.size,
   reposScanned: reposToScan.length,
-  reposSkipped: reposSkipped.length,
   registrySkills: registry.length,
   newSkills: newSkills.length,
   publishersWithNewSkills: new Set(newSkills.map((skill) => skill.user)).size,
-  skippedRepos: reposSkipped.sort(),
 };
 
 console.error(
