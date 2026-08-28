@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { getGithubStars } from "../../lib/github-stars.ts";
 
+export const prerender = true;
+
 export const GET: APIRoute = async () => {
   const stars = await getGithubStars();
   return Response.json(stars, {

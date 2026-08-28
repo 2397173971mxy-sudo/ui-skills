@@ -123,6 +123,21 @@ try {
     throw new Error("First-party One Dollar Stats script is missing");
   }
 
+  const mcpMetadata = await fetchLocal("/mcp.json");
+  if (mcpMetadata.status !== 200) {
+    throw new Error(`Static MCP metadata returned ${mcpMetadata.status}`);
+  }
+  const mcpMetadataType = mcpMetadata.headers.get("content-type") ?? "";
+  if (!mcpMetadataType.startsWith("application/json")) {
+    throw new Error(`Static MCP metadata returned unexpected type: ${mcpMetadataType}`);
+  }
+  if (mcpMetadata.headers.get("cache-control") === null) {
+    throw new Error("Static MCP metadata is missing cache headers");
+  }
+  if (!(await mcpMetadata.text()).includes('"UI Skills MCP"')) {
+    throw new Error("Static MCP metadata is invalid");
+  }
+
   const analyticsProxy = await fetchLocal("/analytics/events", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
