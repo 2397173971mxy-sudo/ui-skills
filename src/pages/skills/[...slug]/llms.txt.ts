@@ -1,6 +1,16 @@
 import type { APIRoute } from "astro";
-import { getRegistryByPath, getSkillByPath } from "../../../lib/skill-catalog";
+import {
+  getCanonicalSkillPaths,
+  getRegistryByPath,
+  getSkillByPath,
+} from "../../../lib/skill-catalog";
 import { defaultSkillContentLoader } from "../../../lib/agent-skills-discovery";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return getCanonicalSkillPaths();
+}
 
 export const GET: APIRoute = async ({ params }) => {
   const routeSlug = params.slug ?? "";

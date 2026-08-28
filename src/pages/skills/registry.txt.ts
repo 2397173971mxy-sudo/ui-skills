@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = true;
+
 import type { RegistrySkill } from "../../data/registry";
 import { registry } from "../../data/registry";
 

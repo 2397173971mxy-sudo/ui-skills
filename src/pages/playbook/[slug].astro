@@ -7,7 +7,11 @@ import SkillCard from "../../ui/skill-card.astro";
 import { playbook, playbookBySlug } from "../../data/playbook.ts";
 import { skills } from "../../data/skills.ts";
 
-export const prerender = false;
+export const prerender = true;
+
+export function getStaticPaths() {
+  return playbook.map((entry) => ({ params: { slug: entry.slug } }));
+}
 
 const routeSlug = Astro.params.slug ?? "";
 const slug = Array.isArray(routeSlug) ? routeSlug.join("/") : routeSlug;

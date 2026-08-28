@@ -3,9 +3,17 @@ import type { APIRoute } from "astro";
 import {
   defaultSkillContentLoader,
   getRegistrySkillByDiscoveryName,
+  toDiscoveryName,
 } from "../../../../lib/agent-skills-discovery";
+import { registry } from "../../../../data/registry";
 
-export const prerender = false;
+export const prerender = true;
+
+export function getStaticPaths() {
+  return registry.map((entry) => ({
+    params: { skill: toDiscoveryName(entry.pathSlug) },
+  }));
+}
 
 export const GET: APIRoute = async ({ params }) => {
   const slug = params.skill;

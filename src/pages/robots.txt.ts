@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 
 import { SEMI_STATIC_CACHE } from "../lib/cache-headers";
 
+export const prerender = true;
+
 const SITE_URL = "https://www.ui-skills.com";
 
 export const GET: APIRoute = ({ site }) => {

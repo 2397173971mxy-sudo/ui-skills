@@ -9,7 +9,10 @@ export default defineConfig({
   trailingSlash: "ignore",
   output: "server",
   session: false,
-  adapter: cloudflare({ imageService: "compile" }),
+  adapter: cloudflare({
+    imageService: "compile",
+    prerenderEnvironment: "node",
+  }),
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],

@@ -5,6 +5,8 @@ import { skills, type Skill } from "../data/skills";
 import { agents } from "../data/agents";
 import { playbook } from "../data/playbook";
 
+export const prerender = true;
+
 const SITE_URL = "https://www.ui-skills.com";
 
 const escapeXml = (value: string) =>

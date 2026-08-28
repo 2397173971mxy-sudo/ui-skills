@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = true;
+
 import { buildJwks, jsonHeaders } from "../../lib/oauth-discovery";
 
 export const GET: APIRoute = () =>

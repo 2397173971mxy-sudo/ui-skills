@@ -20,11 +20,16 @@ import {
   getSkillsBySlug,
   getSkillsBySource,
   getSkillsByTopic,
+  getSkillRoutePaths,
 } from "../../lib/skill-catalog";
 import { defaultSkillContentLoader } from "../../lib/agent-skills-discovery";
 import { playbookBySkillSlug } from "../../data/playbook.ts";
 
-export const prerender = false;
+export const prerender = true;
+
+export function getStaticPaths() {
+  return getSkillRoutePaths();
+}
 
 const titleize = (value: string) =>
   value

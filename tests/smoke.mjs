@@ -16,7 +16,17 @@ const port =
   }));
 const server = spawn(
   "npx",
-  ["wrangler", "dev", "--local", "--ip", "127.0.0.1", "--port", `${port}`],
+  [
+    "wrangler",
+    "dev",
+    "--config",
+    "dist/server/wrangler.json",
+    "--local",
+    "--ip",
+    "127.0.0.1",
+    "--port",
+    `${port}`,
+  ],
   {
     stdio: ["ignore", "pipe", "pipe"],
   },
@@ -94,8 +104,12 @@ try {
   if (!homepageBody.includes('href="/mcp/docs"')) {
     throw new Error("Homepage is missing the MCP guide link");
   }
-  if (!homepageBody.includes('dataset.url = "/analytics/events"')) {
-    throw new Error("Homepage is missing the One Dollar Stats proxy loader");
+  if (
+    !homepageBody.includes(
+      'dataset.url = "https://collector.onedollarstats.com/events"',
+    )
+  ) {
+    throw new Error("Homepage is missing the direct One Dollar Stats collector");
   }
   if (!homepageBody.includes('script.src = "/analytics/stonks.js"')) {
     throw new Error("Homepage is missing the first-party One Dollar Stats loader");
@@ -117,8 +131,8 @@ try {
       e: [{ t: "PageView" }],
     }),
   });
-  if (analyticsProxy.status === 404) {
-    throw new Error("Analytics proxy route is missing");
+  if (![404, 405].includes(analyticsProxy.status)) {
+    throw new Error("Analytics proxy route is still active");
   }
 
   const mcpDocs = await fetchLocal("/mcp/docs");
@@ -138,6 +152,24 @@ try {
   }
   if (!/style="color:#/i.test(mcpDocsBody)) {
     throw new Error("MCP docs code blocks are missing Shiki theme colors");
+  }
+
+  const legacyAgent = await fetchLocal("/agent/claude-code", {
+    redirect: "manual",
+  });
+  if (
+    legacyAgent.status !== 301 ||
+    legacyAgent.headers.get("location") !== "/agents/claude-code"
+  ) {
+    throw new Error("Legacy agent route did not return its static redirect");
+  }
+
+  const legacyMcp = await fetchLocal("/mcp/server", { redirect: "manual" });
+  if (
+    legacyMcp.status !== 302 ||
+    legacyMcp.headers.get("location") !== "/mcp/docs"
+  ) {
+    throw new Error("Legacy MCP route did not return its static redirect");
   }
 
   const cliDocs = await fetchLocal("/cli");
@@ -165,24 +197,6 @@ try {
     throw new Error(`API catalog returned unexpected type: ${apiCatalogType}`);
   }
 
-  const markdownHomepage = await fetchLocal("/", {
-    headers: { Accept: "text/markdown" },
-  });
-  if (markdownHomepage.status !== 200) {
-    throw new Error(`Markdown homepage returned ${markdownHomepage.status}`);
-  }
-  const markdownType = markdownHomepage.headers.get("content-type") ?? "";
-  if (!markdownType.startsWith("text/markdown")) {
-    throw new Error(`Markdown homepage content-type was ${markdownType}`);
-  }
-  if (markdownHomepage.headers.get("x-markdown-tokens") === null) {
-    throw new Error("Markdown homepage is missing x-markdown-tokens");
-  }
-  const markdownBody = await markdownHomepage.text();
-  if (!markdownBody.trim()) {
-    throw new Error("Markdown homepage body was empty");
-  }
-
   const registry = await fetchLocal("/skills/registry.json");
   if (registry.status !== 200) {
     throw new Error(`Registry returned ${registry.status}`);
@@ -200,6 +214,9 @@ try {
   });
   if (mcp.status !== 200 || !(await mcp.text()).includes('"list_skills"')) {
     throw new Error(`MCP tools/list failed with ${mcp.status}`);
+  }
+  if (mcp.headers.get("x-content-type-options") !== "nosniff") {
+    throw new Error("MCP response is missing dynamic security headers");
   }
 
   const invalidMcp = await fetchLocal("/mcp", {

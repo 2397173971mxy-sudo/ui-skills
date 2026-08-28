@@ -7,6 +7,8 @@ import {
 } from "../../../lib/agent-skills-discovery";
 import { getSiteOrigin } from "../../../lib/agent-discovery";
 
+export const prerender = true;
+
 export const GET: APIRoute = async ({ site }) => {
   const origin = getSiteOrigin(site);
   const index = toPublicAgentSkillsIndex(await buildAgentSkillsIndex(origin));

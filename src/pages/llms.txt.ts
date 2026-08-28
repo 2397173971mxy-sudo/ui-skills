@@ -1,4 +1,6 @@
 import type { APIRoute } from "astro";
+
+export const prerender = true;
 import { skills } from "../data/skills";
 
 import { SEMI_STATIC_CACHE } from "../lib/cache-headers";

@@ -5,6 +5,8 @@ import { topics } from "../../data/topics";
 
 import { REGISTRY_JSON_CACHE } from "../../lib/cache-headers";
 
+export const prerender = true;
+
 export const GET: APIRoute = () => {
   return new Response(JSON.stringify({ registry, topics }), {
     headers: {

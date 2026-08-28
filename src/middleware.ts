@@ -6,7 +6,7 @@ import { maybeNegotiateMarkdown } from "./lib/markdown-negotiation";
 
 const securityHeaders = {
   "Content-Security-Policy":
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.interfaceoffice.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.interfaceoffice.com https://collector.onedollarstats.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
   "Permissions-Policy": "camera=(), geolocation=(), microphone=()",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Content-Type-Options": "nosniff",
@@ -38,8 +38,13 @@ function applyResponseHeaders(
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const url = new URL(context.request.url);
   const origin = getSiteOrigin(context.site);
+
+  if (context.isPrerendered) {
+    return next();
+  }
+
+  const url = new URL(context.request.url);
 
   if (url.pathname !== "/" && url.pathname.endsWith("/")) {
     url.pathname = url.pathname.replace(/\/+$/, "");
@@ -52,11 +57,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   const response = await next();
-
-  if (context.isPrerendered) {
-    return response;
-  }
-
   const withHeaders = applyResponseHeaders(response, origin, url.pathname);
   return maybeNegotiateMarkdown(context.request, withHeaders);
 });

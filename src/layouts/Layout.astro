@@ -118,7 +118,7 @@ const commandItems = [
           script.src = "/analytics/stonks.js";
           script.defer = true;
           script.dataset.hostname = "ui-skills.com";
-          script.dataset.url = "/analytics/events";
+          script.dataset.url = "https://collector.onedollarstats.com/events";
           document.head.appendChild(script);
         };
         if ("requestIdleCallback" in window) {
